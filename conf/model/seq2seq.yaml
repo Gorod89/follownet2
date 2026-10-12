@@ -1,0 +1,9 @@
+name: seq2seq
+kwargs:
+  history_rows: 10  # rows read by the encoder; the model history is history_rows + delay
+  delay: 5
+  use_a_prev: false
+  hidden: 64
+  out_steps: 10
+  teacher_forcing: 0.5
+optim: {}

@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-clean"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 1,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-clean",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "a85610c46533",
+  "data_version": "reconstructed",
+  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "model": {
+    "class": "gipps",
+    "family": "mechanistic",
+    "label": "gipps",
+    "provenance": {
+      "config_hash": "2c7cbafb63c8",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "paired-clean",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 2.8,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.0009402914903620122,
+      "event_collision_rate": 0.004,
+      "horizon_s": 10.0,
+      "n_events": 500,
+      "n_samples": 212700,
+      "n_windows": 2127,
+      "rmse_s": 2.8592653507497405,
+      "rmse_v": 0.6301085530814854
+    },
+    "h30": {
+      "collision_rate": 0.0,
+      "event_collision_rate": 0.0,
+      "horizon_s": 30.0,
+      "n_events": 455,
+      "n_samples": 136500,
+      "n_windows": 455,
+      "rmse_s": 4.958414950807839,
+      "rmse_v": 0.6394105890496536
+    },
+    "whole": {
+      "collision_rate": 0.004,
+      "n_events": 500,
+      "n_samples": 237265,
+      "rmse_s": 7.297503586915868,
+      "rmse_v": 0.6551484103970446
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "class": "idm",
+  "config_hash": "a5234ae28175",
+  "data_version": "reconstructed",
+  "dataset": "waymo_hu",
+  "family": "mechanistic",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": "idm",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.0,
+      "n_events": 171,
+      "n_samples": 27909,
+      "rmse_s": 5.518578155868479,
+      "rmse_v": 0.9073599216280839
+    },
+    "p0": {
+      "rmse_a": 1.9274885953678282,
+      "rmse_s": 0.019227717776474456,
+      "rmse_v": 0.19227721706476034
+    }
+  },
+  "training": {
+    "collision_rate": 0.0,
+    "kind": "pooled",
+    "n_events": 556,
+    "objective": 0.33877925497804956,
+    "params": {
+      "T": 1.5360815525054932,
+      "a": 1.1724982261657715,
+      "b": 0.5001737475395203,
+      "s0": 1.1614997386932373,
+      "v0": 44.412628173828125
+    },
+    "rmse_s": 5.316782731301315,
+    "rmse_v": 0.891631362853938,
+    "seconds": 5.7
+  }
+}

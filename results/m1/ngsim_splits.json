@@ -1,0 +1,76 @@
+{
+  "block": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 3249,
+    "n_train": 9022,
+    "n_unused": 260,
+    "n_val": 2036,
+    "notes": [],
+    "share_samples_test": 0.21005018517671276,
+    "share_samples_val": 0.14521862534453572,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "driver": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 2932,
+    "n_train": 9461,
+    "n_unused": 0,
+    "n_val": 2174,
+    "notes": [],
+    "share_samples_test": 0.19999574141038157,
+    "share_samples_val": 0.15008363236976988,
+    "share_test_events_with_training_follower_as_leader": 0.7544338335607094,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "event": {
+    "driver_disjoint": false,
+    "n_folds": 5,
+    "n_test": 2913,
+    "n_train": 9480,
+    "n_unused": 0,
+    "n_val": 2174,
+    "notes": [],
+    "share_samples_test": 0.1999914252722548,
+    "share_samples_val": 0.15001371093211607,
+    "share_test_events_with_training_follower_as_leader": 0.8218331616889805,
+    "share_test_followers_seen": 0.39141506002182613,
+    "test_followers_seen_in_training": 1076
+  },
+  "regime": {
+    "driver_disjoint": true,
+    "n_folds": 3,
+    "n_test": 13649,
+    "n_train": 546,
+    "n_unused": 242,
+    "n_val": 130,
+    "notes": [
+      "only 3 groups: 5 folds reduced to leave-one-group-out"
+    ],
+    "share_samples_test": 0.9605425846013428,
+    "share_samples_val": 0.005874120119275039,
+    "share_test_events_with_training_follower_as_leader": 0.036412924023738004,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "site": {
+    "driver_disjoint": true,
+    "n_folds": 2,
+    "n_test": 7193,
+    "n_train": 5984,
+    "n_unused": 0,
+    "n_val": 1390,
+    "notes": [
+      "only 2 groups: 5 folds reduced to leave-one-group-out"
+    ],
+    "share_samples_test": 0.5043647666163404,
+    "share_samples_val": 0.0930008353165988,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  }
+}

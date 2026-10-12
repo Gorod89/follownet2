@@ -1,0 +1,74 @@
+{
+  "block": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 3694,
+    "n_train": 13782,
+    "n_unused": 251,
+    "n_val": 3174,
+    "notes": [],
+    "share_samples_test": 0.19995545118733882,
+    "share_samples_val": 0.14752093388243137,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "driver": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 4189,
+    "n_train": 13507,
+    "n_unused": 0,
+    "n_val": 3205,
+    "notes": [],
+    "share_samples_test": 0.19999651705004023,
+    "share_samples_val": 0.15005572131599498,
+    "share_test_events_with_training_follower_as_leader": 0.7619957030317498,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "event": {
+    "driver_disjoint": false,
+    "n_folds": 5,
+    "n_test": 4180,
+    "n_train": 13567,
+    "n_unused": 0,
+    "n_val": 3154,
+    "notes": [],
+    "share_samples_test": 0.19999651705004023,
+    "share_samples_val": 0.15006619369931998,
+    "share_test_events_with_training_follower_as_leader": 0.7808612440191387,
+    "share_test_followers_seen": 0.21055226824457593,
+    "test_followers_seen_in_training": 854
+  },
+  "regime": {
+    "driver_disjoint": true,
+    "n_folds": 3,
+    "n_test": 17935,
+    "n_train": 1975,
+    "n_unused": 530,
+    "n_val": 461,
+    "notes": [
+      "only 3 groups: 5 folds reduced to leave-one-group-out"
+    ],
+    "share_samples_test": 0.8952114497743907,
+    "share_samples_val": 0.015834243587400806,
+    "share_test_events_with_training_follower_as_leader": 0.07432394758851407,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "site": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 7647,
+    "n_train": 10807,
+    "n_unused": 0,
+    "n_val": 2447,
+    "notes": [],
+    "share_samples_test": 0.37675775718261356,
+    "share_samples_val": 0.11692051213955144,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  }
+}

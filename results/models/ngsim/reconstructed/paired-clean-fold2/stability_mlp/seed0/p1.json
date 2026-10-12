@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-clean"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 2,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-clean",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "560ec0601401",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "stability_mlp",
+    "family": "network",
+    "label": "stability_mlp",
+    "provenance": {
+      "config_hash": "fb53325ddb62",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 2,
+        "kind": "paired-clean",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 6.7,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.03833075734157651,
+      "event_collision_rate": 0.14787187362878457,
+      "horizon_s": 10.0,
+      "n_events": 2279,
+      "n_samples": 970500,
+      "n_windows": 9705,
+      "rmse_s": 3.625435210985837,
+      "rmse_v": 0.9178268913461637
+    },
+    "h30": {
+      "collision_rate": 0.16227347611202636,
+      "event_collision_rate": 0.23794416243654823,
+      "horizon_s": 30.0,
+      "n_events": 1576,
+      "n_samples": 728400,
+      "n_windows": 2428,
+      "rmse_s": 7.46603282459843,
+      "rmse_v": 1.084381353095274
+    },
+    "whole": {
+      "collision_rate": 0.2088635366388767,
+      "n_events": 2279,
+      "n_samples": 1084136,
+      "rmse_s": 10.490354917314239,
+      "rmse_v": 1.1988089056348237
+    }
+  }
+}

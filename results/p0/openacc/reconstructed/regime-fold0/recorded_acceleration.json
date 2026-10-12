@@ -1,0 +1,34 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "regime",
+    "stability_test": null
+  },
+  "config_hash": "466b0cfabbc1",
+  "data_version": "reconstructed",
+  "dataset": "openacc",
+  "family": "baseline",
+  "git_revision": "4710be1c323e21843ce14ba81e0bcf42ac2cb293",
+  "metrics": {
+    "n_events": 3640,
+    "n_samples": 1805206,
+    "rmse_a": 0.0,
+    "rmse_s": 7.936442558708434e-13,
+    "rmse_v": 3.2293392475563046e-21
+  },
+  "model": "recorded_acceleration",
+  "per_event": "recorded_acceleration.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "regime",
+    "part": "test"
+  }
+}

@@ -1,0 +1,6 @@
+name: mlp
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: [64, 64]
+optim: {}

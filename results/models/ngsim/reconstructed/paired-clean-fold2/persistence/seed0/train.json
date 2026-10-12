@@ -1,0 +1,35 @@
+{
+  "class": "persistence",
+  "config_hash": "d4cc8f1109f3",
+  "data_version": "reconstructed",
+  "dataset": "ngsim",
+  "family": "baseline",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": "persistence",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 2,
+    "kind": "paired-clean",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.5454146555506801,
+      "n_events": 2279,
+      "n_samples": 1084136,
+      "rmse_s": 880.4571388453206,
+      "rmse_v": 22.701840096512157
+    },
+    "p0": {
+      "rmse_a": 0.09005161997550626,
+      "rmse_s": 0.0008997996840041099,
+      "rmse_v": 0.008997991902336784
+    }
+  },
+  "training": {
+    "n_train_events": 9443,
+    "n_train_windows": 4224564,
+    "n_val_windows": 882644
+  }
+}

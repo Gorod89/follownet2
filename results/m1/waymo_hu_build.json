@@ -1,0 +1,74 @@
+{
+  "config_hash": "9c7b5f1cf4f8",
+  "dataset": "waymo_hu",
+  "events_per_follower": {
+    "max": 1,
+    "mean": 1.0,
+    "share_events_of_followers_with_several_events": 0.0,
+    "share_followers_with_several_events": 0.0
+  },
+  "n_failed_reconstruction": 0,
+  "near_miss": {
+    "duration_max_s": 15.0,
+    "duration_median_s": 12.3,
+    "duration_min_s": 6.0,
+    "duration_total_s": 836.9000000000001,
+    "min_ttc_quantiles": {
+      "0.05": 0.6866812515160673,
+      "0.5": 1.7006743761364984
+    },
+    "n_events": 73,
+    "n_followers": 73,
+    "n_samples": 8442,
+    "n_sites": 1,
+    "triggers": {
+      "brake": 1,
+      "drac": 3,
+      "ttc": 73
+    },
+    "with_cut_in": 0
+  },
+  "raw": {
+    "duration_max_s": 19.8,
+    "duration_median_s": 19.700000000000003,
+    "duration_min_s": 14.9,
+    "duration_total_s": 16549.100000000002,
+    "n_events": 857,
+    "n_followers": 857,
+    "n_samples": 166348,
+    "n_sites": 1
+  },
+  "reconstructed": {
+    "duration_max_s": 19.8,
+    "duration_median_s": 19.700000000000003,
+    "duration_min_s": 14.9,
+    "duration_total_s": 16549.100000000002,
+    "n_events": 857,
+    "n_followers": 857,
+    "n_samples": 166348,
+    "n_sites": 1
+  },
+  "reconstruction": {
+    "mean_outlier_share": 0.0,
+    "median_rms_acc_change": 0.020854583359870612,
+    "median_rms_gap_change": 0.010996547507117586,
+    "median_rms_speed_change": 0.02095487095452572,
+    "method": "qp-semi-implicit-v1",
+    "n_events": 857,
+    "q99_max_abs_acc": 3.32024258712596,
+    "q99_max_abs_acc_raw": 3.475092573385881,
+    "q99_max_abs_jerk": 4.036327871703353,
+    "q99_max_abs_jerk_raw": 4.954214218468728,
+    "share_gap_bound_active": 0.0,
+    "share_solved_inaccurate": 0.0
+  },
+  "regimes": {
+    "congested": 755,
+    "free": 5,
+    "steady": 97
+  },
+  "seconds": 12.9,
+  "sites": {
+    "all": 857
+  }
+}

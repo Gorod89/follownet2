@@ -1,0 +1,5 @@
+# ablation: one-step lstm with four times the width
+name: lstm
+label: lstm_wide
+kwargs: {history: 10, use_a_prev: false, hidden: 256}
+optim: {}

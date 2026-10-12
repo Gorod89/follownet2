@@ -1,0 +1,5 @@
+# ablation: stability penalty evaluated in a neighbourhood of every equilibrium (finite-perturbation proxy)
+name: stability_mlp
+label: stability_mlp_nbhd
+kwargs: {hidden: [64, 64], weight: 1.0, margin: 0.0, penalty_speeds: 26, neighbourhood: 0.2}
+optim: {}

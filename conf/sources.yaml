@@ -1,0 +1,514 @@
+# FollowNet-2 raw data sources: licence, access and exactly what to fetch.
+#
+# Read by follownet2/data/download.py and scripts/download_data.py; the licence table for
+# readers is docs/licences.md. Values were checked on 2026-09-27 against the hosts' own pages
+# and APIs. Sizes are exact bytes unless stated otherwise.
+#
+# Fields of a source
+#   title, licence, licence_url, citation, landing_page
+#   access           open | application | manual (manual: public, but fetched by hand)
+#   redistribution   of the raw data: allowed | forbidden | unclear
+#   kind             files | socrata | none (nothing to fetch automatically)
+#   target           directory under data/raw
+#   files            kind files: {name (path under target), url, bytes, sha256, md5, subset}.
+#                    sha256 is given where known: taken from cf-stability's SOURCES.json when
+#                    that project downloaded the same file (same URL and size), or from the
+#                    host's API (Mendeley); figshare and Zenodo publish md5 only.
+#                    approx: true marks a size the host only shows rounded.
+#   tables           kind socrata: {name, id, domain, rows, select, where, bytes_estimate,
+#                    dtypes, subset}; each becomes one file <name>.parquet. bytes_estimate is
+#                    the estimated size of the CSV pages. dtypes: pandas types of columns
+#                    (Int64: integers, blanks allowed); other columns become float64 when
+#                    numeric, else string.
+#   subset           tags for --subset (an item is also selected by its name)
+#   instructions     access other than open: how to obtain the data. No data URLs are listed.
+#   expected         kind none: file patterns showing that the data are in place
+#   sibling_dir      directory under ../cf-stability/data/raw, when it differs from target
+#   notes            caveats that the dry run prints
+
+follownet:
+  title: "FollowNet: A Comprehensive Benchmark for Car-Following Behavior Modeling (event sets)"
+  licence: CC0 1.0
+  licence_url: https://creativecommons.org/publicdomain/zero/1.0/
+  access: open
+  redistribution: allowed
+  citation: >-
+    Chen, X., Zhu, M., Chen, K. et al. FollowNet: A Comprehensive Benchmark for Car-Following
+    Behavior Modeling. Sci Data 10, 828 (2023). https://doi.org/10.1038/s41597-023-02718-7.
+    Data: Zhu, M., Chen, X., Chen, K., Wang, P., Lu, H., Zhong, H., et al. (2023). figshare.
+    https://doi.org/10.6084/m9.figshare.c.6777810.v1
+  landing_page: https://doi.org/10.6084/m9.figshare.c.6777810
+  kind: files
+  target: follownet
+  notes:
+    - All 26 figshare articles are CC0, but a note in the authors' notebook asks users not to distribute the data without permission.
+    - The HighD and 30 s HighD sets are derived from highD, whose own terms forbid redistribution (docs/licences.md).
+  # subset tags: highd, highd_30s, lyft, ngsim_i80, spmd1, spmd2, waymo; event_set, train, val, test
+  # (an event_set holds the events of train + val + test). Lyft and highd_30s have no event_set.
+  files:
+    - {name: "HighD_car_fol_event_set.npy", subset: [highd, event_set], bytes: 150492128, url: "https://ndownloader.figshare.com/files/41898645", md5: "97f0ea6e794ae282d1418500ef442caa", sha256: "6abebe325adb68f8f70cd24c708435e4468a099becbe73fabd94cc1038229423"}
+    - {name: "HighD_train_data.npy", subset: [highd, train], bytes: 105348128, url: "https://ndownloader.figshare.com/files/41898654", md5: "ca4921f8f16ed57d9cf1a5d1c95af3bd"}
+    - {name: "HighD_val_data.npy", subset: [highd, val], bytes: 22572128, url: "https://ndownloader.figshare.com/files/41898636", md5: "8427c84a4c66e14801db7caaf93f0a42"}
+    - {name: "HighD_test_data.npy", subset: [highd, test], bytes: 22572128, url: "https://ndownloader.figshare.com/files/41898642", md5: "8098f1c101e9458fd044be52ed7b9fbe"}
+    - {name: "30_second_HighD_train_data.npy", subset: [highd_30s, train], bytes: 22176128, url: "https://ndownloader.figshare.com/files/42706606", md5: "bee6b09269c926fa3a2c3279de542ec1"}
+    - {name: "30_second_HighD_val_data.npy", subset: [highd_30s, val], bytes: 4752128, url: "https://ndownloader.figshare.com/files/42706600", md5: "a54f810075bba76d471f1e784e16988b"}
+    - {name: "30_second_HighD_test_data.npy", subset: [highd_30s, test], bytes: 4728128, url: "https://ndownloader.figshare.com/files/42706603", md5: "afee02ec99fdae507693023632bcd332"}
+    - {name: "Lyft_train_data.npy", subset: [lyft, train], bytes: 140479904, url: "https://ndownloader.figshare.com/files/41898657", md5: "22f3406c32fc5f22ba5bc2cf164cf934"}
+    - {name: "Lyft_val_data.npy", subset: [lyft, val], bytes: 16150066, url: "https://ndownloader.figshare.com/files/41898606", md5: "6aa6ba87090bd30f0b48157d417e6b3f"}
+    - {name: "Lyft_test_data.npy", subset: [lyft, test], bytes: 16135544, url: "https://ndownloader.figshare.com/files/41898651", md5: "88c1f7eccea9d6dfd47b7987238324fc"}
+    - {name: "NGSIM_I_80_car_fol_event_set.npy", subset: [ngsim_i80, event_set], bytes: 24228306, url: "https://ndownloader.figshare.com/files/41898639", md5: "6dd62fb9df6670f38b6f300fec218b0c", sha256: "0c07db430fffe4801a793995e72dd5c9a0b371d5c0d22d0c5a7f46c859a2b230"}
+    - {name: "NGSIM_I_80_train_data.npy", subset: [ngsim_i80, train], bytes: 16851518, url: "https://ndownloader.figshare.com/files/41898648", md5: "bc0fda11c84d39a67461f587b0e52975"}
+    - {name: "NGSIM_I_80_val_data.npy", subset: [ngsim_i80, val], bytes: 3696962, url: "https://ndownloader.figshare.com/files/41898585", md5: "54adf99e70696d91dba8fd041a903686"}
+    - {name: "NGSIM_I_80_test_data.npy", subset: [ngsim_i80, test], bytes: 3679074, url: "https://ndownloader.figshare.com/files/41898594", md5: "4bbccf5663831402a437a82f94471a79"}
+    - {name: "SPMD_das1_car_fol_event_set.npy", subset: [spmd1, event_set], bytes: 223376100, url: "https://ndownloader.figshare.com/files/41898609", md5: "19783afeb5286604521f938d6a7d6b6c"}
+    - {name: "SPMD1_train_data.npy", subset: [spmd1, train], bytes: 156162348, url: "https://ndownloader.figshare.com/files/41898621", md5: "6f15e9e71c59f8a55fec96d6725857a7"}
+    - {name: "SPMD1_val_data.npy", subset: [spmd1, val], bytes: 33691742, url: "https://ndownloader.figshare.com/files/41898612", md5: "381f0ece490d6055050775b6e40b489d"}
+    - {name: "SPMD1_test_data.npy", subset: [spmd1, test], bytes: 33521254, url: "https://ndownloader.figshare.com/files/41898630", md5: "5395aeebff11a01f707c11360db09a28"}
+    - {name: "SPMD_das2_car_fol_event_set.npy", subset: [spmd2, event_set], bytes: 224524372, url: "https://ndownloader.figshare.com/files/41898624", md5: "844a82efd8c31da46325b1c49c81f3b8"}
+    - {name: "SPMD2_train_data.npy", subset: [spmd2, train], bytes: 156983890, url: "https://ndownloader.figshare.com/files/41898588", md5: "1fb0c9b0d872b60d174b3963df460e14"}
+    - {name: "SPMD2_val_data.npy", subset: [spmd2, val], bytes: 33684856, url: "https://ndownloader.figshare.com/files/41898603", md5: "b01f89a97563e47943de1f17b46d5bb1"}
+    - {name: "SPMD2_test_data.npy", subset: [spmd2, test], bytes: 33854872, url: "https://ndownloader.figshare.com/files/41898597", md5: "373eb36e07a5ab58c7b77609ef2f9f33"}
+    - {name: "Waymo_filter_car_fol_event_set.npy", subset: [waymo, event_set], bytes: 9412850, url: "https://ndownloader.figshare.com/files/41898615", md5: "fb363c6978f19c150b32f522817c33f3", sha256: "316c3f84a9f945af1d0a942e0723dfc8b6f4ffbd46eac51f550ce8e24e453c79"}
+    - {name: "Waymo_train_data.npy", subset: [waymo, train], bytes: 6589040, url: "https://ndownloader.figshare.com/files/41898633", md5: "9ec9398dcecd80f4a0b19224d45d8a85"}
+    - {name: "Waymo_val_data.npy", subset: [waymo, val], bytes: 1413287, url: "https://ndownloader.figshare.com/files/41898591", md5: "26124b124835fa31571bfbc17425d295"}
+    - {name: "Waymo_test_data.npy", subset: [waymo, test], bytes: 1409767, url: "https://ndownloader.figshare.com/files/41898600", md5: "8f182e7a9900cd16ccc4fc863d1e4b51"}
+
+openacc:
+  title: "OpenACC: car-following experiments with commercial ACC vehicles (JRC), six car-following campaigns"
+  licence: CC BY 4.0
+  licence_url: https://creativecommons.org/licenses/by/4.0/
+  access: open
+  redistribution: allowed
+  citation: >-
+    Makridis, M., Mattas, K., Anesiadou, A., Ciuffo, B. (2021). OpenACC. An open database of
+    car-following experiments to study the properties of commercial ACC systems.
+    Transportation Research Part C 125, 103047. https://doi.org/10.1016/j.trc.2021.103047.
+    Data: European Commission, Joint Research Centre, OpenACC database; credit the source and
+    indicate changes.
+  landing_page: https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/
+  kind: files
+  target: openacc
+  notes:
+    - "copyright.txt of every campaign: (c) European Union, 1995-2026; CC BY 4.0; reuse is allowed provided appropriate credit is given and any changes are indicated."
+    - The single-vehicle campaign One_vehicle_multiple_drivers_on_road_campaign (no leader) is not listed.
+  # every file of the six car-following campaigns: 139 CSVs plus notes, vehicle specifications,
+  # copyright.txt; subset tags: astazero, casale, cherasco, jrc_low_speed, vicolungo, zalazone
+  files:
+    - {name: "AstaZero/ASta_040719_platoon3.csv", subset: [astazero], bytes: 12232242, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon3.csv", sha256: "2c46d20601590be7cfc521c53609e44fb13ba2a25b5cd9a90e864b4bd68577f5"}
+    - {name: "AstaZero/ASta_040719_platoon4.csv", subset: [astazero], bytes: 8858390, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon4.csv", sha256: "9b0627381cc9575dabd1132627eb71fea458436623974b40755ee393bceb9bfc"}
+    - {name: "AstaZero/ASta_040719_platoon5.csv", subset: [astazero], bytes: 9013277, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon5.csv", sha256: "7f7943a7c5abebbe9f50fbc4fe168493bca46062b1d748922bb0ed555dc06b5c"}
+    - {name: "AstaZero/ASta_040719_platoon6.csv", subset: [astazero], bytes: 8505530, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon6.csv", sha256: "1ca5fe886c539a4e3c173f617118760013e4f9a63a14bccb790b7a2697789089"}
+    - {name: "AstaZero/ASta_040719_platoon7.csv", subset: [astazero], bytes: 6669670, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon7.csv", sha256: "2696ef06a83af7cd8aaea266c0f065b56346666e7c92342f2c76d85a96e3c9fa"}
+    - {name: "AstaZero/ASta_040719_platoon8.csv", subset: [astazero], bytes: 6819429, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon8.csv", sha256: "cb33a698b9831f327f1a05b25712a870fb19327c269dcfbe5ffb78cf62ba32c2"}
+    - {name: "AstaZero/ASta_040719_platoon9.csv", subset: [astazero], bytes: 6946441, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon9.csv", sha256: "dd2aff81b9ff4abb0b101092bb6b143b7b85f115d73bc042ed414127710acfd7"}
+    - {name: "AstaZero/ASta_040719_platoon10.csv", subset: [astazero], bytes: 9654228, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_040719_platoon10.csv", sha256: "144925322b0482cb21cf5099f80318ce01108d11eac20cafc0ff5038127adabf"}
+    - {name: "AstaZero/ASta_050719_platoon1.csv", subset: [astazero], bytes: 14368061, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_050719_platoon1.csv", sha256: "c07ee1afd2fbbc54b56b332bef71b3bac232c958332b5483768ae5edde854306"}
+    - {name: "AstaZero/ASta_050719_platoon2.csv", subset: [astazero], bytes: 17417226, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/ASta_050719_platoon2.csv", sha256: "098fa8e0bc15d795e8098530890ee872bcb400c80f6a658550d54b11211b95fb"}
+    - {name: "AstaZero/AstaZero_notes.txt", subset: [astazero], bytes: 2637, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/AstaZero_notes.txt", sha256: "c895411d34af6b8549cdecfed8ce21e13a10b6246a99d44899b88868aacb67f8"}
+    - {name: "AstaZero/AstaZero_veh_specifications.csv", subset: [astazero], bytes: 358, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/AstaZero_veh_specifications.csv", sha256: "7b249a99605a6d2c94f75ae1143cd1cb86f14bcf168152e08689f4c4acf902a1"}
+    - {name: "AstaZero/copyright.txt", subset: [astazero], bytes: 540, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/AstaZero/copyright.txt", sha256: "f20723519a580fb35b3499870f0b1baea54f483195105416e547f0014f1610d2"}
+    - {name: "Casale/Casale_notes.txt", subset: [casale], bytes: 2167, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/Casale_notes.txt", sha256: "67841e3fb8317d00a6c5f71cb22789d24baf5fc89f5aac96be06583c5708a6a3"}
+    - {name: "Casale/Veh_specifications.csv", subset: [casale], bytes: 237, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/Veh_specifications.csv", sha256: "9337acc900c837a3cd12b9672cdea24b01695ebe2d592b4f9cd4388a98fa06c4"}
+    - {name: "Casale/copyright.txt", subset: [casale], bytes: 540, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/copyright.txt", sha256: "f20723519a580fb35b3499870f0b1baea54f483195105416e547f0014f1610d2"}
+    - {name: "Casale/part3.csv", subset: [casale], bytes: 675781, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part3.csv", sha256: "9f52b0b1ec33413f6057083c6cb09042ed807207b7b8f223ec038071f72e8bc6"}
+    - {name: "Casale/part4.csv", subset: [casale], bytes: 304950, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part4.csv", sha256: "c2c73a2af5d63e1b389c218aa78d1c548855130eb4aeeef01a8691acb4cd0bed"}
+    - {name: "Casale/part5.csv", subset: [casale], bytes: 280178, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part5.csv", sha256: "7bb32b84eb6465520e1a3a8a9e0ddbcb51991b56cc4422ef81b11c753921d2c5"}
+    - {name: "Casale/part6.csv", subset: [casale], bytes: 4009880, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part6.csv", sha256: "cf8d89e97ecf1a062e1fc80167efbcd49f6c36ac50ad03229b80d924368ce219"}
+    - {name: "Casale/part7.csv", subset: [casale], bytes: 4055840, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part7.csv", sha256: "7e3c9c44caaf090a600a2ae1d0583df972db73e2ac196de3519b02ea6f2077e4"}
+    - {name: "Casale/part8.csv", subset: [casale], bytes: 266595, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part8.csv", sha256: "11deea2d3a01fe264cffa760439c93f9f7cc2a2ee7d64ed3c6c4e96a6faa74de"}
+    - {name: "Casale/part9.csv", subset: [casale], bytes: 411616, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part9.csv", sha256: "f4c8550f0c5a0b079752b19767a2f7d4596e363c4b7ccc5991f6631cc3576840"}
+    - {name: "Casale/part10.csv", subset: [casale], bytes: 900973, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part10.csv", sha256: "0026f4a2ddf12f142b71e3b1054bd645f620a82ae01bfcba3c2d2d2ba8ec21fe"}
+    - {name: "Casale/part11.csv", subset: [casale], bytes: 873524, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Casale/part11.csv", sha256: "db1640d233ca3744def1ff3bbfddd79c6b9d141bbfb76f001aa49b29e9d73d5c"}
+    - {name: "Cherasco/Cher-JRC_240918_rec1_part1_highway.csv", subset: [cherasco], bytes: 13970042, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/Cher-JRC_240918_rec1_part1_highway.csv", sha256: "5f1c31e15bffba6ce4a11e530b2518df7675938de1931eaf16635b6a9e85856b"}
+    - {name: "Cherasco/Cher-JRC_240918_rec1_part2.csv", subset: [cherasco], bytes: 2751961, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/Cher-JRC_240918_rec1_part2.csv", sha256: "00e8a6e106cf5c4a5929a0788033d3921364eff24c042f0c01dee30e0f34c04d"}
+    - {name: "Cherasco/Cher-JRC_240918_rec2_part1.csv", subset: [cherasco], bytes: 3086482, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/Cher-JRC_240918_rec2_part1.csv", sha256: "c4f2fbfadc04650caf98f85a37f4d31e715a93c67af9a7dd30cb96f5fc02c37f"}
+    - {name: "Cherasco/Cher-JRC_240918_rec2_part2_highway.csv", subset: [cherasco], bytes: 5916775, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/Cher-JRC_240918_rec2_part2_highway.csv", sha256: "6a46e593ee15a2259be336edd271d6d0d13ad14f461ffb101e56a41b43972421"}
+    - {name: "Cherasco/Cherasco_notes.txt", subset: [cherasco], bytes: 3525, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/Cherasco_notes.txt", sha256: "99b29d6d771ff5fe96ef58f211e6ff569349918323d2ba547f7c43d61f78f0c1"}
+    - {name: "Cherasco/Cherasco_veh_specifications.csv", subset: [cherasco], bytes: 345, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/Cherasco_veh_specifications.csv", sha256: "540a2cdd23092e05a0f54063cca4e55db6e879b151ff860e4cad018278d8f289"}
+    - {name: "Cherasco/JRC-Cher_3008_rec2_part1.csv", subset: [cherasco], bytes: 3595372, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_3008_rec2_part1.csv", sha256: "e844f13dd5aab258b707f4a469285b9e435e999f88b235fe5bdb5b48dfeffc70"}
+    - {name: "Cherasco/JRC-Cher_3008_rec2_part2.csv", subset: [cherasco], bytes: 9846874, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_3008_rec2_part2.csv", sha256: "d40574f5659580953cd59a425597c9a0d3274c4ad0106bc1bd7223babe0a0881"}
+    - {name: "Cherasco/JRC-Cher_240918_rec1_part2_highway.csv", subset: [cherasco], bytes: 14475138, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_240918_rec1_part2_highway.csv", sha256: "971e573f5a19a13358b957e9237e58706c2afac6df126405821253d6100c463e"}
+    - {name: "Cherasco/JRC-Cher_240918_rec2_highway.csv", subset: [cherasco], bytes: 7967103, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_240918_rec2_highway.csv", sha256: "7994f8ea23f5ce90b55fade827d585b7c7068177872cd0109f9ddb8a4f558146"}
+    - {name: "Cherasco/JRC-Cher_300818_rec1_part1_highway.csv", subset: [cherasco], bytes: 2269849, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_300818_rec1_part1_highway.csv", sha256: "18aa6a9106498258494f68c96890fc6d9af53e201c7bdbca4834f3b8a3e4673a"}
+    - {name: "Cherasco/JRC-Cher_300818_rec1_part2.csv", subset: [cherasco], bytes: 620017, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_300818_rec1_part2.csv", sha256: "2190340d4bf5c3033cf5b428b39818f38b0a0e59467bd3e01476451847ad61df"}
+    - {name: "Cherasco/JRC-Cher_300818_rec1_part3.csv", subset: [cherasco], bytes: 5436161, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/JRC-Cher_300818_rec1_part3.csv", sha256: "615cdea4f1a83906724c14083da17ef0acfc0309a5c9e9bd36af3db98476e76c"}
+    - {name: "Cherasco/copyright.txt", subset: [cherasco], bytes: 540, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Cherasco/copyright.txt", sha256: "f20723519a580fb35b3499870f0b1baea54f483195105416e547f0014f1610d2"}
+    - {name: "JRC low speed/JRC_tests_notes.txt", subset: [jrc_low_speed], bytes: 2734, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/JRC_tests_notes.txt", sha256: "cb229b6b265d2ddae0aff91f3f8aaec219f37b16a1e089eedda3a17f763c98ec"}
+    - {name: "JRC low speed/Veh_specifications.csv", subset: [jrc_low_speed], bytes: 228, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/Veh_specifications.csv", sha256: "e43c01fbe8ce632a4b639c1363a827df2a4aa9e2bc9dc6631f4f514442a3b804"}
+    - {name: "JRC low speed/copyright.txt", subset: [jrc_low_speed], bytes: 540, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/copyright.txt", sha256: "f20723519a580fb35b3499870f0b1baea54f483195105416e547f0014f1610d2"}
+    - {name: "JRC low speed/part1.csv", subset: [jrc_low_speed], bytes: 1082589, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part1.csv", sha256: "c5acc869469b7a2a922de8102acd89fd42eab45e4380eede2c9495362657c04e"}
+    - {name: "JRC low speed/part2.csv", subset: [jrc_low_speed], bytes: 1231594, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part2.csv", sha256: "a8a569ce390155c8947661ad1e29545102c596fd9dec509fb3ff124e0e463450"}
+    - {name: "JRC low speed/part4.csv", subset: [jrc_low_speed], bytes: 844512, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part4.csv", sha256: "9cbf3911cd5deed8ce9a4764862cac5dd5a5fe04f877ebc6aff05c488044aef9"}
+    - {name: "JRC low speed/part5.csv", subset: [jrc_low_speed], bytes: 901594, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part5.csv", sha256: "10fad705b9ffc2156216aa932a088cb6e452541f7ab35ce0ad38cfe45ef1b617"}
+    - {name: "JRC low speed/part6.csv", subset: [jrc_low_speed], bytes: 774442, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part6.csv", sha256: "52ccb8015c2b7cd276fc651edf9f8f7a5c20b1f18e31bf330ddebdbdf1707ec1"}
+    - {name: "JRC low speed/part7.csv", subset: [jrc_low_speed], bytes: 768432, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part7.csv", sha256: "1511c58386e646f54bd569c99b6b50f6d6ec78ccf1cfcd637a9b8a0650eed222"}
+    - {name: "JRC low speed/part8_1.csv", subset: [jrc_low_speed], bytes: 586638, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part8_1.csv", sha256: "0744951ff2e0247c1eaa5d7a382c5ee07262dff147e540ffa710ae9624df7d47"}
+    - {name: "JRC low speed/part8_2.csv", subset: [jrc_low_speed], bytes: 818337, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part8_2.csv", sha256: "90baf8da833df88523f14e84fba66781776e10c0461224099ac097efacc6f047"}
+    - {name: "JRC low speed/part9_1.csv", subset: [jrc_low_speed], bytes: 820309, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part9_1.csv", sha256: "6e582705406cb616330054d72281468807684b0e548e8f1e67eca8b734afebe8"}
+    - {name: "JRC low speed/part9_2.csv", subset: [jrc_low_speed], bytes: 588943, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part9_2.csv", sha256: "03e64b106a1ffe55f7f0fe1490fd6a11d0acd9b8948d6db13b6a96b2fa22f973"}
+    - {name: "JRC low speed/part11.csv", subset: [jrc_low_speed], bytes: 837135, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part11.csv", sha256: "9bc5ba8332bdb71780990f7657dc245889020703906931987457ff3cf6195258"}
+    - {name: "JRC low speed/part12.csv", subset: [jrc_low_speed], bytes: 1236825, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part12.csv", sha256: "4ec49c3678caa9148489304d2f73daad32abb289598467aec4ae4209d7b46756"}
+    - {name: "JRC low speed/part13_1.csv", subset: [jrc_low_speed], bytes: 1646669, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part13_1.csv", sha256: "90bd1f920ecd1b4c1ad2705428afbd9302f929006dd2736d3d63afe4321699a3"}
+    - {name: "JRC low speed/part14_1.csv", subset: [jrc_low_speed], bytes: 424132, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part14_1.csv", sha256: "870166765accd1cdc00426c0604a59aebe19a594cae8b2f95b600d30dd3073c1"}
+    - {name: "JRC low speed/part15_1.csv", subset: [jrc_low_speed], bytes: 984860, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part15_1.csv", sha256: "3032334a1671bbf14e3b32a1892439274b6e554d392859e2ee7076d6ca5cf85c"}
+    - {name: "JRC low speed/part16.csv", subset: [jrc_low_speed], bytes: 1059089, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part16.csv", sha256: "7e72002c6370d2821b118ad2b2a99ddb4816976cf429fd630ded8bacf254aad4"}
+    - {name: "JRC low speed/part17_2.csv", subset: [jrc_low_speed], bytes: 1452741, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part17_2.csv", sha256: "b4828128962dc7339d8a9eeddb5aa7414d5b5cab8f3d05bf013ff0eea711b3f6"}
+    - {name: "JRC low speed/part18.csv", subset: [jrc_low_speed], bytes: 1177114, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part18.csv", sha256: "2b951c89dc8245cdae24c346f8acfbfc87f6682e836e6db0101336c8ab844250"}
+    - {name: "JRC low speed/part19.csv", subset: [jrc_low_speed], bytes: 601042, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part19.csv", sha256: "31c9c9197e30b1cf2860cd20d7cbd3c009d77f4e433fc5e2dcdff20ad3b460cd"}
+    - {name: "JRC low speed/part20.csv", subset: [jrc_low_speed], bytes: 987259, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part20.csv", sha256: "7971c56cf63b99d69a85fb8596e74ca16c19210aa424be2f33b06ed9bffb0b16"}
+    - {name: "JRC low speed/part21_1.csv", subset: [jrc_low_speed], bytes: 489252, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part21_1.csv", sha256: "298fd3efba4193303219881f19b266f72adfcd2e0d7f7faa77c10178f57533c8"}
+    - {name: "JRC low speed/part22_1.csv", subset: [jrc_low_speed], bytes: 683021, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part22_1.csv", sha256: "e302f719e051ad4c6c59bee257c471124985fb2473ecb547f38c4dc1d76d4a19"}
+    - {name: "JRC low speed/part23.csv", subset: [jrc_low_speed], bytes: 771323, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part23.csv", sha256: "b0abe2effb848ae8625bb4771b18b6e14e7f80af662ea6dd3cf296396e3a754e"}
+    - {name: "JRC low speed/part24.csv", subset: [jrc_low_speed], bytes: 781413, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/JRC%20low%20speed/part24.csv", sha256: "452c3dd35bfe72bbbdc51e177357ba5e837212f9e3650be043afbb7d487938c3"}
+    - {name: "Vicolungo/JRC-VC_260219_part2.csv", subset: [vicolungo], bytes: 5776444, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/JRC-VC_260219_part2.csv", sha256: "f44ee5942d77a570614ac08c6ba2b8977d4694de66264274e5e57c4a5138faaf"}
+    - {name: "Vicolungo/JRC-VC_260219_part3.csv", subset: [vicolungo], bytes: 1535128, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/JRC-VC_260219_part3.csv", sha256: "39cecdfa2cc9c2823915ac9bca4492bc944243143f2b6c6b30722a4ac1914862"}
+    - {name: "Vicolungo/JRC-VC_260219_part4_highway.csv", subset: [vicolungo], bytes: 5777338, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/JRC-VC_260219_part4_highway.csv", sha256: "ba10869452883acfa6a638c660bee871922c50d6c3c36f897c88498d896db762"}
+    - {name: "Vicolungo/JRC-VC_280219_part2.csv", subset: [vicolungo], bytes: 3963648, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/JRC-VC_280219_part2.csv", sha256: "9c637cb01113315034eb00fa917a83419391f628e8684f5bd44a8cfc2a475fae"}
+    - {name: "Vicolungo/JRC-VC_280219_part3.csv", subset: [vicolungo], bytes: 3608937, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/JRC-VC_280219_part3.csv", sha256: "1eb98e74543131dd7d096b632a14e7b18c6ab1ce497b5e0688ca479f7f23b7f9"}
+    - {name: "Vicolungo/JRC-VC_280219_part4_highway.csv", subset: [vicolungo], bytes: 5959629, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/JRC-VC_280219_part4_highway.csv", sha256: "0debadfcf7829a77909c4c9c899de8417c15880aca029d1d74f24c82a56c72f4"}
+    - {name: "Vicolungo/VC-JRC_260219_part1.csv", subset: [vicolungo], bytes: 10789470, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/VC-JRC_260219_part1.csv", sha256: "580306aa72be4ce8b9891da28ad8ff86b7a84b099ccf61d0e8dd52470db64e45"}
+    - {name: "Vicolungo/VC-JRC_260219_part2.csv", subset: [vicolungo], bytes: 7399639, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/VC-JRC_260219_part2.csv", sha256: "9115d205c70b1b6049edeab5fc9d716398f79afac4bd29447aea5689d3047460"}
+    - {name: "Vicolungo/VC-JRC_270219_part1.csv", subset: [vicolungo], bytes: 9783736, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/VC-JRC_270219_part1.csv", sha256: "a4087f0fe480c49354071c492a5e09fa658f80e5a031c5b876490e90133d4c4f"}
+    - {name: "Vicolungo/VC-JRC_270219_part2.csv", subset: [vicolungo], bytes: 7574462, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/VC-JRC_270219_part2.csv", sha256: "fdd25d8557e1284d2656b39acf55f592334738f224c2dfe32ea70574e5454f3e"}
+    - {name: "Vicolungo/VC-JRC_280219_part2.csv", subset: [vicolungo], bytes: 6385842, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/VC-JRC_280219_part2.csv", sha256: "b04389e6bf58a857cb6cb31fe4a8618a564635fa040ee388c373a5fd057302c8"}
+    - {name: "Vicolungo/VC-JRC_280219_part3.csv", subset: [vicolungo], bytes: 7776871, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/VC-JRC_280219_part3.csv", sha256: "caa4a2edeaefbe4ae77688942ba38eb6634cdbc6ba6b820dcb3172f332c2c4a8"}
+    - {name: "Vicolungo/Vicolungo_notes.txt", subset: [vicolungo], bytes: 3209, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/Vicolungo_notes.txt", sha256: "b12b79cbd6900d78179910cf91f1e6be771225fdc7827beda7ce47dc10d6d798"}
+    - {name: "Vicolungo/Vicolungo_veh_specifications.csv", subset: [vicolungo], bytes: 492, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/Vicolungo_veh_specifications.csv", sha256: "b612a7305a68fa2c874f7ad89159ae7711fd07f3192b6810fe5f8dd8bfb337a1"}
+    - {name: "Vicolungo/copyright.txt", subset: [vicolungo], bytes: 540, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/Vicolungo/copyright.txt", sha256: "f20723519a580fb35b3499870f0b1baea54f483195105416e547f0014f1610d2"}
+    - {name: "ZalaZone/Long setting vehs in mixed timegap experiment handling.csv", subset: [zalazone], bytes: 530, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/Long%20setting%20vehs%20in%20mixed%20timegap%20experiment%20handling.csv", sha256: "4d3bf4a718de2b77856b2dfea2d072cc622fd980f021749ac5b96a3e1d9b9467"}
+    - {name: "ZalaZone/ZalaZONE_veh_specifications.csv", subset: [zalazone], bytes: 647, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/ZalaZONE_veh_specifications.csv", sha256: "8c6bc137d986a65d655da9aa6dae3bd174b9172c066d0ca478fb616565b2a5ec"}
+    - {name: "ZalaZone/Zala_notes.txt", subset: [zalazone], bytes: 4380, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/Zala_notes.txt", sha256: "1f47b0130acd3df704157cd5c1a1e179ef2a9f5977e935ca6d122027c8cae9cc"}
+    - {name: "ZalaZone/copyright.txt", subset: [zalazone], bytes: 540, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/copyright.txt", sha256: "f20723519a580fb35b3499870f0b1baea54f483195105416e547f0014f1610d2"}
+    - {name: "ZalaZone/dynamic_part1.csv", subset: [zalazone], bytes: 3987036, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part1.csv", sha256: "f00db2e82157ad5bd468c6dc4e7d76123d519a5a4f22ab11150d7500c03ebe54"}
+    - {name: "ZalaZone/dynamic_part2.csv", subset: [zalazone], bytes: 3731589, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part2.csv", sha256: "5b0175af84927301b892059090d325c3fd98a26860a8726c665cffd0b47c6ab4"}
+    - {name: "ZalaZone/dynamic_part3.csv", subset: [zalazone], bytes: 4405944, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part3.csv", sha256: "f06873c0da49edb6331bcdcd5c8461c26ff3bb1585fe25a767cb192465b49437"}
+    - {name: "ZalaZone/dynamic_part4.csv", subset: [zalazone], bytes: 2986869, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part4.csv", sha256: "d381fa3c2152318f9aa20c3646c12e6d586a64ceeb22a320e7b5db7c86aa2ab0"}
+    - {name: "ZalaZone/dynamic_part5.csv", subset: [zalazone], bytes: 3198270, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part5.csv", sha256: "2ebc8c8bc7bfff760851da450b569582e9ddd39f6327b1d40d17f6f7ff101543"}
+    - {name: "ZalaZone/dynamic_part6.csv", subset: [zalazone], bytes: 1299998, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part6.csv", sha256: "cfc0cd4122ad49d41530266731db2b9f2acf568e16d3a77802862e3b476a3a8d"}
+    - {name: "ZalaZone/dynamic_part7.csv", subset: [zalazone], bytes: 703545, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part7.csv", sha256: "5d6dab96f35ac9da3d623ba4a5d311fbf0accb25bab8e52bce495dec5236e04f"}
+    - {name: "ZalaZone/dynamic_part8.csv", subset: [zalazone], bytes: 2668719, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part8.csv", sha256: "19d9cac317dfc37934d3e5b96dc121de9697abf3e6e7425dd499134c4c4c16f3"}
+    - {name: "ZalaZone/dynamic_part9.csv", subset: [zalazone], bytes: 4354576, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part9.csv", sha256: "76a3b7f7277f886f0b73537eb084e78ecd9c0309cb18e338dc1099dd57411d85"}
+    - {name: "ZalaZone/dynamic_part10.csv", subset: [zalazone], bytes: 3644414, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part10.csv", sha256: "275234be07aea5f64066c9e6406363d968cc2310240601fd0dd3822074b17601"}
+    - {name: "ZalaZone/dynamic_part11.csv", subset: [zalazone], bytes: 6934067, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part11.csv", sha256: "527f258109da5a8b5fbd1321000eda1128aa727992b1fe6f15e521d68f978337"}
+    - {name: "ZalaZone/dynamic_part12.csv", subset: [zalazone], bytes: 1725606, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part12.csv", sha256: "0b7aa72b809023b45df319005dcb9c3673d236bf084cb5bcfb60cf996fd5095e"}
+    - {name: "ZalaZone/dynamic_part13.csv", subset: [zalazone], bytes: 5940248, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part13.csv", sha256: "21cf039f874915db41f90f508474ac7088a9f8aecad6d30315d0abbac06b11b1"}
+    - {name: "ZalaZone/dynamic_part14.csv", subset: [zalazone], bytes: 1208995, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part14.csv", sha256: "84f91a87fae5f00e65ce97002f7e3b967b5d4dcec073cc8f633c5975c78681ab"}
+    - {name: "ZalaZone/dynamic_part15.csv", subset: [zalazone], bytes: 4811293, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part15.csv", sha256: "d9389a5b89b2aac0097e874af5b95b2a0e21fdcbacca64ae54022da23d09b029"}
+    - {name: "ZalaZone/dynamic_part16.csv", subset: [zalazone], bytes: 1017043, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part16.csv", sha256: "8071e7ecb00b90f8d488d23aae1bd35911c60be416ea8f16a758eb033fc1eeab"}
+    - {name: "ZalaZone/dynamic_part17.csv", subset: [zalazone], bytes: 5010209, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part17.csv", sha256: "ec9d0d55f0b2515df41e9e50456fb3382134eef88d7efb6721da688ecfa7a89f"}
+    - {name: "ZalaZone/dynamic_part18.csv", subset: [zalazone], bytes: 3021441, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part18.csv", sha256: "de41393e99dacb265495da08a0985f387c0d6f7e2cbc9fb1b301dcebb4b77e6e"}
+    - {name: "ZalaZone/dynamic_part19.csv", subset: [zalazone], bytes: 1916492, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part19.csv", sha256: "bf3df7ab4c45a781a2a4cb931de50eee360b96af59b1591f0b88b82f11076357"}
+    - {name: "ZalaZone/dynamic_part20.csv", subset: [zalazone], bytes: 1795171, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part20.csv", sha256: "ecdddb7d1d3c5d6ed808a3f558d3bd89902e7f9d5f8ee367ce82188e8445bc80"}
+    - {name: "ZalaZone/dynamic_part21.csv", subset: [zalazone], bytes: 1499104, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part21.csv", sha256: "522a982c57987aca16f4b49c3edd4702428e97480cdf52b094efef0c6b2c1676"}
+    - {name: "ZalaZone/dynamic_part22.csv", subset: [zalazone], bytes: 354335, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part22.csv", sha256: "63efb464aad5ab1b70c88033a77aefae253a7d43a1d9280d1083d35d416f6ab9"}
+    - {name: "ZalaZone/dynamic_part23.csv", subset: [zalazone], bytes: 703450, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part23.csv", sha256: "eab51b8e26c5c6226571179527a90eb8ffc55399100cfd62a370ec6fc43c4f2a"}
+    - {name: "ZalaZone/dynamic_part24.csv", subset: [zalazone], bytes: 6482846, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part24.csv", sha256: "ddb41f48dfe7d9e63a94f8a9117d9f1e3267e67996edbab20acf88083093b3a0"}
+    - {name: "ZalaZone/dynamic_part25.csv", subset: [zalazone], bytes: 1524420, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part25.csv", sha256: "4760dec29a8e7e7ce1e3a4b1e2890b5e25c2487d0f213d9bdbf254bec5ef4047"}
+    - {name: "ZalaZone/dynamic_part26.csv", subset: [zalazone], bytes: 393497, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/dynamic_part26.csv", sha256: "11310c5beb3f2784cc2cf5f70397e9b961fc92c29becdce2bf2d31290274fb4e"}
+    - {name: "ZalaZone/handling_part1.csv", subset: [zalazone], bytes: 2471801, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part1.csv", sha256: "38ea4455eafec5a918b60236c6ed7c5b7f3c947f75ebbffbb748c40bc54f38b9"}
+    - {name: "ZalaZone/handling_part2.csv", subset: [zalazone], bytes: 3809957, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part2.csv", sha256: "e202895e5aedfbbf4184f24b9d76d5ebe18fe53959facbcf36336258406d6bba"}
+    - {name: "ZalaZone/handling_part3.csv", subset: [zalazone], bytes: 5837263, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part3.csv", sha256: "8861898948029bed6635d4c72439c5f54b3dccd4f761cb183fa8a1c8cccacaeb"}
+    - {name: "ZalaZone/handling_part4.csv", subset: [zalazone], bytes: 5747427, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part4.csv", sha256: "7f670aa3ed93b44f6bb0be56c829a1d46d98331e55b6c05fee4d3f43ba01eebd"}
+    - {name: "ZalaZone/handling_part5.csv", subset: [zalazone], bytes: 3223882, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part5.csv", sha256: "8cb4de5255432d821c20559db7049ef075369dc99ac973c3c3a2af9a131bdb6d"}
+    - {name: "ZalaZone/handling_part6.csv", subset: [zalazone], bytes: 5572464, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part6.csv", sha256: "278191d792a016cb1d07ffbc5f8d3e37039ee25597cbef505987b8ec4ed3c69a"}
+    - {name: "ZalaZone/handling_part7.csv", subset: [zalazone], bytes: 5547973, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part7.csv", sha256: "b329bc0c03298b87ebc328b756f3d5cc7e1baeb8550ec8406d56911908505928"}
+    - {name: "ZalaZone/handling_part8.csv", subset: [zalazone], bytes: 6301060, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part8.csv", sha256: "86311e13e7e20512aa8969b44a3b9c501a98d3011de682958d5d824ec6fffe1c"}
+    - {name: "ZalaZone/handling_part9.csv", subset: [zalazone], bytes: 2765788, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part9.csv", sha256: "7dcc49e16fa47fb4d5ae6cf0d20628a913e5d7e052f237a65cf9ec10706fb869"}
+    - {name: "ZalaZone/handling_part10.csv", subset: [zalazone], bytes: 2080853, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part10.csv", sha256: "29f901b896ba904c07635b4f8bbe037eac39a24e8b6ba4980d5fdbc6c8ab7a63"}
+    - {name: "ZalaZone/handling_part11.csv", subset: [zalazone], bytes: 2663648, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part11.csv", sha256: "f864fb30ecbb5e2ef2cdec5cf458b92313dfadfce8df5ec90e437365f8f6e349"}
+    - {name: "ZalaZone/handling_part12.csv", subset: [zalazone], bytes: 2668098, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part12.csv", sha256: "9e8b0044ae523eeb06eaf75e32b82da0759bf35c4e7f7d515475218b2eb2aec1"}
+    - {name: "ZalaZone/handling_part13.csv", subset: [zalazone], bytes: 6306047, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part13.csv", sha256: "62d140c287a4338fd6ac42ba50323f668632abcbccf56de59d04a94422f50932"}
+    - {name: "ZalaZone/handling_part14.csv", subset: [zalazone], bytes: 984189, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part14.csv", sha256: "2b900e360c323b2058aeac743b6370cc07ce0b6edee082737acea455db6fc81b"}
+    - {name: "ZalaZone/handling_part15.csv", subset: [zalazone], bytes: 3566006, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part15.csv", sha256: "964629d66e89fba45acfb4001b6a1e541c0f508133c7821e1607cbb76e444ce4"}
+    - {name: "ZalaZone/handling_part16.csv", subset: [zalazone], bytes: 4184757, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part16.csv", sha256: "5e0548a3a6a14a4538b6203dbcb0e2f67da21999609bee8887cb28c545d25f90"}
+    - {name: "ZalaZone/handling_part17.csv", subset: [zalazone], bytes: 3224298, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part17.csv", sha256: "3ce6f87deeb6d3ef25b0fa33c1219edf680ae417f51a3d0f9a282a8eb218b8ce"}
+    - {name: "ZalaZone/handling_part18.csv", subset: [zalazone], bytes: 3005904, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part18.csv", sha256: "a8401b9564969f1459dbd46061a1843564d40b1675bc22ec694760b3d6e637ed"}
+    - {name: "ZalaZone/handling_part19.csv", subset: [zalazone], bytes: 3276172, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part19.csv", sha256: "e815503ccdfde859fbec156fc27a3e939dcb1f782833c7f3d3ea097820846ffb"}
+    - {name: "ZalaZone/handling_part20.csv", subset: [zalazone], bytes: 2518010, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part20.csv", sha256: "9c17bd6e6533378974a10503992db94307e0b02a8d738691473b37d00dc05a3b"}
+    - {name: "ZalaZone/handling_part21.csv", subset: [zalazone], bytes: 6255186, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part21.csv", sha256: "d973ca3054ae97b4a8a7baa59916939771cfa6d66e208a29f00b196dd18fcdf4"}
+    - {name: "ZalaZone/handling_part22.csv", subset: [zalazone], bytes: 3382842, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part22.csv", sha256: "4959306e9a8d24a8db468fcbc46b9790ab7873731cbfa47b09ec78317c0d9144"}
+    - {name: "ZalaZone/handling_part23.csv", subset: [zalazone], bytes: 2869578, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part23.csv", sha256: "1230e346a1c7fd88e2b9aeed6c3efb726ceda05a5f4c7588b05790a60a064b2a"}
+    - {name: "ZalaZone/handling_part24.csv", subset: [zalazone], bytes: 2861339, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part24.csv", sha256: "99e3ec6455c5df7bbd79f71672c99579abdd0548b375292640bda332b1281c2f"}
+    - {name: "ZalaZone/handling_part25.csv", subset: [zalazone], bytes: 2994085, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part25.csv", sha256: "f8dfc27f7f0891748b0bec7abea30fc0bd351a9fcc0874feea21e188618abd87"}
+    - {name: "ZalaZone/handling_part26.csv", subset: [zalazone], bytes: 2954858, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part26.csv", sha256: "d09bff5cc45c49bce32763966e020d208529034f2623d8e4f3d6a68cd944e388"}
+    - {name: "ZalaZone/handling_part27.csv", subset: [zalazone], bytes: 4831422, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part27.csv", sha256: "6e4915527b0567c61f9ccbf06c7e5cd998450fedffd4e23eb0fe48278bfb9850"}
+    - {name: "ZalaZone/handling_part28.csv", subset: [zalazone], bytes: 4746756, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part28.csv", sha256: "1c328c9fbc8df9d7e1366355ac3b37542f13e644088a638fcec7e3f071a6d80b"}
+    - {name: "ZalaZone/handling_part29.csv", subset: [zalazone], bytes: 4733910, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part29.csv", sha256: "bfe878f85b06ab653fcdcc265a7029c0773adf9033efc97ea0748cea9b59084e"}
+    - {name: "ZalaZone/handling_part30.csv", subset: [zalazone], bytes: 4762610, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part30.csv", sha256: "b093500773b179198359e4764f02cd1c7a9e80afb16bc5ccc8173d59c3d49894"}
+    - {name: "ZalaZone/handling_part31.csv", subset: [zalazone], bytes: 3022157, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part31.csv", sha256: "fd80526976bf7f71355fb06ee2ce79ea3700effb260f30258c825d060b8e48c6"}
+    - {name: "ZalaZone/handling_part32.csv", subset: [zalazone], bytes: 6195161, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part32.csv", sha256: "dd46bf99c93821701701c8c9cb027fd61f8f3cc83330022dbf18ac778609dca4"}
+    - {name: "ZalaZone/handling_part33.csv", subset: [zalazone], bytes: 2966299, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part33.csv", sha256: "69324c3ed0b6f0b1c154eb5afadb53b1b5f0e9ccf797edf3798050eec07376b5"}
+    - {name: "ZalaZone/handling_part34.csv", subset: [zalazone], bytes: 3008869, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part34.csv", sha256: "40146d36cd7df989d633f657bf7d763cece5c2f3df29d7fc130661af6faa317f"}
+    - {name: "ZalaZone/handling_part35.csv", subset: [zalazone], bytes: 3025235, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part35.csv", sha256: "743c8a81fdb548919667828576f04f720a44d78a8479de2ebe0f82f7ad3fcb55"}
+    - {name: "ZalaZone/handling_part36.csv", subset: [zalazone], bytes: 2584798, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part36.csv", sha256: "f5adb60f88461838fdaad4d6309c7c541b6dd7c52d5cd7b0f836b10452a749b1"}
+    - {name: "ZalaZone/handling_part37.csv", subset: [zalazone], bytes: 2595755, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part37.csv", sha256: "6d7305b807a213feda00c2fe99b094f34650acceb8747327c884a0ea0fd8f9c4"}
+    - {name: "ZalaZone/handling_part38.csv", subset: [zalazone], bytes: 1681390, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part38.csv", sha256: "df39cbbdab9d58816e25685aa9ca319fc1f0bbbdccd503991265f8ac4f1bb105"}
+    - {name: "ZalaZone/handling_part39.csv", subset: [zalazone], bytes: 1233109, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part39.csv", sha256: "84b0e1c3fdeb14e1e9ae4e7ed133b99eabbdea5f17641904b04247731f38c590"}
+    - {name: "ZalaZone/handling_part40.csv", subset: [zalazone], bytes: 2256871, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part40.csv", sha256: "d6a41ac1a315d6d73723cae3de2189d807e195d9a2495e40383f745b6b110d1d"}
+    - {name: "ZalaZone/handling_part41.csv", subset: [zalazone], bytes: 3436711, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part41.csv", sha256: "817e292833f65e593094e3a850d6a634003b95a10aba53af7a7b2352349e83bf"}
+    - {name: "ZalaZone/handling_part42.csv", subset: [zalazone], bytes: 6073546, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part42.csv", sha256: "f84d16000603267bda0ecab844e9451614886f08e9568bd9d3695d60ceab1f98"}
+    - {name: "ZalaZone/handling_part43.csv", subset: [zalazone], bytes: 6223395, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part43.csv", sha256: "0228f688032ad14c971f6eaab299947c7284da60e3db9f2e824fd25c5ae823f3"}
+    - {name: "ZalaZone/handling_part44.csv", subset: [zalazone], bytes: 2448385, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part44.csv", sha256: "622aa9aa9df96efbecc02ce86c02ffa660841f9d88083ee63e40c0eae4289089"}
+    - {name: "ZalaZone/handling_part45.csv", subset: [zalazone], bytes: 835237, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part45.csv", sha256: "74b685d3be11eb3735d46d0b59e55d8677cad9c104030aee3f9349cc57742a71"}
+    - {name: "ZalaZone/handling_part46.csv", subset: [zalazone], bytes: 2986723, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part46.csv", sha256: "5af3de07607b2783d2e1f221a0a956334c04afd5a6d8134acbf67074295b5c41"}
+    - {name: "ZalaZone/handling_part47.csv", subset: [zalazone], bytes: 3489784, url: "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/TransportExpData/JRCDBT0001/LATEST/ZalaZone/handling_part47.csv", sha256: "d4cc715a8c7353ab9f8bc1cb31a0e822d03601c8e80da904e8e7096d292ef776"}
+
+ngsim:
+  title: Next Generation Simulation (NGSIM) Vehicle Trajectories and Supporting Data, I-80 and US-101
+  licence: CC BY-SA 3.0 or 4.0 (conflicting metadata)
+  licence_url: https://creativecommons.org/licenses/by-sa/4.0/
+  access: open
+  redistribution: allowed
+  citation: >-
+    U.S. Department of Transportation Federal Highway Administration. Next Generation
+    Simulation (NGSIM) Vehicle Trajectories and Supporting Data [Dataset]. Provided by ITS
+    DataHub through Data.transportation.gov. https://doi.org/10.21949/1504477
+  landing_page: https://data.transportation.gov/d/8ect-6jqj
+  kind: socrata
+  target: ngsim
+  notes:
+    - "The portal shows two licences: the data set licence 'Creative Commons Attribution | Share Alike 3.0 Unported' and the Common Core field License 'https://creativecommons.org/licenses/by-sa/4.0/'."
+    - Queries without an app token share an IP-based throttling pool (HTTP 429); a rerun resumes at the first missing page.
+  # One Socrata table, one query per location. bytes_estimate: 100 B per quoted CSV row of the
+  # 13 selected columns, scaled from a 2,000-row sample (176.6 B/row for all 25 columns, us-101).
+  # Names and integer columns match the parquet files of cf-stability (which hold all 25
+  # columns) and what follownet2/data/loaders/ngsim.py reads.
+  tables:
+    - name: ngsim_i-80_raw
+      subset: [i-80]
+      id: "8ect-6jqj"
+      domain: data.transportation.gov
+      where: "location='i-80'"
+      rows: 4566387
+      bytes_estimate: 457000000
+      select: [vehicle_id, frame_id, global_time, local_y, v_vel, v_acc, lane_id, preceding, following, space_headway, time_headway, v_length, v_class]
+      dtypes: {vehicle_id: Int64, frame_id: Int64, global_time: Int64, lane_id: Int64, preceding: Int64, following: Int64, v_class: Int64}
+    - name: ngsim_us-101_raw
+      subset: [us-101]
+      id: "8ect-6jqj"
+      domain: data.transportation.gov
+      where: "location='us-101'"
+      rows: 4802933
+      bytes_estimate: 481000000
+      select: [vehicle_id, frame_id, global_time, local_y, v_vel, v_acc, lane_id, preceding, following, space_headway, time_headway, v_length, v_class]
+      dtypes: {vehicle_id: Int64, frame_id: Int64, global_time: Int64, lane_id: Int64, preceding: Int64, following: Int64, v_class: Int64}
+
+waymo_hu:
+  title: Car-following pairs extracted from the Waymo Open Dataset (Hu et al.), Mendeley Data version 3
+  licence: CC BY 4.0
+  licence_url: https://creativecommons.org/licenses/by/4.0/
+  access: open
+  redistribution: allowed
+  citation: >-
+    Hu, X., Zheng, Z., Chen, D., Zhang, X., Sun, J. (2022). Processing, assessing, and
+    enhancing the Waymo autonomous vehicle open dataset for driving behavior research.
+    Transportation Research Part C 134, 103490. https://doi.org/10.1016/j.trc.2021.103490.
+    Data: Mendeley Data, V3. https://doi.org/10.17632/wfn2c3437n.3
+  landing_page: https://doi.org/10.17632/wfn2c3437n.3
+  kind: files
+  target: waymo_hu
+  sibling_dir: waymo
+  notes:
+    - Version 3 (2023-06-16) supersedes version 2 (negative speeds fixed). cf-stability holds the version 2 trajectory file under the same name; sizes and sha256 tell them apart.
+    - On 2026-09-27 data.mendeley.com answered python-requests with a browser challenge (HTTP 403). If that happens, download the files by hand from the landing page into the target directory.
+    - The pairs are derived from the Waymo Open Dataset, whose own licence terms were not checked.
+  # sha256 from the Mendeley API; for the four "records" files cf-stability computed the same
+  # values after downloading them. subset tags: cf (trajectories), records (pairs, ids, code)
+  files:
+    - {name: "all_seg_paired_cf_trj_final_with_large_vehicle.csv", subset: [cf], bytes: 50939334, url: "https://data.mendeley.com/public-files/datasets/wfn2c3437n/files/c407cb99-44be-446a-9a17-7113bb3b29f0/file_downloaded", sha256: "563ffb7fdf2cf198aa673304521c7715ecf937a0f74a9ef77c8422f660548c38"}
+    - {name: "all_seg_paired_cf_trj_final.csv", subset: [cf], bytes: 47538574, url: "https://data.mendeley.com/public-files/datasets/wfn2c3437n/files/b673c9b5-66fa-4837-896e-e6a86cd79ba3/file_downloaded", sha256: "94f0c15cd87ad575d629b4bb8807355cbcb8487c7a7d6d0aecd0114afda01208"}
+    - {name: "AV_HV_and_HV_AV_CF_pair_record_with_large_vehicle.csv", subset: [records], bytes: 13257, url: "https://data.mendeley.com/public-files/datasets/wfn2c3437n/files/e3cce6bb-5460-4f66-80e0-febd5ec450ff/file_downloaded", sha256: "c18cf1ef928309728e34943e594f9a4a8ea0daf215dda95f046299797166a433"}
+    - {name: "HV_HV_pair_record_with_large_vehicle.csv", subset: [records], bytes: 11530, url: "https://data.mendeley.com/public-files/datasets/wfn2c3437n/files/b6802547-df22-4d22-a0fe-226d0cb2251c/file_downloaded", sha256: "0e71425b403414b364838e22cad3c574f847a8e0f02bebbf5b7bf65e30362281"}
+    - {name: "all_segment_all_vehicle_object_id_and_local_id_match.csv", subset: [records], bytes: 1835702, url: "https://data.mendeley.com/public-files/datasets/wfn2c3437n/files/f95818cb-55e3-4939-89b9-f6368493a388/file_downloaded", sha256: "135d19a66f3794b5ebdb08607384216c094d02fc7ad9c7bb87619e54441d2e99"}
+    - {name: "waymo_data_process.py", subset: [records], bytes: 93288, url: "https://data.mendeley.com/public-files/datasets/wfn2c3437n/files/1fc0961a-6900-4adf-b673-eef7fe1f79f5/file_downloaded", sha256: "cbb20e1a8d5cc5d38488a1df76a9da55b16e4e44fe67716137cb1df409e948fe"}
+
+tgsim:
+  title: Third Generation Simulation Data (TGSIM), six trajectory data sets
+  licence: US public domain
+  licence_url: https://www.usa.gov/publicdomain/label/1.0/
+  access: open
+  redistribution: allowed
+  citation: >-
+    U.S. Department of Transportation Federal Highway Administration (2023, 2024). Third
+    Generation Simulation Data (TGSIM) <data set> Trajectories [Dataset]. Provided by ITS
+    DataHub through Data.transportation.gov. Cite each data set used, with the DOI given on
+    its page.
+  landing_page: https://datahub.transportation.gov/stories/s/uwv8-dpvx
+  kind: socrata
+  target: tgsim
+  notes:
+    - The Common Core License field is the US public domain label; the data set licence field is empty.
+    - The centreline and lane-annotation files named in the descriptions (needed to project xloc_kf/yloc_kf on the road) are not attachments of the tables; where they are hosted is not known.
+  # All columns of each table. bytes_estimate: the CSV size stated in the description (read
+  # as MiB) plus 2 quote characters per field, rounded up to the MB. The names are the keys
+  # of DATASETS in follownet2/data/loaders/tgsim.py.
+  tables:
+    - name: i90_94_stationary
+      id: "9uas-hf8b"
+      domain: data.transportation.gov
+      rows: 4023022
+      bytes_estimate: 416000000
+      select: [id, time, xloc_kf, yloc_kf, lane_kf, speed_kf, acceleration_kf, length_smoothed, width_smoothed, type_most_common, av, run_index]
+      dtypes: {id: Int64, lane_kf: Int64, run_index: Int64}
+    - name: i90_94_moving
+      id: "6a6e-vfvi"
+      domain: data.transportation.gov
+      rows: 1784748
+      bytes_estimate: 180000000
+      select: [id, time, xloc_kf, yloc_kf, lane_kf, speed_kf, acceleration_kf, length_smoothed, width_smoothed, type_most_common, av, run_index]
+      dtypes: {id: Int64, lane_kf: Int64, run_index: Int64}
+    - name: i294_l1
+      id: "7zjf-a4zf"
+      domain: data.transportation.gov
+      rows: 1024281
+      bytes_estimate: 98000000
+      select: [id, time, xloc_kf, yloc_kf, lane_kf, speed_kf, acceleration_kf, length_smoothed, width_smoothed, type_most_common, acc, run_index]
+      dtypes: {id: Int64, lane_kf: Int64, run_index: Int64}
+    - name: i294_l2
+      id: "tpsq-zrwa"
+      domain: data.transportation.gov
+      rows: 137928
+      bytes_estimate: 13000000
+      select: [id, time, xloc_kf, yloc_kf, lane_kf, speed_kf, acceleration_kf, length_smoothed, width_smoothed, type_most_common, acc, run_index]
+      dtypes: {id: Int64, lane_kf: Int64, run_index: Int64}
+    - name: i395
+      id: "97n2-kuqi"
+      domain: data.transportation.gov
+      rows: 4323461
+      bytes_estimate: 330000000
+      select: [id, time, xloc_kf, yloc_kf, lane_kf, speed_kf, acceleration_kf, length_smoothed, width_smoothed, type_most_common]
+      dtypes: {id: Int64, lane_kf: Int64, type_most_common: Int64}
+    - name: foggy_bottom
+      id: "brzy-6zfh"
+      domain: data.transportation.gov
+      rows: 2492261
+      bytes_estimate: 427000000
+      select: [id, time, xloc_kf, yloc_kf, lane_kf, speed_kf_x, speed_kf_y, acceleration_kf_x, acceleration_kf_y, length_smoothed, width_smoothed, type_most_common]
+      dtypes: {id: Int64, lane_kf: Int64, type_most_common: Int64}
+
+ute:
+  title: Ubiquitous Traffic Eyes (UTE) drone trajectories, sample data of nine sections
+  licence: none stated
+  licence_url: https://github.com/Ruyi-Feng/Ubiquitous-Traffic-Eye
+  access: manual
+  redistribution: unclear
+  citation: >-
+    Ubiquitous Traffic Eyes (UTE), https://github.com/Ruyi-Feng/Ubiquitous-Traffic-Eye; cite
+    the work that the repository README asks to be cited.
+  landing_page: https://github.com/Ruyi-Feng/Ubiquitous-Traffic-Eye
+  kind: files
+  target: ute
+  instructions: >-
+    The repository (branch UTE) holds no data and no licence. Each section README links a
+    Google Drive folder (English section) and a Baidu Pan share (Chinese section). Download
+    the trajectory file of each section by hand; Google Drive shows a virus-scan page for
+    files over 100 MB, which has to be confirmed in the browser. Save every file as
+    data/raw/ute/<section>/<file name>, the paths listed below. The READMEs call the release
+    sample data. Ask the authors for a licence before publishing anything derived from it.
+  # subset tags: the section names
+  files:
+    - {name: "SQM-W-1/frenet.csv", subset: [SQM-W-1], bytes: 81826648}
+    - {name: "SQM-W-2/frenet.csv", subset: [SQM-W-2], bytes: 121047916}
+    - {name: "YTDJ-3/frenet.csv", subset: [YTDJ-3], bytes: 71161264}
+    - {name: "SQM-N-4/frenet-down.xlsx", subset: [SQM-N-4], bytes: 139000000, approx: true}
+    - {name: "SQM-N-4/frenet-up.xlsx", subset: [SQM-N-4], bytes: 122000000, approx: true}
+    - {name: "XAM-N-5/frenet.csv", subset: [XAM-N-5], bytes: 15048108}
+    - {name: "XAM-N-6/frenet.csv", subset: [XAM-N-6], bytes: 97455974}
+    - {name: "RML-7/frenet.csv", subset: [RML-7], bytes: 93666342}
+    - {name: "PKDD-8/frenet.csv", subset: [PKDD-8], bytes: 54842692}
+    - {name: "XAM-S-9/frenet.csv", subset: [XAM-S-9], bytes: 15715007}
+
+highd:
+  title: "highD: naturalistic vehicle trajectories on German highways (drone recordings)"
+  licence: non-commercial use, no redistribution
+  licence_url: https://levelxdata.com/highd-dataset/
+  access: application
+  redistribution: forbidden
+  citation: >-
+    Krajewski, R., Bock, J., Kloeker, L., Eckstein, L. (2018). The highD Dataset: A Drone
+    Dataset of Naturalistic Vehicle Trajectories on German Highways for Validation of Highly
+    Automated Driving Systems. 21st International Conference on Intelligent Transportation
+    Systems (ITSC), 2118-2125. https://doi.org/10.1109/ITSC.2018.8569552
+  landing_page: https://levelxdata.com/highd-dataset/
+  kind: none
+  target: highd
+  instructions: >-
+    Apply on the landing page for the free non-commercial licence (the application asks for
+    a confirmation of the intended use). Once it is granted, download the archive and unpack
+    the 60 recordings so that data/raw/highd holds XX_recordingMeta.csv, XX_tracksMeta.csv,
+    XX_tracks.csv and XX_highway.jpg (XX = 01 to 60). The data must not be redistributed:
+    FollowNet-2 publishes extraction code and event check sums only, never events.
+  expected: ["*_recordingMeta.csv", "*_tracksMeta.csv", "*_tracks.csv"]
+  notes:
+    - "Format: https://levelxdata.com/wp-content/uploads/2023/10/highD-Format.pdf"
+
+exid:
+  title: "exiD: trajectories at highway entries and exits in Germany (drone recordings)"
+  licence: non-commercial use, no redistribution
+  licence_url: https://levelxdata.com/exid-dataset/
+  access: application
+  redistribution: forbidden
+  citation: >-
+    Moers, T., Vater, L., Krajewski, R., Bock, J., Zlocki, A., Eckstein, L. (2022). The exiD
+    Dataset: A Real-World Trajectory Dataset of Highly Interactive Highway Scenarios in
+    Germany. IEEE Intelligent Vehicles Symposium (IV), 958-964.
+    https://doi.org/10.1109/IV51971.2022.9827305
+  landing_page: https://levelxdata.com/exid-dataset/
+  kind: none
+  target: exid
+  instructions: >-
+    Apply on the landing page for the free non-commercial licence. Once it is granted, unpack
+    the recordings so that data/raw/exid holds XX_recordingMeta.csv, XX_tracksMeta.csv,
+    XX_tracks.csv and XX_background.png, with the maps (Lanelet2 .osm, OpenDRIVE .xodr) of
+    each location. The data must not be redistributed: FollowNet-2 publishes extraction code
+    and event check sums only, never events.
+  expected: ["*_recordingMeta.csv", "*_tracksMeta.csv", "*_tracks.csv"]
+  notes:
+    - "Format: https://levelxdata.com/wp-content/uploads/2024/03/exiD-Format_2_1.pdf. It says the map-based columns (leadId, leadDHW, leadDV, laneletId, ...) are in XX_tracks.csv only if they are part of the purchased package: check that the academic release has them."
+
+citysim:
+  title: "CitySim: drone vehicle trajectories for safety-oriented research (UCF SST Lab)"
+  licence: non-commercial, no redistribution (request form)
+  licence_url: https://github.com/UCF-SST-Lab/UCF-SST-CitySim1-Dataset
+  access: application
+  redistribution: forbidden
+  citation: >-
+    Zheng, O., Abdel-Aty, M., Yue, L., Abdelraouf, A., Wang, Z., Mahmoud, N. CitySim: A
+    Drone-Based Vehicle Trajectory Dataset for Safety-Oriented Research and Digital Twins.
+    Transportation Research Record. https://doi.org/10.1177/03611981231185768
+  landing_page: https://github.com/UCF-SST-Lab/UCF-SST-CitySim1-Dataset
+  kind: none
+  target: citysim
+  instructions: >-
+    Fill in the data request form of the repository (asset/MainPage/Data_Request_Form.pdf or
+    .docx: name, institution, advisor, e-mail, research interests, signature), sign it and
+    e-mail it to citysim.ucfsst@gmail.com. Its terms: non-commercial research and teaching
+    only, cite the paper, no redistribution of the data or of modified versions, derivative
+    works only if the data cannot be recovered from them, no commercial use. Expressway A and
+    Freeway B and C (Southwest Jiaotong University), Expressway B (Southeast University) and
+    Freeway D (PolyU) are distributed by those teams: ask them. Put the files of each site
+    under data/raw/citysim/<site>/.
+  expected: ["*.csv"]
+  notes:
+    - The repository is Apache-2.0, which covers the repository contents only; the data are under the terms of the request form.
+
+pneuma:
+  title: "pNEUMA: urban drone trajectories in Athens (EPFL), full archive"
+  licence: ambiguous, CC BY-NC 4.0 or CC BY 4.0
+  licence_url: https://open-traffic.epfl.ch/index.php/downloads/
+  access: open
+  redistribution: unclear
+  citation: >-
+    Barmpounakis, E., Geroliminis, N. (2020). On the new era of urban traffic monitoring with
+    massive drone data: The pNEUMA large-scale field experiment. Transportation Research
+    Part C 111, 50-71. https://doi.org/10.1016/j.trc.2019.11.023. Data:
+    https://doi.org/10.5281/zenodo.10491409. Acknowledgement: "Data source: pNEUMA –
+    open-traffic.epfl.ch".
+  landing_page: https://doi.org/10.5281/zenodo.10491409
+  kind: files
+  target: pneuma
+  notes:
+    - "The EPFL download page states both 'pNEUMA dataset © 2020 by E. Barmpounakis and N. Geroliminis is licensed under CC BY-NC 4.0' (under the DOWNLOAD button) and '... is licensed under CC BY 4.0' (FAQ); Zenodo says cc-by-4.0. Until EPFL clarifies, treat it as CC BY-NC 4.0 and publish nothing derived from it."
+    - The EPFL terms and conditions ask for the article, the Zenodo DOI and the acknowledgement above in every publication that uses the data.
+  files:
+    - {name: "pNEUMA_dataset.zip", bytes: 15759302461, url: "https://zenodo.org/api/records/10491409/files/pNEUMA_dataset.zip/content", md5: "4e842b2200bea2f80d41c6b785a9de25"}

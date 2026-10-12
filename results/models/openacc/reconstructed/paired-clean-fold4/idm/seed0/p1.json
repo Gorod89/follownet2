@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-clean"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 4,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-clean",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "f94e0bf17335",
+  "data_version": "reconstructed",
+  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "model": {
+    "class": "idm",
+    "family": "mechanistic",
+    "label": "idm",
+    "provenance": {
+      "config_hash": "696bec641f88",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+      "seed": 0,
+      "split": {
+        "fold": 4,
+        "kind": "paired-clean",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 2.5,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.0,
+      "event_collision_rate": 0.0,
+      "horizon_s": 10.0,
+      "n_events": 493,
+      "n_samples": 220500,
+      "n_windows": 2205,
+      "rmse_s": 5.030368448642685,
+      "rmse_v": 0.983278622498881
+    },
+    "h30": {
+      "collision_rate": 0.0,
+      "event_collision_rate": 0.0,
+      "horizon_s": 30.0,
+      "n_events": 464,
+      "n_samples": 139200,
+      "n_windows": 464,
+      "rmse_s": 8.878902262974462,
+      "rmse_v": 0.9692635808447173
+    },
+    "whole": {
+      "collision_rate": 0.0,
+      "n_events": 493,
+      "n_samples": 241492,
+      "rmse_s": 9.355912302865006,
+      "rmse_v": 0.9291100167993096
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# NGSIM US-101 and I-80 (Socrata 8ect-6jqj): raw trajectories, feet, 10 Hz, leader = preceding
+name: ngsim
+loader: ngsim
+raw_dir: ../cf-stability/data/raw/ngsim  # ngsim_<location>_raw.parquet or Socrata CSV exports *.csv
+position_source: track
+options:
+  locations: [us-101, i-80]
+  lanes:  # follower lanes per location (mainline); null keeps all lanes
+    us-101: [1, 2, 3, 4, 5]
+    i-80: [1, 2, 3, 4, 5, 6]
+  follower_classes: [2]  # v_class codes of followers (2 = auto); leaders may be of any class
+  max_groups: null  # first n original 15-minute files only (quick runs); groups are <location>-p<k>, k = file
+extraction: {}
+# 0.35 Hz: no event on the acceleration or jerk bound, rms acceleration 0.76 m/s^2 as in the
+# events of FollowNet that come from the reconstruction of Montanino and Punzo (0.79); with
+# 0.5 Hz 1.8 % of the events use the full braking bound (docs/reconstruction.md)
+reconstruction:
+  sigma_x: 0.5
+  sigma_v: null
+  cutoff_hz: 0.35
+max_events: null

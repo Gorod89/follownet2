@@ -1,0 +1,21 @@
+name: gail
+# the budget is a constructor argument; of train.optim, fit uses lr (every network), batch_size
+# (minibatches of cloning, discriminator and PPO), batches_per_epoch (cloning), grad_clip, val_batches
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: 64
+  init_std: 0.5
+  disc_hidden: [64, 64]
+  train_horizon: 50
+  n_envs: 256
+  iterations: 150
+  ppo_epochs: 4
+  clip: 0.2
+  gamma: 0.95
+  lam: 0.95
+  entropy: 0.001
+  d_steps: 2
+  label_smoothing: 0.1
+  bc_epochs: 2
+optim: {}

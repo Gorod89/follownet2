@@ -1,0 +1,15 @@
+# CitySim (UCF SST lab, by request form): drone trajectories, 30 fps, feet and mph, leaders derived per lane
+name: citysim
+loader: citysim
+raw_dir: data/raw/citysim  # <site>/<recording>.csv
+position_source: track
+options:
+  sites: null  # site folders, straight freeway segments only; null: every site on disk
+  frame_rate: 30.0
+  max_groups: null  # first n recordings only (quick runs)
+extraction: {}
+reconstruction:
+  sigma_x: 0.3
+  sigma_v: null
+  cutoff_hz: 0.5
+max_events: null

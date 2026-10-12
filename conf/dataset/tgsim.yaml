@@ -1,0 +1,16 @@
+# TGSIM (ITS DataHub, Socrata): Kalman-filtered trajectories in reference-image coordinates, 10 Hz, leaders derived
+name: tgsim
+loader: tgsim
+raw_dir: data/raw/tgsim  # <key>.parquet of the download tool, or the Socrata CSV export of each data set
+position_source: track
+options:
+  datasets: [i90_94_stationary, i90_94_moving, i294_l1, i294_l2, i395]  # foggy_bottom is not supported
+  files: null  # {data set: file name}: overrides the file of a data set
+  axis: null  # {data set: x | y | pca}: overrides the longitudinal axis of a data set
+  max_groups: null  # first n runs only (quick runs)
+extraction: {}
+reconstruction:
+  sigma_x: 0.3
+  sigma_v: null
+  cutoff_hz: 0.5
+max_events: null

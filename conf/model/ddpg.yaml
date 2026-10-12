@@ -1,0 +1,20 @@
+name: ddpg
+# the budget and the learning rates are constructor arguments; of train.optim, fit uses
+# batch_size (minibatch of the updates, number of validation episodes), grad_clip, val_batches
+kwargs:
+  history: 1
+  use_a_prev: false
+  hidden: [64, 64]
+  action_limit: 3.0
+  train_horizon: 100
+  n_envs: 256
+  buffer_size: 200000
+  noise: 0.3
+  noise_final: 0.05
+  tau: 0.005
+  gamma: 0.95
+  actor_lr: 0.0001
+  critic_lr: 0.001
+  iterations: 200
+  updates_per_iteration: 100
+optim: {}

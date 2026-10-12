@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-leaky"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 3,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-leaky",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "74419e9e6d64",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "gipps",
+    "family": "mechanistic",
+    "label": "gipps",
+    "provenance": {
+      "config_hash": "d9ffb715162e",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 3,
+        "kind": "paired-leaky",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 7.2,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.00020468734008801556,
+      "event_collision_rate": 0.0008771929824561404,
+      "horizon_s": 10.0,
+      "n_events": 2280,
+      "n_samples": 977100,
+      "n_windows": 9771,
+      "rmse_s": 3.189923408001123,
+      "rmse_v": 0.8822428106807477
+    },
+    "h30": {
+      "collision_rate": 0.0004073319755600815,
+      "event_collision_rate": 0.0006385696040868455,
+      "horizon_s": 30.0,
+      "n_events": 1566,
+      "n_samples": 736500,
+      "n_windows": 2455,
+      "rmse_s": 4.599406898944263,
+      "rmse_v": 0.8574889275208235
+    },
+    "whole": {
+      "collision_rate": 0.0004385964912280702,
+      "n_events": 2280,
+      "n_samples": 1089923,
+      "rmse_s": 5.792781112315414,
+      "rmse_v": 0.9291542162094569
+    }
+  }
+}

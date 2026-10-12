@@ -1,0 +1,76 @@
+{
+  "config_hash": "3c0727be7b42",
+  "dataset": "ngsim",
+  "events_per_follower": {
+    "max": 5,
+    "mean": 1.327773220308085,
+    "share_events_of_followers_with_several_events": 0.4615226196196883,
+    "share_followers_with_several_events": 0.28502415458937197
+  },
+  "n_failed_reconstruction": 0,
+  "near_miss": {
+    "duration_max_s": 15.0,
+    "duration_median_s": 15.0,
+    "duration_min_s": 6.0,
+    "duration_total_s": 119058.9,
+    "min_ttc_quantiles": {
+      "0.05": 0.5292182151886389,
+      "0.5": 1.8519467174990072
+    },
+    "n_events": 9348,
+    "n_followers": 6077,
+    "n_samples": 1199937,
+    "n_sites": 2,
+    "triggers": {
+      "brake": 5494,
+      "cut_in": 1304,
+      "drac": 311,
+      "ttc": 4201
+    },
+    "with_cut_in": 2064
+  },
+  "raw": {
+    "duration_max_s": 217.0,
+    "duration_median_s": 41.300000000000004,
+    "duration_min_s": 14.9,
+    "duration_total_s": 693609.1,
+    "n_events": 14567,
+    "n_followers": 10971,
+    "n_samples": 6950658,
+    "n_sites": 2
+  },
+  "reconstructed": {
+    "duration_max_s": 217.0,
+    "duration_median_s": 41.300000000000004,
+    "duration_min_s": 14.9,
+    "duration_total_s": 693609.1,
+    "n_events": 14567,
+    "n_followers": 10971,
+    "n_samples": 6950658,
+    "n_sites": 2
+  },
+  "reconstruction": {
+    "mean_outlier_share": 0.0005289130172049124,
+    "median_rms_acc_change": 1.209619390931229,
+    "median_rms_gap_change": 0.12792823021878405,
+    "median_rms_speed_change": 0.28532401565592586,
+    "method": "qp-semi-implicit-v1",
+    "n_events": 14567,
+    "q99_max_abs_acc": 5.023380334239233,
+    "q99_max_abs_acc_raw": 3.41376,
+    "q99_max_abs_jerk": 9.219274980733017,
+    "q99_max_abs_jerk_raw": 68.2752,
+    "share_gap_bound_active": 0.0016475595524129882,
+    "share_solved_inaccurate": 0.0
+  },
+  "regimes": {
+    "congested": 13649,
+    "free": 77,
+    "steady": 841
+  },
+  "seconds": 149.0,
+  "sites": {
+    "i-80": 7374,
+    "us-101": 7193
+  }
+}

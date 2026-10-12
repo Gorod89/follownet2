@@ -1,0 +1,16 @@
+# FollowNet HighD event set (Chen et al. 2023): 12,541 windows of 15 s at 25 Hz, resampled to 10 Hz; pseudo ids
+name: follownet_highd
+loader: follownet
+raw_dir: ../cf-stability/data/raw/follownet
+position_source: gap
+options:
+  subset: highd
+  files: event_set  # event_set | splits (published train/val/test files, meta legacy_split)
+  max_groups: null  # events read
+extraction: {}
+# the published series are smoothed already: light reconstruction, gap and speeds both used
+reconstruction:
+  sigma_x: 0.3
+  sigma_v: 0.2
+  cutoff_hz: 1.0
+max_events: null

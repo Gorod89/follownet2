@@ -1,0 +1,34 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "raw",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "none",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "regime",
+    "stability_test": null
+  },
+  "config_hash": "f292ecea6b00",
+  "data_version": "raw",
+  "dataset": "follownet_highd",
+  "family": "baseline",
+  "git_revision": "7d0b922beea16bc186105e1fe2a270e527051397",
+  "metrics": {
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rmse_a": 0.3923954774207379,
+    "rmse_s": 0.044195001063679976,
+    "rmse_v": 0.03944691641278544
+  },
+  "model": "constant_speed",
+  "per_event": "constant_speed.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "regime",
+    "part": "test"
+  }
+}

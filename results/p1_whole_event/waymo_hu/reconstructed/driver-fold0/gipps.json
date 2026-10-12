@@ -1,0 +1,49 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "whole event",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "Punzo-Zheng-Montanino 2021: closed loop, NRMSE(s)+NRMSE(v), differential evolution, global parameters from the training part",
+    "rare_event_suite": null,
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "driver",
+    "stability_test": null
+  },
+  "config_hash": "b9e80d1c6f4d",
+  "data_version": "reconstructed",
+  "dataset": "waymo_hu",
+  "family": "mechanistic",
+  "git_revision": "7d0b922beea16bc186105e1fe2a270e527051397",
+  "metrics": {
+    "collision_rate": 0.0,
+    "n_events": 171,
+    "n_samples": 27909,
+    "rmse_s": 5.248708868591246,
+    "rmse_v": 0.9394434213621715
+  },
+  "model": "gipps",
+  "params": {
+    "V": 33.06248474121094,
+    "a": 1.7409992218017578,
+    "b": 0.6234982013702393,
+    "b_hat": 0.6242412328720093,
+    "s0": 1.4187450408935547,
+    "tau": 1.1164394617080688
+  },
+  "per_event": "gipps.events.parquet",
+  "protocol": "p1_whole_event",
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "part": "test"
+  },
+  "train": {
+    "collision_rate": 0.0,
+    "n_events": 556,
+    "objective": 0.3334222820690959,
+    "rmse_s": 5.13742757265287,
+    "rmse_v": 0.927285547380974
+  }
+}

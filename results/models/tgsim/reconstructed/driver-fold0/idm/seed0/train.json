@@ -1,0 +1,46 @@
+{
+  "class": "idm",
+  "config_hash": "3341d620a494",
+  "data_version": "reconstructed",
+  "dataset": "tgsim",
+  "family": "mechanistic",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": "idm",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.0,
+      "n_events": 4189,
+      "n_samples": 1569820,
+      "rmse_s": 7.829967630764773,
+      "rmse_v": 0.8867462728835539
+    },
+    "p0": {
+      "rmse_a": 2.034364595504462,
+      "rmse_s": 0.020290757433131537,
+      "rmse_v": 0.20290759818343204
+    }
+  },
+  "training": {
+    "collision_rate": 0.0,
+    "kind": "pooled",
+    "n_events": 2000,
+    "objective": 0.47762568968903246,
+    "params": {
+      "T": 1.448808193206787,
+      "a": 0.821102499961853,
+      "b": 0.509267270565033,
+      "s0": 1.788925051689148,
+      "v0": 43.80424499511719
+    },
+    "rmse_s": 8.204344553921754,
+    "rmse_v": 0.8909377854967866,
+    "seconds": 396.7
+  }
+}

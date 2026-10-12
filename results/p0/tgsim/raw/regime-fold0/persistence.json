@@ -1,0 +1,37 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "raw",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "none",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "regime",
+    "stability_test": null
+  },
+  "config_hash": "051b20bca76b",
+  "data_version": "raw",
+  "dataset": "tgsim",
+  "family": "baseline",
+  "git_revision": "3d4c11af70b5e19cb4f0ddd7eafc231e4020b5a8",
+  "metrics": {
+    "identity_error": 0.08231026438552957,
+    "n_events": 17935,
+    "n_samples": 7052008,
+    "rms_jerk_dt": 1.4694380594842058,
+    "rmse_a": 1.3871277950986762,
+    "rmse_s": 0.013641449360098881,
+    "rmse_v": 0.14697184635202815,
+    "share_recorded_outside_clip": 0.007114285746697962
+  },
+  "model": "persistence",
+  "per_event": "persistence.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "regime",
+    "part": "test"
+  }
+}

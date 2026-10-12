@@ -1,0 +1,14 @@
+# Ubiquitous Traffic Eyes (UTE): drone trajectories in Frenet coordinates, 24/30/60 fps, speed in km/h
+name: ute
+loader: ute
+raw_dir: data/raw/ute  # <site>/frenet.csv
+position_source: track
+options:
+  sites: [SQM-W-1, SQM-W-2, YTDJ-3, XAM-N-5, XAM-N-6, RML-7, PKDD-8, XAM-S-9]  # SQM-N-4 (xlsx) is not supported
+  max_groups: null  # first n sites only (quick runs)
+extraction: {}
+reconstruction:
+  sigma_x: 0.3
+  sigma_v: null
+  cutoff_hz: 0.5
+max_events: null

@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use FollowNet-2, please cite this repository (and the paper once it is published)."
+title: "FollowNet-2: a traffic-level evaluation protocol and benchmark for car-following models"
+type: software
+version: 0.1.0
+date-released: "2026-10-12"
+license: MIT
+repository-code: "https://github.com/Gorod89/follownet2"
+url: "https://gorod89.github.io/follownet2/leaderboard/"
+authors:
+  - family-names: Gorodnichev
+    given-names: Mikhail
+    orcid: "https://orcid.org/0000-0003-1739-9831"
+    affiliation: "Moscow Technical University of Communication and Informatics"
+keywords:
+  - car-following
+  - benchmark
+  - string stability
+  - traffic simulation
+  - trajectory datasets

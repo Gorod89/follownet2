@@ -1,0 +1,32 @@
+# Training of one model (scripts/train.py). Extends the main configuration; conf/config.yaml
+# itself is left untouched so that the hashes of the data and calibration runs do not change.
+defaults:
+  - config
+  - model: mlp
+  - _self_
+
+rescore: false  # true: load the finished run and compute its test scores again
+
+train:
+  version: reconstructed  # data version: raw | reconstructed
+  split: driver  # event | driver | site | regime | block
+  fold: 0
+  seed: ${seed}
+  device: auto
+  threads: 4  # CPU threads of torch; on a loaded machine more threads are slower
+  force: false  # train again although a finished run with the same configuration exists
+  max_train_events: null  # events drawn from the training part (null: all)
+  max_val_events: 2000
+  # defaults of the supervised trainer; conf/model/<name>.yaml overrides single keys under optim
+  optim:
+    epochs: 40
+    batch_size: 4096
+    lr: 0.001
+    weight_decay: 0.0
+    patience: 6
+    batches_per_epoch: 200
+    val_batches: 50
+    grad_clip: 1.0
+    closed_loop_weight: 0.0
+    closed_loop_horizon: 50
+    closed_loop_batch: 512

@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "openacc",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "9d5ebbb23d7b",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "mlp",
+    "family": "network",
+    "label": "mlp_loop",
+    "provenance": {
+      "config_hash": "218474b07cd0",
+      "data_version": "reconstructed",
+      "dataset": "follownet_highd",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 1.8,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.004352806414662085,
+      "event_collision_rate": 0.0198744769874477,
+      "horizon_s": 10.0,
+      "n_events": 956,
+      "n_samples": 436500,
+      "n_windows": 4365,
+      "rmse_s": 4.620549983720678,
+      "rmse_v": 1.154878384705295
+    },
+    "h30": {
+      "collision_rate": 0.024336283185840708,
+      "event_collision_rate": 0.024336283185840708,
+      "horizon_s": 30.0,
+      "n_events": 904,
+      "n_samples": 271200,
+      "n_windows": 904,
+      "rmse_s": 20.16909306883325,
+      "rmse_v": 1.7398576475429839
+    },
+    "whole": {
+      "collision_rate": 0.05543933054393305,
+      "n_events": 956,
+      "n_samples": 479894,
+      "rmse_s": 64.04297581350829,
+      "rmse_v": 4.001561495574818
+    }
+  }
+}

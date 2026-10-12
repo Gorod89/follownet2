@@ -1,0 +1,94 @@
+{
+  "class": "stability_mlp",
+  "config_hash": "91921ad3b1e6",
+  "data_version": "reconstructed",
+  "dataset": "openacc",
+  "family": "network",
+  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "model": "stability_mlp",
+  "n_parameters": 4481,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "paired-leaky",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.07916666666666666,
+      "n_events": 480,
+      "n_samples": 241488,
+      "rmse_s": 16.298718820317507,
+      "rmse_v": 1.1961471920827462
+    },
+    "p0": {
+      "rmse_a": 0.37966573307462753,
+      "rmse_s": 0.0037962635305863104,
+      "rmse_v": 0.037962661391774656
+    }
+  },
+  "training": {
+    "best_val_rmse_a": 0.3769298530470878,
+    "config": {
+      "batch_size": 4096,
+      "batches_per_epoch": 200,
+      "closed_loop_batch": 512,
+      "closed_loop_horizon": 50,
+      "closed_loop_weight": 0.0,
+      "device": "cuda",
+      "epochs": 40,
+      "grad_clip": 1.0,
+      "lr": 0.001,
+      "patience": 6,
+      "seed": 0,
+      "val_batches": 50,
+      "weight_decay": 0.0
+    },
+    "epochs_run": 7,
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 0.6490144514151917,
+        "val_rmse_a": 0.3769298530470878
+      },
+      {
+        "epoch": 1,
+        "train_loss": 0.5705673539759811,
+        "val_rmse_a": 0.38473631035529016
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.5513915281887444,
+        "val_rmse_a": 0.37803723404367323
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.5593233350013914,
+        "val_rmse_a": 0.3772800853878421
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.5489205530351109,
+        "val_rmse_a": 0.3821458406739341
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.5457513655121192,
+        "val_rmse_a": 0.3807310161945735
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.5360900015542862,
+        "val_rmse_a": 0.38186880141002083
+      }
+    ],
+    "initial_val_rmse_a": 0.44274735981828767,
+    "n_parameters": 4481,
+    "n_train_events": 2958,
+    "n_train_windows": 1475322,
+    "n_val_windows": 449551,
+    "seconds": 81.8,
+    "stability_penalty": 0.015564019668315058,
+    "unstable_fraction": 1.0
+  }
+}

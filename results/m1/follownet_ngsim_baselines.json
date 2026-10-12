@@ -1,0 +1,194 @@
+[
+  {
+    "identity_error": 1.3877787807814457e-17,
+    "model": "persistence",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rms_jerk_dt": 0.11404779557328468,
+    "rmse_a": 0.11404779557328466,
+    "rmse_s": 0.006665564017880596,
+    "rmse_v": 0.02117573836114205,
+    "split": "event",
+    "version": "raw"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.743904876854673,
+    "rmse_s": 0.009743622676413523,
+    "rmse_v": 0.08044228138591851,
+    "split": "event",
+    "version": "raw"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.0,
+    "rmse_s": 0.006453719923909635,
+    "rmse_v": 0.01171615022168732,
+    "split": "event",
+    "version": "raw"
+  },
+  {
+    "identity_error": 1.3877787807814457e-17,
+    "model": "persistence",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rms_jerk_dt": 0.11404779557328468,
+    "rmse_a": 0.11404779557328466,
+    "rmse_s": 0.006665564017880596,
+    "rmse_v": 0.02117573836114205,
+    "split": "driver",
+    "version": "raw"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.743904876854673,
+    "rmse_s": 0.009743622676413523,
+    "rmse_v": 0.08044228138591851,
+    "split": "driver",
+    "version": "raw"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.0,
+    "rmse_s": 0.006453719923909635,
+    "rmse_v": 0.01171615022168732,
+    "split": "driver",
+    "version": "raw"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 1637,
+    "n_samples": 615647,
+    "rms_jerk_dt": 0.11300103016682539,
+    "rmse_a": 0.11300103016682539,
+    "rmse_s": 0.006473717584882415,
+    "rmse_v": 0.02095409306458848,
+    "split": "regime",
+    "version": "raw"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 1637,
+    "n_samples": 615647,
+    "rmse_a": 0.7596565088037531,
+    "rmse_s": 0.009645138436367825,
+    "rmse_v": 0.08180704391404948,
+    "split": "regime",
+    "version": "raw"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 1637,
+    "n_samples": 615647,
+    "rmse_a": 0.0,
+    "rmse_s": 0.006268128577309547,
+    "rmse_v": 0.011580362995808014,
+    "split": "regime",
+    "version": "raw"
+  },
+  {
+    "identity_error": 2.7755575615628914e-17,
+    "model": "persistence",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rms_jerk_dt": 0.13310108706381338,
+    "rmse_a": 0.13310108706381335,
+    "rmse_s": 0.0013305377736811527,
+    "rmse_v": 0.013305377736811222,
+    "split": "event",
+    "version": "reconstructed"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.79673673750906,
+    "rmse_s": 0.00796736737509058,
+    "rmse_v": 0.079673673750906,
+    "split": "event",
+    "version": "reconstructed"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.0,
+    "rmse_s": 1.1018367836971092e-14,
+    "rmse_v": 0.0,
+    "split": "event",
+    "version": "reconstructed"
+  },
+  {
+    "identity_error": 2.7755575615628914e-17,
+    "model": "persistence",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rms_jerk_dt": 0.13310108706381338,
+    "rmse_a": 0.13310108706381335,
+    "rmse_s": 0.0013305377736811527,
+    "rmse_v": 0.013305377736811222,
+    "split": "driver",
+    "version": "reconstructed"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.79673673750906,
+    "rmse_s": 0.00796736737509058,
+    "rmse_v": 0.079673673750906,
+    "split": "driver",
+    "version": "reconstructed"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_a": 0.0,
+    "rmse_s": 1.1018367836971092e-14,
+    "rmse_v": 0.0,
+    "split": "driver",
+    "version": "reconstructed"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 1637,
+    "n_samples": 615647,
+    "rms_jerk_dt": 0.13180827287910893,
+    "rmse_a": 0.13180827287910893,
+    "rmse_s": 0.0013173833839673565,
+    "rmse_v": 0.013173833839673509,
+    "split": "regime",
+    "version": "reconstructed"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 1637,
+    "n_samples": 615647,
+    "rmse_a": 0.8108107072697123,
+    "rmse_s": 0.00810810707269711,
+    "rmse_v": 0.08108107072697122,
+    "split": "regime",
+    "version": "reconstructed"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 1637,
+    "n_samples": 615647,
+    "rmse_a": 0.0,
+    "rmse_s": 1.1059558446385767e-14,
+    "rmse_v": 3.1388404465634214e-21,
+    "split": "regime",
+    "version": "reconstructed"
+  }
+]

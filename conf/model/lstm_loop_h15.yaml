@@ -1,0 +1,5 @@
+# ablation: lstm_loop with a 15 s rollout term
+name: lstm
+label: lstm_loop_h15
+kwargs: {history: 10, use_a_prev: false, hidden: 64}
+optim: {closed_loop_weight: 1.0, closed_loop_horizon: 150, closed_loop_batch: 256, batches_per_epoch: 100}

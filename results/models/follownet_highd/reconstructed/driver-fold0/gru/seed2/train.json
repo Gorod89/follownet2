@@ -1,0 +1,257 @@
+{
+  "class": "gru",
+  "config_hash": "2dcaba43f26c",
+  "data_version": "reconstructed",
+  "dataset": "follownet_highd",
+  "family": "network",
+  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "model": "gru",
+  "n_parameters": 13313,
+  "seed": 2,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.00039952057530962844,
+      "n_events": 2503,
+      "n_samples": 297857,
+      "rmse_s": 3.2427907841839576,
+      "rmse_v": 0.7072862584611768
+    },
+    "p0": {
+      "rmse_a": 0.07967193180879116,
+      "rmse_s": 0.0007967194794380856,
+      "rmse_v": 0.007967193050695914
+    }
+  },
+  "training": {
+    "best_val_rmse_a": 0.08408386098884496,
+    "config": {
+      "batch_size": 4096,
+      "batches_per_epoch": 200,
+      "closed_loop_batch": 512,
+      "closed_loop_horizon": 50,
+      "closed_loop_weight": 0.0,
+      "device": "cuda",
+      "epochs": 40,
+      "grad_clip": 1.0,
+      "lr": 0.001,
+      "patience": 6,
+      "seed": 2,
+      "val_batches": 50,
+      "weight_decay": 0.0
+    },
+    "epochs_run": 40,
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 0.6306493113934993,
+        "val_rmse_a": 0.26586654759903655
+      },
+      {
+        "epoch": 1,
+        "train_loss": 0.4477911101281643,
+        "val_rmse_a": 0.23743099540321846
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.3845864255726337,
+        "val_rmse_a": 0.22122107401571606
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.33461338430643084,
+        "val_rmse_a": 0.20507068911195983
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.2615599299967289,
+        "val_rmse_a": 0.17294442198707138
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.2331849267333746,
+        "val_rmse_a": 0.18891768110916052
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.19715677060186862,
+        "val_rmse_a": 0.15253953506259765
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.1507053379714489,
+        "val_rmse_a": 0.1418203664136633
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.13597447734326124,
+        "val_rmse_a": 0.13483975638269588
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.12635796319693327,
+        "val_rmse_a": 0.11880983857457951
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.1320744689181447,
+        "val_rmse_a": 0.12424853735481181
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.1073660521581769,
+        "val_rmse_a": 0.11534570149440213
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.1005154125392437,
+        "val_rmse_a": 0.11749661319625072
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.09489823039621115,
+        "val_rmse_a": 0.11259241679193957
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.0979690345749259,
+        "val_rmse_a": 0.11547247380909757
+      },
+      {
+        "epoch": 15,
+        "train_loss": 0.09894731517881156,
+        "val_rmse_a": 0.11307605583289729
+      },
+      {
+        "epoch": 16,
+        "train_loss": 0.08669211789965629,
+        "val_rmse_a": 0.10446215821981464
+      },
+      {
+        "epoch": 17,
+        "train_loss": 0.07612321507185697,
+        "val_rmse_a": 0.10707094933752913
+      },
+      {
+        "epoch": 18,
+        "train_loss": 0.07393437087535858,
+        "val_rmse_a": 0.11296783301797785
+      },
+      {
+        "epoch": 19,
+        "train_loss": 0.08811367986723781,
+        "val_rmse_a": 0.10635695780210727
+      },
+      {
+        "epoch": 20,
+        "train_loss": 0.07063646398484708,
+        "val_rmse_a": 0.09769542757002357
+      },
+      {
+        "epoch": 21,
+        "train_loss": 0.06497965527698397,
+        "val_rmse_a": 0.09753356790171692
+      },
+      {
+        "epoch": 22,
+        "train_loss": 0.06263569884002208,
+        "val_rmse_a": 0.0961525795124146
+      },
+      {
+        "epoch": 23,
+        "train_loss": 0.06887817298993468,
+        "val_rmse_a": 0.10495321115110018
+      },
+      {
+        "epoch": 24,
+        "train_loss": 0.06501600058749318,
+        "val_rmse_a": 0.08977017022620024
+      },
+      {
+        "epoch": 25,
+        "train_loss": 0.05949808549135924,
+        "val_rmse_a": 0.09086327879794058
+      },
+      {
+        "epoch": 26,
+        "train_loss": 0.05642909061163664,
+        "val_rmse_a": 0.08932040579295568
+      },
+      {
+        "epoch": 27,
+        "train_loss": 0.05570934684947133,
+        "val_rmse_a": 0.08841613975775225
+      },
+      {
+        "epoch": 28,
+        "train_loss": 0.054551228918135165,
+        "val_rmse_a": 0.08992724545322733
+      },
+      {
+        "epoch": 29,
+        "train_loss": 0.054396586287766696,
+        "val_rmse_a": 0.08786393104599219
+      },
+      {
+        "epoch": 30,
+        "train_loss": 0.05249340606853366,
+        "val_rmse_a": 0.0885120846847565
+      },
+      {
+        "epoch": 31,
+        "train_loss": 0.05144440483301878,
+        "val_rmse_a": 0.08613446411400434
+      },
+      {
+        "epoch": 32,
+        "train_loss": 0.05051268130540848,
+        "val_rmse_a": 0.08593759829342162
+      },
+      {
+        "epoch": 33,
+        "train_loss": 0.04990569764748216,
+        "val_rmse_a": 0.08516577286801046
+      },
+      {
+        "epoch": 34,
+        "train_loss": 0.04942929854616523,
+        "val_rmse_a": 0.08506535268923704
+      },
+      {
+        "epoch": 35,
+        "train_loss": 0.04901304574683309,
+        "val_rmse_a": 0.08520550697677812
+      },
+      {
+        "epoch": 36,
+        "train_loss": 0.048748075533658265,
+        "val_rmse_a": 0.08479124881706256
+      },
+      {
+        "epoch": 37,
+        "train_loss": 0.048497865851968525,
+        "val_rmse_a": 0.08411823234403432
+      },
+      {
+        "epoch": 38,
+        "train_loss": 0.048225683495402336,
+        "val_rmse_a": 0.08408386098884496
+      },
+      {
+        "epoch": 39,
+        "train_loss": 0.048164944332093,
+        "val_rmse_a": 0.08409090992109049
+      }
+    ],
+    "initial_val_rmse_a": 0.3739840111731709,
+    "n_parameters": 13313,
+    "n_train_events": 8132,
+    "n_train_windows": 967708,
+    "n_val_windows": 223363,
+    "seconds": 73.7
+  }
+}

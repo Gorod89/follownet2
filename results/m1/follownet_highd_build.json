@@ -1,0 +1,72 @@
+{
+  "config_hash": "cebf7d617f6c",
+  "dataset": "follownet_highd",
+  "events_per_follower": {
+    "max": 1,
+    "mean": 1.0,
+    "share_events_of_followers_with_several_events": 0.0,
+    "share_followers_with_several_events": 0.0
+  },
+  "n_failed_reconstruction": 0,
+  "near_miss": {
+    "duration_max_s": 14.8,
+    "duration_median_s": 12.15,
+    "duration_min_s": 10.9,
+    "duration_total_s": 75.1,
+    "min_ttc_quantiles": {
+      "0.05": 3.9096728422459233,
+      "0.5": 6.27407126192752
+    },
+    "n_events": 6,
+    "n_followers": 6,
+    "n_samples": 757,
+    "n_sites": 1,
+    "triggers": {
+      "brake": 6
+    },
+    "with_cut_in": 0
+  },
+  "raw": {
+    "duration_max_s": 14.9,
+    "duration_median_s": 14.9,
+    "duration_min_s": 14.9,
+    "duration_total_s": 186428.80000000005,
+    "n_events": 12512,
+    "n_followers": 12512,
+    "n_samples": 1876800,
+    "n_sites": 1
+  },
+  "reconstructed": {
+    "duration_max_s": 14.9,
+    "duration_median_s": 14.9,
+    "duration_min_s": 14.9,
+    "duration_total_s": 186428.80000000005,
+    "n_events": 12512,
+    "n_followers": 12512,
+    "n_samples": 1876800,
+    "n_sites": 1
+  },
+  "reconstruction": {
+    "mean_outlier_share": 4.901960784313725e-05,
+    "median_rms_acc_change": 0.01797798189456351,
+    "median_rms_gap_change": 0.041108902015049006,
+    "median_rms_speed_change": 0.013554223631349907,
+    "method": "qp-semi-implicit-v1",
+    "n_events": 12512,
+    "q99_max_abs_acc": 2.562189353386855,
+    "q99_max_abs_acc_raw": 2.5052098082890364,
+    "q99_max_abs_jerk": 1.4643151021491514,
+    "q99_max_abs_jerk_raw": 1.1919110677693994,
+    "share_gap_bound_active": 0.0,
+    "share_solved_inaccurate": 0.0
+  },
+  "regimes": {
+    "congested": 7960,
+    "free": 486,
+    "steady": 4066
+  },
+  "seconds": 79.1,
+  "sites": {
+    "highd": 12512
+  }
+}

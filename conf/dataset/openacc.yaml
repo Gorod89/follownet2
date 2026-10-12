@@ -1,0 +1,18 @@
+# OpenACC (JRC): car platoons with commercial ACC in six campaigns, 10 Hz, gap IVS bumper to bumper
+name: openacc
+loader: openacc
+raw_dir: ../cf-stability/data/raw/openacc
+position_source: gap
+options:
+  campaigns: null  # campaign folders; null: every car-following campaign of openacc.CAMPAIGNS on disk
+  max_groups: null  # files
+# platoon runs last tens of minutes: events are cut into pieces of at most 60 s
+extraction:
+  max_duration: 60.0
+# 0.5 Hz: the gap of the source jumps (largest change per step above 1.9 m in 1 % of the events,
+# up to 9.4 m); at 1 Hz the outlier step leaves 2.8 % of the events on the jerk bound, at 0.5 Hz none
+reconstruction:
+  sigma_x: 0.3
+  sigma_v: 0.2
+  cutoff_hz: 0.5
+max_events: null

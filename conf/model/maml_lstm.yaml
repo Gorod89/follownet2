@@ -1,0 +1,13 @@
+name: maml_lstm
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: 64
+  inner_steps: 3
+  inner_lr: 0.5
+  meta_batch: 32
+  n_support: 20
+  n_query: 40
+  meta_steps: 2000
+  val_every: 100
+optim: {}

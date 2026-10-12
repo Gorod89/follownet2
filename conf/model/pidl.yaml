@@ -1,0 +1,6 @@
+name: pidl
+kwargs:
+  hidden: [64, 64]
+  alpha: 0.7
+  n_collocation: 4096
+optim: {}

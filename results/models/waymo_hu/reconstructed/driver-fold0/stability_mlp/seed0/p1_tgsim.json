@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "tgsim",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "31f832d3b61a",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "stability_mlp",
+    "family": "network",
+    "label": "stability_mlp",
+    "provenance": {
+      "config_hash": "61e74affd543",
+      "data_version": "reconstructed",
+      "dataset": "waymo_hu",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 9.0,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.02785923753665689,
+      "event_collision_rate": 0.08044879446168536,
+      "horizon_s": 10.0,
+      "n_events": 4189,
+      "n_samples": 1364000,
+      "n_windows": 13640,
+      "rmse_s": 3.1229334551859913,
+      "rmse_v": 0.728432096714495
+    },
+    "h30": {
+      "collision_rate": 0.1372484328604421,
+      "event_collision_rate": 0.18654131618010886,
+      "horizon_s": 30.0,
+      "n_events": 2021,
+      "n_samples": 909300,
+      "n_windows": 3031,
+      "rmse_s": 6.508120863713752,
+      "rmse_v": 0.7238270703263304
+    },
+    "whole": {
+      "collision_rate": 0.15039388875626641,
+      "n_events": 4189,
+      "n_samples": 1569820,
+      "rmse_s": 8.87224229688217,
+      "rmse_v": 0.8707751110676528
+    }
+  }
+}

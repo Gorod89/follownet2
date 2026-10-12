@@ -1,0 +1,5 @@
+# ablation: mlp_loop with a 30 s rollout term
+name: mlp
+label: mlp_loop_h30
+kwargs: {history: 10, use_a_prev: false, hidden: [64, 64]}
+optim: {closed_loop_weight: 1.0, closed_loop_horizon: 300, closed_loop_batch: 128, batches_per_epoch: 100}

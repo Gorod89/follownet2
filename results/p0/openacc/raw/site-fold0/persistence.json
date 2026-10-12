@@ -1,0 +1,37 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "raw",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "none",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "site",
+    "stability_test": null
+  },
+  "config_hash": "466b0cfabbc1",
+  "data_version": "raw",
+  "dataset": "openacc",
+  "family": "baseline",
+  "git_revision": "4710be1c323e21843ce14ba81e0bcf42ac2cb293",
+  "metrics": {
+    "identity_error": 3.241155414739072e-05,
+    "n_events": 2850,
+    "n_samples": 1362856,
+    "rms_jerk_dt": 0.029562984366182946,
+    "rmse_a": 0.029595395920330336,
+    "rmse_s": 0.03708821825104547,
+    "rmse_v": 0.005474377500743209,
+    "share_recorded_outside_clip": 5.870025886814161e-06
+  },
+  "model": "persistence",
+  "per_event": "persistence.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "site",
+    "part": "test"
+  }
+}

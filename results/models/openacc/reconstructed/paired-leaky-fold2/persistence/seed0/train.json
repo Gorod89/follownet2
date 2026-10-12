@@ -1,0 +1,35 @@
+{
+  "class": "persistence",
+  "config_hash": "46f6b5651ce0",
+  "data_version": "reconstructed",
+  "dataset": "openacc",
+  "family": "baseline",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": "persistence",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 2,
+    "kind": "paired-leaky",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.5302713987473904,
+      "n_events": 479,
+      "n_samples": 244498,
+      "rmse_s": 248.44112648531745,
+      "rmse_v": 11.934916426781022
+    },
+    "p0": {
+      "rmse_a": 0.03679667895851376,
+      "rmse_s": 0.000367920469391625,
+      "rmse_v": 0.0036791615338325244
+    }
+  },
+  "training": {
+    "n_train_events": 2946,
+    "n_train_windows": 1470418,
+    "n_val_windows": 452063
+  }
+}

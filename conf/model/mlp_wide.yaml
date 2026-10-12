@@ -1,0 +1,5 @@
+# ablation: one-step mlp with four times the width
+name: mlp
+label: mlp_wide
+kwargs: {history: 10, use_a_prev: false, hidden: [256, 256]}
+optim: {}

@@ -1,0 +1,43 @@
+{
+  "class": "idm_median",
+  "config_hash": "5ac875bda1ba",
+  "data_version": "reconstructed",
+  "dataset": "ngsim",
+  "family": "mechanistic",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": "idm_median",
+  "n_parameters": 0,
+  "seed": 1,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.0,
+      "n_events": 2932,
+      "n_samples": 1299210,
+      "rmse_s": 6.962785651657224,
+      "rmse_v": 0.9323168818571251
+    },
+    "p0": {
+      "rmse_a": 1.6857915167861792,
+      "rmse_s": 0.016330075368572547,
+      "rmse_v": 0.1633007710084597
+    }
+  },
+  "training": {
+    "kind": "median of per-event estimates",
+    "n_events": 1000,
+    "n_used": 1000,
+    "params": {
+      "T": 0.9096798896789551,
+      "a": 1.2498000860214233,
+      "b": 2.2592904567718506,
+      "s0": 3.5341397523880005,
+      "v0": 24.207351684570312
+    },
+    "seconds": 309.3
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "regime",
+    "stability_test": null
+  },
+  "config_hash": "f292ecea6b00",
+  "data_version": "reconstructed",
+  "dataset": "follownet_highd",
+  "family": "baseline",
+  "git_revision": "7d0b922beea16bc186105e1fe2a270e527051397",
+  "metrics": {
+    "identity_error": 0.0,
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rms_jerk_dt": 0.021325973166345928,
+    "rmse_a": 0.021325973166345928,
+    "rmse_s": 0.0002132596922434545,
+    "rmse_v": 0.0021325969224343998
+  },
+  "model": "persistence",
+  "per_event": "persistence.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "regime",
+    "part": "test"
+  }
+}

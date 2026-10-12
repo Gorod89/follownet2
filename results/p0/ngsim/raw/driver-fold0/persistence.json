@@ -1,0 +1,36 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "raw",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "none",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "driver",
+    "stability_test": null
+  },
+  "config_hash": "6ab4a6c477df",
+  "data_version": "raw",
+  "dataset": "ngsim",
+  "family": "baseline",
+  "git_revision": "38f1962bfc2174d7cc58736015828bfac51f2d25",
+  "metrics": {
+    "identity_error": 0.0,
+    "n_events": 2932,
+    "n_samples": 1299210,
+    "rms_jerk_dt": 0.9901773816076093,
+    "rmse_a": 0.9901773816076093,
+    "rmse_s": 0.016308092911761614,
+    "rmse_v": 0.2151422850206204
+  },
+  "model": "persistence",
+  "per_event": "persistence.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "part": "test"
+  }
+}

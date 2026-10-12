@@ -1,0 +1,12 @@
+name: diffusion
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: 64
+  denoiser: [128, 128]
+  step_features: 32
+  n_steps: 50
+  n_sample_steps: 10
+  n_forward_samples: 8
+  n_dist_samples: 64
+optim: {}

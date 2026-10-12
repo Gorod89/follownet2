@@ -1,0 +1,8 @@
+name: stability_mlp
+kwargs:
+  hidden: [64, 64]
+  weight: 1.0
+  margin: 0.0
+  penalty_speeds: 26
+  neighbourhood: 0.0  # > 0: the penalty is also evaluated around every equilibrium (finite-perturbation proxy)
+optim: {}

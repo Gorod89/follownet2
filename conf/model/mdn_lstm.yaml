@@ -1,0 +1,7 @@
+name: mdn_lstm
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: 64
+  n_components: 5
+optim: {}

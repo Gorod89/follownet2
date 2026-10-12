@@ -1,0 +1,164 @@
+{
+  "class": "stability_mlp",
+  "config_hash": "8c19d96113d8",
+  "data_version": "reconstructed",
+  "dataset": "openacc",
+  "family": "network",
+  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "model": "stability_mlp",
+  "n_parameters": 4481,
+  "seed": 0,
+  "split": {
+    "fold": 2,
+    "kind": "paired-clean",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.029227557411273485,
+      "n_events": 479,
+      "n_samples": 244498,
+      "rmse_s": 21.47337015336026,
+      "rmse_v": 1.2794836979732935
+    },
+    "p0": {
+      "rmse_a": 0.38402448783687204,
+      "rmse_s": 0.0038401737780279677,
+      "rmse_v": 0.038401725720896424
+    }
+  },
+  "training": {
+    "best_val_rmse_a": 0.32994386255994684,
+    "config": {
+      "batch_size": 4096,
+      "batches_per_epoch": 200,
+      "closed_loop_batch": 512,
+      "closed_loop_horizon": 50,
+      "closed_loop_weight": 0.0,
+      "device": "cuda",
+      "epochs": 40,
+      "grad_clip": 1.0,
+      "lr": 0.001,
+      "patience": 6,
+      "seed": 0,
+      "val_batches": 50,
+      "weight_decay": 0.0
+    },
+    "epochs_run": 21,
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 0.6666911553582424,
+        "val_rmse_a": 0.347023236973573
+      },
+      {
+        "epoch": 1,
+        "train_loss": 0.6157658734686475,
+        "val_rmse_a": 0.33944884913202084
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.6018462043967062,
+        "val_rmse_a": 0.337908596156266
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.5888134144301002,
+        "val_rmse_a": 0.3364632969550167
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.5833386777920895,
+        "val_rmse_a": 0.3351384080348171
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.5772412437553209,
+        "val_rmse_a": 0.33623967907356644
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.576631237806467,
+        "val_rmse_a": 0.3337340881630039
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.5692532954350835,
+        "val_rmse_a": 0.33138918404205403
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.5680765826351013,
+        "val_rmse_a": 0.3326453760895368
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.5654748623935969,
+        "val_rmse_a": 0.33162905736907844
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.562180944053412,
+        "val_rmse_a": 0.33134177821370564
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.5564621792767609,
+        "val_rmse_a": 0.33263193569313726
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.5588492931438174,
+        "val_rmse_a": 0.3326556801152757
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.5583471409963188,
+        "val_rmse_a": 0.33194461544959974
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.5604781501982926,
+        "val_rmse_a": 0.32994386255994684
+      },
+      {
+        "epoch": 15,
+        "train_loss": 0.5562470839713495,
+        "val_rmse_a": 0.33022690822551903
+      },
+      {
+        "epoch": 16,
+        "train_loss": 0.556209089494914,
+        "val_rmse_a": 0.3312964728432623
+      },
+      {
+        "epoch": 17,
+        "train_loss": 0.558191252011295,
+        "val_rmse_a": 0.3312353252363249
+      },
+      {
+        "epoch": 18,
+        "train_loss": 0.5576932476232744,
+        "val_rmse_a": 0.3300908848028653
+      },
+      {
+        "epoch": 19,
+        "train_loss": 0.5545379910960289,
+        "val_rmse_a": 0.33047601791037207
+      },
+      {
+        "epoch": 20,
+        "train_loss": 0.5563409267613382,
+        "val_rmse_a": 0.331009241321223
+      }
+    ],
+    "initial_val_rmse_a": 0.44366619265666196,
+    "n_parameters": 4481,
+    "n_train_events": 2946,
+    "n_train_windows": 1463924,
+    "n_val_windows": 452063,
+    "seconds": 119.5,
+    "stability_penalty": 0.0,
+    "unstable_fraction": 0.0
+  }
+}

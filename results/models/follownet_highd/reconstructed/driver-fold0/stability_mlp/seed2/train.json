@@ -1,0 +1,164 @@
+{
+  "class": "stability_mlp",
+  "config_hash": "5d603dd84305",
+  "data_version": "reconstructed",
+  "dataset": "follownet_highd",
+  "family": "network",
+  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "model": "stability_mlp",
+  "n_parameters": 4481,
+  "seed": 2,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.003595685177786656,
+      "n_events": 2503,
+      "n_samples": 297857,
+      "rmse_s": 3.8739771427978846,
+      "rmse_v": 0.7488476526389569
+    },
+    "p0": {
+      "rmse_a": 0.28732002539581597,
+      "rmse_s": 0.002873200124812474,
+      "rmse_v": 0.028732002209006697
+    }
+  },
+  "training": {
+    "best_val_rmse_a": 0.3065263469621648,
+    "config": {
+      "batch_size": 4096,
+      "batches_per_epoch": 200,
+      "closed_loop_batch": 512,
+      "closed_loop_horizon": 50,
+      "closed_loop_weight": 0.0,
+      "device": "cuda",
+      "epochs": 40,
+      "grad_clip": 1.0,
+      "lr": 0.001,
+      "patience": 6,
+      "seed": 2,
+      "val_batches": 50,
+      "weight_decay": 0.0
+    },
+    "epochs_run": 21,
+    "history": [
+      {
+        "epoch": 0,
+        "train_loss": 0.7440658794136185,
+        "val_rmse_a": 0.3124068560070202
+      },
+      {
+        "epoch": 1,
+        "train_loss": 0.6924818068015558,
+        "val_rmse_a": 0.31039948354543223
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.6845028432971167,
+        "val_rmse_a": 0.3088159413133417
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.679393433801255,
+        "val_rmse_a": 0.30886852610027715
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.6780443593793494,
+        "val_rmse_a": 0.30802093676252607
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.6755171592692736,
+        "val_rmse_a": 0.3084317218969772
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.6728599985333955,
+        "val_rmse_a": 0.30758150408426604
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.6727300486719525,
+        "val_rmse_a": 0.30746569024358755
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.6710058215748208,
+        "val_rmse_a": 0.3070314070043575
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.6667341333402881,
+        "val_rmse_a": 0.3071935552289357
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.6647230548813835,
+        "val_rmse_a": 0.3066524078146323
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.6644795628661089,
+        "val_rmse_a": 0.30654449681256346
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.6631267319418265,
+        "val_rmse_a": 0.30655874556246027
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.6625660092040804,
+        "val_rmse_a": 0.30655444762632905
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.6640859009875242,
+        "val_rmse_a": 0.3065263469621648
+      },
+      {
+        "epoch": 15,
+        "train_loss": 0.6623103280029017,
+        "val_rmse_a": 0.3067815600119007
+      },
+      {
+        "epoch": 16,
+        "train_loss": 0.6631395345096426,
+        "val_rmse_a": 0.3067057862265214
+      },
+      {
+        "epoch": 17,
+        "train_loss": 0.6620762872498518,
+        "val_rmse_a": 0.306693108799086
+      },
+      {
+        "epoch": 18,
+        "train_loss": 0.6641838447857747,
+        "val_rmse_a": 0.30671029386751886
+      },
+      {
+        "epoch": 19,
+        "train_loss": 0.6631227175069013,
+        "val_rmse_a": 0.30656941382751624
+      },
+      {
+        "epoch": 20,
+        "train_loss": 0.6618631043386546,
+        "val_rmse_a": 0.3066854150218069
+      }
+    ],
+    "initial_val_rmse_a": 0.40124862479036627,
+    "n_parameters": 4481,
+    "n_train_events": 8132,
+    "n_train_windows": 967708,
+    "n_val_windows": 223363,
+    "seconds": 192.6,
+    "stability_penalty": 0.0,
+    "unstable_fraction": 0.0
+  }
+}

@@ -1,0 +1,14 @@
+# exiD (levelXdata, by application): drone trajectories at highway exits and entries, 25 Hz; needs the map-based columns
+name: exid
+loader: exid
+raw_dir: data/raw/exid  # XX_tracks.csv, XX_tracksMeta.csv, XX_recordingMeta.csv
+position_source: track
+options:
+  recordings: null  # recording ids; null: every recording on disk
+  max_groups: null  # first n recordings only (quick runs)
+extraction: {}
+reconstruction:
+  sigma_x: 0.1
+  sigma_v: 0.1
+  cutoff_hz: 1.0
+max_events: null

@@ -1,0 +1,79 @@
+{
+  "config_hash": "d61635a2845a",
+  "dataset": "tgsim",
+  "events_per_follower": {
+    "max": 8,
+    "mean": 1.159170317786035,
+    "share_events_of_followers_with_several_events": 0.24994019424907898,
+    "share_followers_with_several_events": 0.13055293660917308
+  },
+  "n_failed_reconstruction": 0,
+  "near_miss": {
+    "duration_max_s": 15.0,
+    "duration_median_s": 11.200000000000001,
+    "duration_min_s": 6.0,
+    "duration_total_s": 57243.8,
+    "min_ttc_quantiles": {
+      "0.05": 0.30620061779673097,
+      "0.5": 1.5403273326510962
+    },
+    "n_events": 5326,
+    "n_followers": 4723,
+    "n_samples": 577764,
+    "n_sites": 5,
+    "triggers": {
+      "brake": 872,
+      "cut_in": 2434,
+      "drac": 261,
+      "ttc": 2352
+    },
+    "with_cut_in": 2763
+  },
+  "raw": {
+    "duration_max_s": 544.6,
+    "duration_median_s": 32.300000000000004,
+    "duration_min_s": 14.9,
+    "duration_total_s": 847764.2,
+    "n_events": 20901,
+    "n_followers": 18031,
+    "n_samples": 8498543,
+    "n_sites": 5
+  },
+  "reconstructed": {
+    "duration_max_s": 544.6,
+    "duration_median_s": 32.300000000000004,
+    "duration_min_s": 14.9,
+    "duration_total_s": 847764.2,
+    "n_events": 20901,
+    "n_followers": 18031,
+    "n_samples": 8498543,
+    "n_sites": 5
+  },
+  "reconstruction": {
+    "mean_outlier_share": 8.376497039457361e-05,
+    "median_rms_acc_change": 0.474033141375134,
+    "median_rms_gap_change": 0.010870001196442913,
+    "median_rms_speed_change": 0.07201472341912636,
+    "method": "qp-semi-implicit-v1",
+    "n_events": 20901,
+    "q99_max_abs_acc": 5.051300109956429,
+    "q99_max_abs_acc_raw": 18.241,
+    "q99_max_abs_jerk": 10.788162114279487,
+    "q99_max_abs_jerk_raw": 204.7,
+    "share_gap_bound_active": 4.784460073680685e-05,
+    "share_solved_inaccurate": 0.0
+  },
+  "regimes": {
+    "congested": 17935,
+    "free": 756,
+    "steady": 2210
+  },
+  "seconds": 228.2,
+  "sites": {
+    "i294_l1": 1410,
+    "i294_l2": 236,
+    "i395": 9169,
+    "i90_94_moving": 2439,
+    "i90_94_stationary": 7647
+  }
+}

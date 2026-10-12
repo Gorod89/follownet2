@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-clean"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 2,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-clean",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "560ec0601401",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "mlp",
+    "family": "network",
+    "label": "mlp",
+    "provenance": {
+      "config_hash": "5a6cdc01e10c",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 2,
+        "kind": "paired-clean",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 6.6,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.11674394641937146,
+      "event_collision_rate": 0.33655111891180345,
+      "horizon_s": 10.0,
+      "n_events": 2279,
+      "n_samples": 970500,
+      "n_windows": 9705,
+      "rmse_s": 4.289516433787007,
+      "rmse_v": 1.110596468987035
+    },
+    "h30": {
+      "collision_rate": 0.4460461285008237,
+      "event_collision_rate": 0.5437817258883249,
+      "horizon_s": 30.0,
+      "n_events": 1576,
+      "n_samples": 728400,
+      "n_windows": 2428,
+      "rmse_s": 11.629352191949971,
+      "rmse_v": 1.350339068948658
+    },
+    "whole": {
+      "collision_rate": 0.4883720930232558,
+      "n_events": 2279,
+      "n_samples": 1084136,
+      "rmse_s": 22.6093097654824,
+      "rmse_v": 1.7160454851769855
+    }
+  }
+}

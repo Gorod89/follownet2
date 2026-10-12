@@ -1,0 +1,35 @@
+{
+  "class": "persistence",
+  "config_hash": "861ed31bddb8",
+  "data_version": "reconstructed",
+  "dataset": "follownet_ngsim",
+  "family": "baseline",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": "persistence",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.34986945169712796,
+      "n_events": 383,
+      "n_samples": 135106,
+      "rmse_s": 334.7595687382368,
+      "rmse_v": 15.834240352168948
+    },
+    "p0": {
+      "rmse_a": 0.13310108703687154,
+      "rmse_s": 0.0013305382057644975,
+      "rmse_v": 0.013305378366297077
+    }
+  },
+  "training": {
+    "n_train_events": 1238,
+    "n_train_windows": 439146,
+    "n_val_windows": 101278
+  }
+}

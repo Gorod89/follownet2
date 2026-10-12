@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+outputs/
+multirun/
+
+# datasets are never committed (highD/exiD must not be redistributed)
+data/raw/
+data/events/
+data/splits/
+data/calibration/
+!data/**/.gitkeep
+
+# results are committed as JSON; heavy artefacts are not
+results/**/*.pt
+results/**/*.npz
+
+# run logs
+logs/
+
+# derived leader profiles of P2 (rebuilt bit for bit from the OpenACC files; SHA-256 inside)
+data/scenarios/
+# per-episode tables of P4 (16 MB over the runs; scripts/m3.py rebuilds them)
+results/**/p4.episodes.parquet

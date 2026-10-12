@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "e742be505ac0",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "newell",
+    "family": "mechanistic",
+    "label": "newell",
+    "provenance": {
+      "config_hash": "182bd1b70b4f",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "69d4f48a2dd04238ad6d8409ddbd9fdc3d9e5871",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 7.8,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.002681197024736205,
+      "event_collision_rate": 0.010231923601637109,
+      "horizon_s": 10.0,
+      "n_events": 2932,
+      "n_samples": 1156200,
+      "n_windows": 11562,
+      "rmse_s": 7.238008481236323,
+      "rmse_v": 2.6251854616595307
+    },
+    "h30": {
+      "collision_rate": 0.002844950213371266,
+      "event_collision_rate": 0.004340748779164406,
+      "horizon_s": 30.0,
+      "n_events": 1843,
+      "n_samples": 843600,
+      "n_windows": 2812,
+      "rmse_s": 6.603953818996933,
+      "rmse_v": 1.7872454614117046
+    },
+    "whole": {
+      "collision_rate": 0.004092769440654843,
+      "n_events": 2932,
+      "n_samples": 1299210,
+      "rmse_s": 7.991837814715277,
+      "rmse_v": 1.7459827073731764
+    }
+  }
+}

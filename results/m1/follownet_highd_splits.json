@@ -1,0 +1,52 @@
+{
+  "block": {
+    "skipped": "block split needs block_seconds and the recording (group) of every event"
+  },
+  "driver": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 2503,
+    "n_train": 8132,
+    "n_unused": 0,
+    "n_val": 1877,
+    "notes": [],
+    "share_samples_test": 0.20004795396419436,
+    "share_samples_val": 0.15001598465473145,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "event": {
+    "driver_disjoint": false,
+    "n_folds": 5,
+    "n_test": 2503,
+    "n_train": 8132,
+    "n_unused": 0,
+    "n_val": 1877,
+    "notes": [],
+    "share_samples_test": 0.20004795396419436,
+    "share_samples_val": 0.15001598465473145,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "regime": {
+    "driver_disjoint": true,
+    "n_folds": 3,
+    "n_test": 7960,
+    "n_train": 3698,
+    "n_unused": 0,
+    "n_val": 854,
+    "notes": [
+      "only 3 groups: 5 folds reduced to leave-one-group-out"
+    ],
+    "share_samples_test": 0.6361892583120204,
+    "share_samples_val": 0.06825447570332481,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "site": {
+    "skipped": "a site split needs at least 2 groups, found 1"
+  }
+}

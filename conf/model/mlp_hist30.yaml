@@ -1,0 +1,5 @@
+# ablation: one-step mlp reading the full 3 s warm-up
+name: mlp
+label: mlp_hist30
+kwargs: {history: 30, use_a_prev: false, hidden: [64, 64]}
+optim: {}

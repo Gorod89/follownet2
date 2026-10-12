@@ -1,0 +1,55 @@
+# Rebuild the leaderboard on every push and pull request; publish it with GitHub Pages on main.
+# Entries arrive as pull requests that add run directories under results/models/ (docs/hosting.md).
+name: leaderboard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install (CPU torch)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e ".[dev]"
+      - name: Tests of the leaderboard, the statistics and the analyses
+        run: python -m pytest tests/test_leaderboard.py tests/test_stats.py tests/test_m4_analysis.py -q -p no:cacheprovider -W ignore
+      - name: Per-event tables of the published runs (release asset; without it the intervals of P0 and P1 are omitted)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo "${{ github.repository }}" --pattern "per_event_tables.tar.gz" --dir /tmp/tables || echo "no release asset yet"
+          if [ -f /tmp/tables/per_event_tables.tar.gz ]; then tar -xzf /tmp/tables/per_event_tables.tar.gz -C .; fi
+      - name: Rebuild the leaderboard (refused entries are listed, never ranked)
+        run: python scripts/make_leaderboard.py
+      - name: Pages artefact
+        run: |
+          mkdir -p site/leaderboard
+          cp results/leaderboard/index.html site/leaderboard/index.html
+          cp results/leaderboard/*.md site/leaderboard/
+          cp results/leaderboard/*.png site/leaderboard/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

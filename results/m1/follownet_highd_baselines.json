@@ -1,0 +1,194 @@
+[
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rms_jerk_dt": 0.016510899072592,
+    "rmse_a": 0.016510899072592,
+    "rmse_s": 0.034080258675621165,
+    "rmse_v": 0.002729860112270073,
+    "split": "event",
+    "version": "raw"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.3495655726069766,
+    "rmse_s": 0.03406439535695637,
+    "rmse_v": 0.03514661388101886,
+    "split": "event",
+    "version": "raw"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.0,
+    "rmse_s": 0.034100823898999516,
+    "rmse_v": 0.0013669736129154843,
+    "split": "event",
+    "version": "raw"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rms_jerk_dt": 0.016510899072592,
+    "rmse_a": 0.016510899072592,
+    "rmse_s": 0.034080258675621165,
+    "rmse_v": 0.002729860112270073,
+    "split": "driver",
+    "version": "raw"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.3495655726069766,
+    "rmse_s": 0.03406439535695637,
+    "rmse_v": 0.03514661388101886,
+    "split": "driver",
+    "version": "raw"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.0,
+    "rmse_s": 0.034100823898999516,
+    "rmse_v": 0.0013669736129154843,
+    "split": "driver",
+    "version": "raw"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rms_jerk_dt": 0.018774100738544686,
+    "rmse_a": 0.018774100738544686,
+    "rmse_s": 0.044218907767163244,
+    "rmse_v": 0.0030754922555489574,
+    "split": "regime",
+    "version": "raw"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rmse_a": 0.3923954774207379,
+    "rmse_s": 0.044195001063679976,
+    "rmse_v": 0.03944691641278544,
+    "split": "regime",
+    "version": "raw"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rmse_a": 0.0,
+    "rmse_s": 0.04423932981526721,
+    "rmse_v": 0.0014907117752073918,
+    "split": "regime",
+    "version": "raw"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rms_jerk_dt": 0.01883406281356791,
+    "rmse_a": 0.01883406281356791,
+    "rmse_s": 0.00018834062813570616,
+    "rmse_v": 0.0018834062813567907,
+    "split": "event",
+    "version": "reconstructed"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.35697959392657663,
+    "rmse_s": 0.003569795939265786,
+    "rmse_v": 0.03569795939265766,
+    "split": "event",
+    "version": "reconstructed"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.0,
+    "rmse_s": 1.2269460429027512e-14,
+    "rmse_v": 0.0,
+    "split": "event",
+    "version": "reconstructed"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rms_jerk_dt": 0.01883406281356791,
+    "rmse_a": 0.01883406281356791,
+    "rmse_s": 0.00018834062813570616,
+    "rmse_v": 0.0018834062813567907,
+    "split": "driver",
+    "version": "reconstructed"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.35697959392657663,
+    "rmse_s": 0.003569795939265786,
+    "rmse_v": 0.03569795939265766,
+    "split": "driver",
+    "version": "reconstructed"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 2503,
+    "n_samples": 297857,
+    "rmse_a": 0.0,
+    "rmse_s": 1.2269460429027512e-14,
+    "rmse_v": 0.0,
+    "split": "driver",
+    "version": "reconstructed"
+  },
+  {
+    "identity_error": 0.0,
+    "model": "persistence",
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rms_jerk_dt": 0.021325973166345928,
+    "rmse_a": 0.021325973166345928,
+    "rmse_s": 0.0002132596922434545,
+    "rmse_v": 0.0021325969224343998,
+    "split": "regime",
+    "version": "reconstructed"
+  },
+  {
+    "model": "constant_speed",
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rmse_a": 0.40068185182773747,
+    "rmse_s": 0.004006818518277383,
+    "rmse_v": 0.04006818518277375,
+    "split": "regime",
+    "version": "reconstructed"
+  },
+  {
+    "model": "recorded_acceleration",
+    "n_events": 7960,
+    "n_samples": 947240,
+    "rmse_a": 0.0,
+    "rmse_s": 1.1852598516903773e-14,
+    "rmse_v": 0.0,
+    "split": "regime",
+    "version": "reconstructed"
+  }
+]

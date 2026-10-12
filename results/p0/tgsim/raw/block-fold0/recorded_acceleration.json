@@ -1,0 +1,34 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "raw",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "none",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "block",
+    "stability_test": null
+  },
+  "config_hash": "051b20bca76b",
+  "data_version": "raw",
+  "dataset": "tgsim",
+  "family": "baseline",
+  "git_revision": "3d4c11af70b5e19cb4f0ddd7eafc231e4020b5a8",
+  "metrics": {
+    "n_events": 3694,
+    "n_samples": 1584816,
+    "rmse_a": 0.0,
+    "rmse_s": 0.01721718739330888,
+    "rmse_v": 0.10827900050206044
+  },
+  "model": "recorded_acceleration",
+  "per_event": "recorded_acceleration.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "block",
+    "part": "test"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "block": {
+    "driver_disjoint": false,
+    "n_folds": 5,
+    "n_test": 955,
+    "n_train": 3118,
+    "n_unused": 0,
+    "n_val": 746,
+    "notes": [
+      "not driver-disjoint: leaving out the followers of the test part would remove 100% of the development samples"
+    ],
+    "share_samples_test": 0.2000019591862324,
+    "share_samples_val": 0.15406727061847592,
+    "share_test_events_with_training_follower_as_leader": 0.831413612565445,
+    "share_test_followers_seen": 1.0,
+    "test_followers_seen_in_training": 25
+  },
+  "driver": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 956,
+    "n_train": 2958,
+    "n_unused": 0,
+    "n_val": 905,
+    "notes": [],
+    "share_samples_test": 0.19965283219961757,
+    "share_samples_val": 0.18714381994294849,
+    "share_test_events_with_training_follower_as_leader": 0.803347280334728,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "event": {
+    "driver_disjoint": false,
+    "n_folds": 5,
+    "n_test": 964,
+    "n_train": 3133,
+    "n_unused": 0,
+    "n_val": 722,
+    "notes": [],
+    "share_samples_test": 0.20001175511739444,
+    "share_samples_val": 0.1500881633804583,
+    "share_test_events_with_training_follower_as_leader": 0.7914937759336099,
+    "share_test_followers_seen": 1.0,
+    "test_followers_seen_in_training": 25
+  },
+  "regime": {
+    "driver_disjoint": false,
+    "n_folds": 3,
+    "n_test": 3640,
+    "n_train": 921,
+    "n_unused": 0,
+    "n_val": 258,
+    "notes": [
+      "only 3 groups: 5 folds reduced to leave-one-group-out",
+      "not driver-disjoint: leaving out the followers of the test part would remove 100% of the development samples"
+    ],
+    "share_samples_test": 0.7515618632644745,
+    "share_samples_val": 0.05561071753236576,
+    "share_test_events_with_training_follower_as_leader": 0.8016483516483517,
+    "share_test_followers_seen": 0.88,
+    "test_followers_seen_in_training": 22
+  },
+  "site": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 2850,
+    "n_train": 1571,
+    "n_unused": 0,
+    "n_val": 398,
+    "notes": [],
+    "share_samples_test": 0.5686365631171436,
+    "share_samples_val": 0.08355929281213755,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  }
+}

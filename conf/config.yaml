@@ -1,0 +1,95 @@
+# FollowNet-2 main configuration (hydra). Dataset specific settings live in conf/dataset/.
+defaults:
+  - dataset: synthetic
+  - _self_
+
+seed: 0
+steps: [build, splits, baselines, calibration]  # steps run by scripts/m1.py
+version: raw  # data version read by the evaluation scripts: raw | reconstructed
+
+paths:
+  raw: data/raw
+  events: data/events
+  splits: data/splits
+  calibration: data/calibration
+  results: results
+
+# FollowNet-compatible extraction; a dataset may override single keys under dataset.extraction
+extraction:
+  min_duration: 15.0
+  max_duration: null
+  min_spacing: 0.5
+  max_spacing: 120.0
+  moving_speed_eps: 0.1
+  min_moving_fraction: 0.8
+  smooth_speeds: false
+  savgol_window: 11
+  savgol_order: 2
+  accel_source: auto
+
+# physics-informed reconstruction; overrides under dataset.reconstruction
+reconstruction:
+  sigma_x: 0.5
+  sigma_v: null
+  cutoff_hz: 0.5
+  a_min: -8.0
+  a_max: 4.0
+  jerk_max: 15.0
+  s_min: 0.3
+workers: 8
+
+storage:
+  # leaves out the derived columns s and dv (recomputed exactly on reading); set to false to
+  # write the layout shared with cf-stability
+  compact: false
+  reserve_mb: 500  # free space that must remain on the volume after a write
+
+# near-miss episodes for the rare-event suite (P4), mined from the follower series
+episodes:
+  enabled: true
+  ttc_below: 2.0
+  drac_above: 3.35
+  leader_acc_below: -4.0
+  cut_in_gap_below: 1.0
+  min_speed: 3.0  # ttc and drac do not fire below this follower speed
+  min_gap: 1.0  # nor below this gap
+  min_hold: 3
+  pre: 5.0
+  post: 10.0
+  min_duration: 6.0
+
+regimes:
+  free_below: 16.2  # veh/km/lane, HCM LOS C/D
+  congested_from: 28.0  # HCM LOS E/F
+  default_length: 4.5
+
+splits:
+  kinds: [event, driver, site, regime, block]
+  block_seconds: 300.0  # length of the time blocks of the block split
+  n_folds: 5
+  val_fraction: 0.1875
+  max_unused: 0.5  # a site or regime split stays driver-disjoint if it costs at most this share
+
+protocol:
+  warmup: 30  # samples of observed history before the first prediction
+  clip: [-8.0, 4.0]
+
+calibration:
+  models: [idm, gipps, newell]
+  popsize: 15
+  maxiter: 200
+  tol: 0.01
+  batch_events: 1024
+  max_rollouts: 200000
+  device: auto
+  dtype: float32
+  per_event_sample: 1000  # events drawn for the per-event calibration (null: all)
+  global_sample: 2000  # training events drawn for the global calibration (null: all)
+  splits: [driver, event]
+  fold: 0
+
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  job:
+    chdir: false

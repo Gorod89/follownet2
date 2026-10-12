@@ -1,0 +1,17 @@
+# FollowNet Waymo event set (Chen et al. 2023): 1,440 events at 10 Hz taken whole from the pairs of Hu et al.
+# (2022), see waymo_hu; the spacing is centre to centre (meta gap_definition); pseudo ids
+name: follownet_waymo
+loader: follownet
+raw_dir: ../cf-stability/data/raw/follownet
+position_source: gap
+options:
+  subset: waymo
+  files: event_set  # event_set | splits (published train/val/test files, meta legacy_split)
+  max_groups: null  # events read
+extraction: {}
+# the published series are smoothed already: light reconstruction, gap and speeds both used
+reconstruction:
+  sigma_x: 0.3
+  sigma_v: 0.2
+  cutoff_hz: 1.0
+max_events: null

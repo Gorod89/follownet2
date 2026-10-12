@@ -1,0 +1,63 @@
+{
+  "block": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 171,
+    "n_train": 436,
+    "n_unused": 149,
+    "n_val": 101,
+    "notes": [],
+    "share_samples_test": 0.19976194483853127,
+    "share_samples_val": 0.11763291413182005,
+    "share_test_events_with_training_follower_as_leader": 0.0,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "driver": {
+    "driver_disjoint": true,
+    "n_folds": 5,
+    "n_test": 171,
+    "n_train": 556,
+    "n_unused": 0,
+    "n_val": 130,
+    "notes": [],
+    "share_samples_test": 0.1996417149590016,
+    "share_samples_val": 0.1506360160627119,
+    "share_test_events_with_training_follower_as_leader": 0.26900584795321636,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "event": {
+    "driver_disjoint": false,
+    "n_folds": 5,
+    "n_test": 171,
+    "n_train": 556,
+    "n_unused": 0,
+    "n_val": 130,
+    "notes": [],
+    "share_samples_test": 0.1996417149590016,
+    "share_samples_val": 0.15064803905066487,
+    "share_test_events_with_training_follower_as_leader": 0.28654970760233917,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "regime": {
+    "driver_disjoint": true,
+    "n_folds": 3,
+    "n_test": 755,
+    "n_train": 83,
+    "n_unused": 0,
+    "n_val": 19,
+    "notes": [
+      "only 3 groups: 5 folds reduced to leave-one-group-out"
+    ],
+    "share_samples_test": 0.8813631663741073,
+    "share_samples_val": 0.022308654146728547,
+    "share_test_events_with_training_follower_as_leader": 0.018543046357615896,
+    "share_test_followers_seen": 0.0,
+    "test_followers_seen_in_training": 0
+  },
+  "site": {
+    "skipped": "a site split needs at least 2 groups, found 1"
+  }
+}

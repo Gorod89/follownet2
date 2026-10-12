@@ -1,0 +1,35 @@
+{
+  "class": "constant_speed",
+  "config_hash": "fa8db308a97d",
+  "data_version": "reconstructed",
+  "dataset": "ngsim",
+  "family": "baseline",
+  "git_revision": "fa9fc1c3fda2630cd0271321f9990641c823cd09",
+  "model": "constant_speed",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.5596862210095498,
+      "n_events": 2932,
+      "n_samples": 1299210,
+      "rmse_s": 118.79012781237395,
+      "rmse_v": 4.013909920439345
+    },
+    "p0": {
+      "rmse_a": 0.7465149401256185,
+      "rmse_s": 0.007465149055480652,
+      "rmse_v": 0.07465149403996955
+    }
+  },
+  "training": {
+    "n_train_events": 9461,
+    "n_train_windows": 4224085,
+    "n_val_windows": 899276
+  }
+}

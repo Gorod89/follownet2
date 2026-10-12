@@ -1,0 +1,17 @@
+# Synthetic IDM followers (tests, sanity experiments, stand-in without data on disk)
+name: synthetic
+loader: synthetic
+raw_dir: null
+position_source: track
+options:
+  n_drivers: 200
+  events_per_driver: 4
+  n_sites: 4
+  theta_cv: 0.15
+  sigma_x: 0.3
+  sigma_v: 0.0
+  seed: ${seed}
+extraction: {}
+reconstruction:
+  sigma_x: 0.3
+max_events: null

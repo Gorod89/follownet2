@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-leaky"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-leaky",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "f4a46179d202",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "gipps",
+    "family": "mechanistic",
+    "label": "gipps",
+    "provenance": {
+      "config_hash": "198fdc3ed0ff",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "paired-leaky",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 6.8,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.00020298386278290876,
+      "event_collision_rate": 0.0008726003490401396,
+      "horizon_s": 10.0,
+      "n_events": 2292,
+      "n_samples": 985300,
+      "n_windows": 9853,
+      "rmse_s": 3.30379918395184,
+      "rmse_v": 0.8900723785210025
+    },
+    "h30": {
+      "collision_rate": 0.0,
+      "event_collision_rate": 0.0,
+      "horizon_s": 30.0,
+      "n_events": 1578,
+      "n_samples": 744000,
+      "n_windows": 2480,
+      "rmse_s": 4.884678443387434,
+      "rmse_v": 0.8682939401370454
+    },
+    "whole": {
+      "collision_rate": 0.0,
+      "n_events": 2292,
+      "n_samples": 1096899,
+      "rmse_s": 6.105961281246608,
+      "rmse_v": 0.9356114288179025
+    }
+  }
+}

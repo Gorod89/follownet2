@@ -1,0 +1,7 @@
+name: knn
+kwargs:
+  k: 20
+  n_reference: 50000
+  max_pairs: 200000000
+  use_a_prev: false
+optim: {}

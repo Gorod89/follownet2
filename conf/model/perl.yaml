@@ -1,0 +1,8 @@
+name: perl
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: 64
+  physics_steps: 500
+  physics_lr: 0.05
+optim: {}

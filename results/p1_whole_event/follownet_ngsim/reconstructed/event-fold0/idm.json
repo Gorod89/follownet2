@@ -1,0 +1,48 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "whole event",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "Punzo-Zheng-Montanino 2021: closed loop, NRMSE(s)+NRMSE(v), differential evolution, global parameters from the training part",
+    "rare_event_suite": null,
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "event",
+    "stability_test": null
+  },
+  "config_hash": "ad42c463b0b1",
+  "data_version": "reconstructed",
+  "dataset": "follownet_ngsim",
+  "family": "mechanistic",
+  "git_revision": "7d0b922beea16bc186105e1fe2a270e527051397",
+  "metrics": {
+    "collision_rate": 0.0,
+    "n_events": 383,
+    "n_samples": 135106,
+    "rmse_s": 5.820296000531841,
+    "rmse_v": 0.841199811894374
+  },
+  "model": "idm",
+  "params": {
+    "T": 1.7541706562042236,
+    "a": 0.9383051991462708,
+    "b": 0.5043445825576782,
+    "s0": 4.8761138916015625,
+    "v0": 28.865951538085938
+  },
+  "per_event": "idm.events.parquet",
+  "protocol": "p1_whole_event",
+  "split": {
+    "fold": 0,
+    "kind": "event",
+    "part": "test"
+  },
+  "train": {
+    "collision_rate": 0.0,
+    "n_events": 1238,
+    "objective": 0.39280114089891965,
+    "rmse_s": 6.3869097351841715,
+    "rmse_v": 0.8953259561156978
+  }
+}

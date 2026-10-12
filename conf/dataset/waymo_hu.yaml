@@ -1,0 +1,14 @@
+# Waymo Open Dataset car-following pairs of Hu et al. (2022), Mendeley 10.17632/wfn2c3437n v2: 20 s segments, 10 Hz
+name: waymo_hu
+loader: waymo_hu
+raw_dir: ../cf-stability/data/raw/waymo
+position_source: gap
+options:
+  followers: human  # human | automated (the Waymo car, one driver) | all
+  max_groups: null  # 20 s segments
+extraction: {}
+reconstruction:
+  sigma_x: 0.2
+  sigma_v: 0.2
+  cutoff_hz: 1.0
+max_events: null

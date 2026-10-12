@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-leaky"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 1,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "paired-leaky",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "f94f1acef829",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "stability_mlp",
+    "family": "network",
+    "label": "stability_mlp",
+    "provenance": {
+      "config_hash": "3693996e7760",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "paired-leaky",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 6.2,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.03686873902716101,
+      "event_collision_rate": 0.13740122914837577,
+      "horizon_s": 10.0,
+      "n_events": 2278,
+      "n_samples": 968300,
+      "n_windows": 9683,
+      "rmse_s": 3.6404260323480813,
+      "rmse_v": 0.924447297957154
+    },
+    "h30": {
+      "collision_rate": 0.15384615384615385,
+      "event_collision_rate": 0.22495151906916613,
+      "horizon_s": 30.0,
+      "n_events": 1547,
+      "n_samples": 729300,
+      "n_windows": 2431,
+      "rmse_s": 7.967423203662662,
+      "rmse_v": 1.1089923299047597
+    },
+    "whole": {
+      "collision_rate": 0.20237050043898155,
+      "n_events": 2278,
+      "n_samples": 1081905,
+      "rmse_s": 10.594018732844042,
+      "rmse_v": 1.2227232262331087
+    }
+  }
+}

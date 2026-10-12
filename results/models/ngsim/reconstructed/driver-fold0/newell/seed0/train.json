@@ -1,0 +1,44 @@
+{
+  "class": "newell",
+  "config_hash": "182bd1b70b4f",
+  "data_version": "reconstructed",
+  "dataset": "ngsim",
+  "family": "mechanistic",
+  "git_revision": "69d4f48a2dd04238ad6d8409ddbd9fdc3d9e5871",
+  "model": "newell",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.004092769440654843,
+      "n_events": 2932,
+      "n_samples": 1299210,
+      "rmse_s": 7.99183781438609,
+      "rmse_v": 1.745982690220142
+    },
+    "p0": {
+      "rmse_a": 6.701422185648261,
+      "rmse_s": 0.06701422346334499,
+      "rmse_v": 0.6701422468924935
+    }
+  },
+  "training": {
+    "collision_rate": 0.004,
+    "kind": "pooled",
+    "n_events": 2000,
+    "objective": 0.6898633307231785,
+    "params": {
+      "V": 16.53292465209961,
+      "d": 7.0473785400390625,
+      "tau": 0.9611929655075073
+    },
+    "rmse_s": 7.554852491118886,
+    "rmse_v": 1.6765576692059259,
+    "seconds": 165.8
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "checklist": {
+    "closed_loop_horizon": null,
+    "data_version": "raw",
+    "mechanistic_calibration_protocol": null,
+    "rare_event_suite": null,
+    "reconstruction_method": "none",
+    "seeds": {
+      "global": 0
+    },
+    "split_type": "driver",
+    "stability_test": null
+  },
+  "config_hash": "b9e80d1c6f4d",
+  "data_version": "raw",
+  "dataset": "waymo_hu",
+  "family": "baseline",
+  "git_revision": "e8290815883acade08d8c33247081ca864900188",
+  "metrics": {
+    "identity_error": 3.468796564032317e-05,
+    "n_events": 171,
+    "n_samples": 27909,
+    "rms_jerk_dt": 0.06072277216998809,
+    "rmse_a": 0.06075746013562841,
+    "rmse_s": 0.003523306158835468,
+    "rmse_v": 0.009086143893744472,
+    "share_recorded_outside_clip": 3.583073560500197e-05
+  },
+  "model": "persistence",
+  "per_event": "persistence.events.parquet",
+  "protocol": "p0",
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "part": "test"
+  }
+}

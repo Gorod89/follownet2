@@ -1,0 +1,14 @@
+# highD (levelXdata, by application): drone trajectories on German highways, 25 Hz, leader = precedingId
+name: highd
+loader: highd
+raw_dir: data/raw/highd  # XX_tracks.csv, XX_tracksMeta.csv, XX_recordingMeta.csv (XX = 01..60)
+position_source: track
+options:
+  recordings: null  # recording ids; null: every recording on disk
+  max_groups: null  # first n recordings only (quick runs)
+extraction: {}
+reconstruction:
+  sigma_x: 0.1
+  sigma_v: 0.1
+  cutoff_hz: 1.0
+max_events: null

@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "tgsim",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "31f832d3b61a",
+  "data_version": "reconstructed",
+  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "model": {
+    "class": "mlp",
+    "family": "network",
+    "label": "mlp_loop",
+    "provenance": {
+      "config_hash": "fc1e6009a5f2",
+      "data_version": "reconstructed",
+      "dataset": "waymo_hu",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 9.5,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.010557184750733138,
+      "event_collision_rate": 0.02912389591788016,
+      "horizon_s": 10.0,
+      "n_events": 4189,
+      "n_samples": 1364000,
+      "n_windows": 13640,
+      "rmse_s": 3.084311027994762,
+      "rmse_v": 0.7658405130785683
+    },
+    "h30": {
+      "collision_rate": 0.053447707027383703,
+      "event_collision_rate": 0.06086095992083127,
+      "horizon_s": 30.0,
+      "n_events": 2021,
+      "n_samples": 909300,
+      "n_windows": 3031,
+      "rmse_s": 8.722893396313388,
+      "rmse_v": 0.9255144571574693
+    },
+    "whole": {
+      "collision_rate": 0.04105991883504417,
+      "n_events": 4189,
+      "n_samples": 1569820,
+      "rmse_s": 38.68396350509774,
+      "rmse_v": 1.498425612205946
+    }
+  }
+}

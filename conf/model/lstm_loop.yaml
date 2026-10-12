@@ -1,0 +1,12 @@
+# lstm trained with a closed-loop term: one-step loss plus the errors of a rollout over 5 s
+name: lstm
+label: lstm_loop
+kwargs:
+  history: 10
+  use_a_prev: false
+  hidden: 64
+optim:
+  closed_loop_weight: 1.0  # squared errors of gap and speed, in standard deviations
+  closed_loop_horizon: 50
+  closed_loop_batch: 512
+  batches_per_epoch: 100
