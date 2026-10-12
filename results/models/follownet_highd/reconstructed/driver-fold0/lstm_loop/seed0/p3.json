@@ -18,6 +18,7 @@
     ],
     "delta": 0.05,
     "delta_large": 1.0,
+    "device": "cpu",
     "fold": 0,
     "hold": 120.0,
     "protocol": "p3",
@@ -27,9 +28,9 @@
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "691e80afbf36",
+  "config_hash": "3b53e6f91840",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "lstm",
     "family": "network",
@@ -48,23 +49,23 @@
     }
   },
   "protocol": "p3",
-  "seconds": 3.8,
+  "seconds": 3.5,
   "summary": {
     "agreement": null,
-    "max_gain": 1.607776529280019,
-    "max_gain_large": 1.7646926564398457,
+    "max_gain": 1.8731513980371248,
+    "max_gain_large": 1.7745170507748755,
     "n_collided_large": 0,
-    "n_converged": 12,
-    "n_equilibria": 10,
+    "n_converged": 15,
+    "n_equilibria": 15,
     "n_invalid": 0,
     "n_speeds": 26,
-    "n_tracks": 22,
-    "peak_frequency": 0.06662589575869347,
+    "n_tracks": 24,
+    "peak_frequency": 0.08205316211654386,
     "tol": 1e-05,
-    "tracks_share": 0.8333333333333334,
+    "tracks_share": 1.0,
     "unstable_fraction": 1.0,
-    "unstable_fraction_1e3": 1.0,
+    "unstable_fraction_1e3": 0.9333333333333333,
     "unstable_fraction_analytic": null,
-    "unstable_fraction_large": 1.0
+    "unstable_fraction_large": 0.9333333333333333
   }
 }

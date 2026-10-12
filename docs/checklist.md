@@ -12,7 +12,7 @@ refuses an entry whose block has an empty field that applies to its protocol.
 | `split_type` | kind of split, with fold and seed in `split` | `event`, `driver`, `site`, `regime`, `block` | all |
 | `mechanistic_calibration_protocol` | objective, measure of performance, optimiser, data the parameters come from | "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part" | mechanistic models, and every table that compares against them |
 | `closed_loop_horizon` | rollout horizon and warm-up | `10 s, 30 s, whole event; warm-up 3 s`; `hold 60 s then the leader profile` | P1, P2, P4, P5 |
-| `stability_test` | criterion and grid | "analytic criterion (memoryless models) and step-response gain on 0.002-2 Hz, delta 0.2 m/s, v_e 5..30 m/s" | P3, composite score |
+| `stability_test` | criterion and grid | "analytic criterion (memoryless models) and step-response gain on 0.002-2 Hz, delta 0.05 m/s, v_e 5..30 m/s" | P3, composite score |
 | `rare_event_suite` | version of the scenario suite and source of the empirical episodes | `{"synthetic": "p4-v1", "episodes": ["tgsim_nearmiss/reconstructed"]}` | P4 |
 | `seeds` | all seeds: global, training, split (bootstrap seeds are stated in the report) | `{"global": 0, "train": 0, "split": 0}` | all |
 

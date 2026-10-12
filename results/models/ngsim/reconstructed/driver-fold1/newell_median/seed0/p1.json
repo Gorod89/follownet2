@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, median of per-event estimates parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 1,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "60d770eb6945",
+  "data_version": "reconstructed",
+  "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
+  "model": {
+    "class": "newell_median",
+    "family": "mechanistic",
+    "label": "newell_median",
+    "provenance": {
+      "config_hash": "9f32a73a1d17",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 5.2,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.010393209769617183,
+      "event_collision_rate": 0.036744505494505496,
+      "horizon_s": 10.0,
+      "n_events": 2912,
+      "n_samples": 1154600,
+      "n_windows": 11546,
+      "rmse_s": 6.433714140279112,
+      "rmse_v": 2.1967296829622103
+    },
+    "h30": {
+      "collision_rate": 0.014544164597374955,
+      "event_collision_rate": 0.021715526601520086,
+      "horizon_s": 30.0,
+      "n_events": 1842,
+      "n_samples": 845700,
+      "n_windows": 2819,
+      "rmse_s": 6.073963639237906,
+      "rmse_v": 1.5251852855896975
+    },
+    "whole": {
+      "collision_rate": 0.015453296703296704,
+      "n_events": 2912,
+      "n_samples": 1299830,
+      "rmse_s": 8.149627969977269,
+      "rmse_v": 1.5600683384920468
+    }
+  }
+}

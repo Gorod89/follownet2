@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, median of per-event estimates parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "e742be505ac0",
+  "data_version": "reconstructed",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
+  "model": {
+    "class": "newell_median",
+    "family": "mechanistic",
+    "label": "newell_median",
+    "provenance": {
+      "config_hash": "a765ce621188",
+      "data_version": "reconstructed",
+      "dataset": "tgsim",
+      "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 8.1,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.028299120234604104,
+      "event_collision_rate": 0.05896395321079016,
+      "horizon_s": 10.0,
+      "n_events": 4189,
+      "n_samples": 1364000,
+      "n_windows": 13640,
+      "rmse_s": 13.698093481668163,
+      "rmse_v": 3.2025831938827785
+    },
+    "h30": {
+      "collision_rate": 0.03431210821511053,
+      "event_collision_rate": 0.042058386937159825,
+      "horizon_s": 30.0,
+      "n_events": 2021,
+      "n_samples": 909300,
+      "n_windows": 3031,
+      "rmse_s": 29.42051625906979,
+      "rmse_v": 2.338426228824004
+    },
+    "whole": {
+      "collision_rate": 0.024826927667701122,
+      "n_events": 4189,
+      "n_samples": 1569820,
+      "rmse_s": 68.45107049780188,
+      "rmse_v": 2.7241691749346266
+    }
+  }
+}

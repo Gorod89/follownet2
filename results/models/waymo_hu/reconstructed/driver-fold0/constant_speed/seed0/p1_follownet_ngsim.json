@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "follownet_ngsim",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "6c82837f4191",
+  "data_version": "reconstructed",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": {
+    "class": "constant_speed",
+    "family": "baseline",
+    "label": "constant_speed",
+    "provenance": {
+      "config_hash": "5ecd2b31c7bf",
+      "data_version": "reconstructed",
+      "dataset": "waymo_hu",
+      "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 0.6,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.19550173010380623,
+      "event_collision_rate": 0.4595300261096606,
+      "horizon_s": 10.0,
+      "n_events": 383,
+      "n_samples": 115600,
+      "n_windows": 1156,
+      "rmse_s": 9.141197476798217,
+      "rmse_v": 2.1512260233892
+    },
+    "h30": {
+      "collision_rate": 0.6440677966101694,
+      "event_collision_rate": 0.69377990430622,
+      "horizon_s": 30.0,
+      "n_events": 209,
+      "n_samples": 70800,
+      "n_windows": 236,
+      "rmse_s": 45.11874937959965,
+      "rmse_v": 3.4165123903710706
+    },
+    "whole": {
+      "collision_rate": 0.5326370757180157,
+      "n_events": 383,
+      "n_samples": 135106,
+      "rmse_s": 80.75224882732901,
+      "rmse_v": 3.5620065967101153
+    }
+  }
+}

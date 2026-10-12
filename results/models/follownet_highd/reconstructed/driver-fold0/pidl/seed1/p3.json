@@ -18,6 +18,7 @@
     ],
     "delta": 0.05,
     "delta_large": 1.0,
+    "device": "cpu",
     "fold": 0,
     "hold": 120.0,
     "protocol": "p3",
@@ -27,9 +28,9 @@
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "691e80afbf36",
+  "config_hash": "3b53e6f91840",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "pidl",
     "family": "network",
@@ -48,11 +49,11 @@
     }
   },
   "protocol": "p3",
-  "seconds": 3.0,
+  "seconds": 1.3,
   "summary": {
     "agreement": 1.0,
-    "max_gain": 1.3905843028197844,
-    "max_gain_large": 1.2604894848523132,
+    "max_gain": 1.3906014413412338,
+    "max_gain_large": 1.2604888585183722,
     "n_collided_large": 0,
     "n_converged": 26,
     "n_equilibria": 21,

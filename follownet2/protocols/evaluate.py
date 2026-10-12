@@ -27,6 +27,11 @@ from follownet2.utils import REPO_ROOT, config_hash, git_revision, read_json, re
 PROTOCOLS = ("p1", "p2", "p3", "p4")
 Runner = Callable[[object, object, dict, str], tuple[dict, dict]]
 
+# full float32 on the GPU: TF32 arithmetic in cuDNN recurrent layers and matmuls adds noise
+# of the order of 1e-3 to the acceleration of recurrent models, which the protocols must not see
+torch.backends.cudnn.allow_tf32 = False
+torch.backends.cuda.matmul.allow_tf32 = False
+
 
 def test_events(cfg, dataset: str, version: str, split_kind: str, fold: int) -> list:
     """Usable test events of a dataset under a split kind and fold."""
@@ -92,12 +97,21 @@ def _p2(cfg, model, pcfg: dict, device: str) -> tuple[dict, dict]:
 
 
 def _p3(cfg, model, pcfg: dict, device: str) -> tuple[dict, dict]:
+    """P3 runs on the CPU in float64 whatever ``train.device`` says.
+
+    On the GPU the recurrent layers use reduced-precision (TF32) arithmetic: the follower's
+    acceleration then carries noise of the order of 1e-3 m/s^2, the settle criterion
+    (``max |a| < 2e-3``) never holds, and an LSTM that settles at 15 speeds on the CPU has
+    "no equilibrium" on the GPU. The whole grid takes seconds on the CPU.
+    """
     from follownet2.protocols.p3 import evaluate_p3
 
-    return evaluate_p3(
+    summary, tables = evaluate_p3(
         model, delta=pcfg["delta"], delta_large=pcfg.get("delta_large", 1.0), hold=pcfg["hold"],
-        response=pcfg["response"], tol=pcfg["tol"], device=device,
+        response=pcfg["response"], tol=pcfg["tol"], device=pcfg.get("device", "cpu"),
     )
+    model.to(device)
+    return summary, tables
 
 
 def near_miss_episodes(cfg, names, max_episodes: int | None) -> list:

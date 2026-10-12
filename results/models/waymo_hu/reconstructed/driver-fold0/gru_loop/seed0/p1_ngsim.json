@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "ngsim",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "9de8b9140df1",
+  "data_version": "reconstructed",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+  "model": {
+    "class": "gru",
+    "family": "network",
+    "label": "gru_loop",
+    "provenance": {
+      "config_hash": "a1f41aee6bb8",
+      "data_version": "reconstructed",
+      "dataset": "waymo_hu",
+      "git_revision": "43e5a036a7e78b7a3e9d60695b53811acad5cbc0",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 6.0,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.027590382286801593,
+      "event_collision_rate": 0.09447476125511596,
+      "horizon_s": 10.0,
+      "n_events": 2932,
+      "n_samples": 1156200,
+      "n_windows": 11562,
+      "rmse_s": 2.9333744307867353,
+      "rmse_v": 0.8100810148345944
+    },
+    "h30": {
+      "collision_rate": 0.16642958748221906,
+      "event_collision_rate": 0.22083559413998916,
+      "horizon_s": 30.0,
+      "n_events": 1843,
+      "n_samples": 843600,
+      "n_windows": 2812,
+      "rmse_s": 5.569037501077493,
+      "rmse_v": 0.8579147489735527
+    },
+    "whole": {
+      "collision_rate": 0.1855388813096862,
+      "n_events": 2932,
+      "n_samples": 1299210,
+      "rmse_s": 7.093836886094632,
+      "rmse_v": 0.9357961114262285
+    }
+  }
+}

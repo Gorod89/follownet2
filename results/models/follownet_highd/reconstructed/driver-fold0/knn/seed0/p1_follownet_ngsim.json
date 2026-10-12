@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "follownet_ngsim",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "6c82837f4191",
+  "data_version": "reconstructed",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": {
+    "class": "knn",
+    "family": "network",
+    "label": "knn",
+    "provenance": {
+      "config_hash": "32f3dfab08dc",
+      "data_version": "reconstructed",
+      "dataset": "follownet_highd",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 4.1,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.007785467128027681,
+      "event_collision_rate": 0.02349869451697128,
+      "horizon_s": 10.0,
+      "n_events": 383,
+      "n_samples": 115600,
+      "n_windows": 1156,
+      "rmse_s": 3.936170616609924,
+      "rmse_v": 0.9593065876954251
+    },
+    "h30": {
+      "collision_rate": 0.0847457627118644,
+      "event_collision_rate": 0.09569377990430622,
+      "horizon_s": 30.0,
+      "n_events": 209,
+      "n_samples": 70800,
+      "n_windows": 236,
+      "rmse_s": 8.646575093654478,
+      "rmse_v": 1.0502177272375373
+    },
+    "whole": {
+      "collision_rate": 0.06005221932114883,
+      "n_events": 383,
+      "n_samples": 135106,
+      "rmse_s": 13.167843649435815,
+      "rmse_v": 1.1761947287285952
+    }
+  }
+}

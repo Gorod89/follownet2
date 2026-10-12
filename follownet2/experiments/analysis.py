@@ -1,4 +1,6 @@
-"""Analyses of milestone 4: experiments E1-E4 (docs/experiments.md, section 3).
+"""Analyses of milestone 4: experiments E1-E4 (docs/experiments.md, section 3), and E3b, the
+composite variants with realism inputs, their sensitivity and the Pareto view of realism against
+the composite (:func:`e3_composite_variants`, :func:`e3_composite_sensitivity`, :func:`pareto_table`).
 
 Functions of the run directories under ``root`` (``results/models``),
 ``<root>/<dataset>/<version>/<split>-fold<k>/<label>/seed<s>/``, and of DataFrames; nothing is
@@ -22,6 +24,8 @@ Bootstrap conventions (1000 replicates by default, 95 % percentile intervals):
   :func:`~follownet2.protocols.composite.composite_bootstrap` does; the P3 unstable fraction of a
   replicate is taken over the drawn speeds with an equilibrium (converged and tracking), which
   reproduces ``unstable_fraction`` of ``p3.json``.
+* **Composite variants** (E3b): the replicates of their inputs above (the whole-event P1 input with
+  the driver draw of P0 and P1); ``fd_error_rel`` is held at its point value (no per-profile version).
 * **Synthetic P4 scenarios** (the in-range ones): Generator ``[seed, 2]``; **empirical P4**: the
   drivers of the near-miss episodes, Generator ``[seed, 3]``.
 
@@ -43,11 +47,23 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from follownet2.protocols.composite import INPUTS, PROFILE_COLUMNS, _aligned, _mean_over, _sum_over, composite_score
+from follownet2.protocols.composite import (
+    FD_INPUT,
+    INPUTS,
+    P1_INPUT,
+    PROFILE_COLUMNS,
+    VARIANTS,
+    _aligned,
+    _mean_over,
+    _sum_over,
+    composite_matrix,
+    composite_score,
+    pareto_front,
+)
 from follownet2.protocols.p5 import collect_transfer, transfer_matrix
 from follownet2.stats.bootstrap import _Resampler, draw_counts, percentile_ci, pooled_statistic
 from follownet2.stats.paired import holm, paired_difference
-from follownet2.stats.ranks import kendall_tau, kendall_tau_bootstrap
+from follownet2.stats.ranks import kendall_tau, kendall_tau_bootstrap, rank_distribution
 from follownet2.utils import read_json, resolve_path
 
 VERSION = "reconstructed"
@@ -97,6 +113,16 @@ DRIVER_COLUMNS = {
     "p0_rmse_a": ("p0", "rmse_a"),
     **{f"p1_{h}_rmse_{x}": (h, f"rmse_{x}") for h in HORIZONS for x in ("s", "v")},
 }
+#: input of every composite variant -> column of :func:`e3_rankings` (fd_error_rel: ``p2.json``)
+VARIANT_INPUTS = {**COMPOSITE_COLUMNS, P1_INPUT: "p1_whole_rmse_s"}
+#: the E3 columns whose replicates the composite variants need
+VARIANT_REPLICATES = ["p0_rmse_a", *VARIANT_INPUTS.values()]
+#: the stability and collision inputs (weighted 2 in the weight sensitivity)
+SAFETY_INPUTS = ("unstable_fraction", "collisions_100")
+#: short names of the inputs in the sensitivity table
+INPUT_NAMES = {"concave_growth_error": "concave", "hysteresis_error": "hysteresis", "unstable_fraction": "unstable",
+               "collisions_100": "collisions", P1_INPUT: "P1 whole", FD_INPUT: "FD"}
+MEAN_RANK = "mean_normalised_rank"
 
 E1_COLUMNS = ["dataset", "model", "family", "rmse_a", "ratio", "low", "high", "n_drivers",
               "seed_min", "seed_max", "n_seeds", "folds_min", "folds_max", "n_folds"]
@@ -113,6 +139,13 @@ E3_COLUMNS = ["dataset", "model", "family", *E3_METRICS, "stale"]
 KENDALL_COLUMNS = ["dataset", "ranking_a", "ranking_b", "tau", "low", "high", "p", "n_models", "tau_boot", "note"]
 SPEED_COLUMNS = ["dataset", "horizon", "tau", "low", "high", "p", "n_models", "tau_boot", "note"]
 TOP3_COLUMNS = ["dataset", "ranking", "top1", "top2", "top3", "values", "tied"]
+INPUTS_COLUMNS = ["dataset", "model", "family", *VARIANT_INPUTS, FD_INPUT, "fd_bins_compared"]
+VARIANTS_COLUMNS = ["dataset", "model", "family", P1_INPUT, FD_INPUT, "fd_bins_compared",
+                    *(f"composite_{v}" for v in VARIANTS), "composite_borda_v2", *(f"rank_{v}" for v in VARIANTS),
+                    "rank_v2_low", "rank_v2_high"]
+SENSITIVITY_COLUMNS = ["dataset", "variant_or_leave_one_out", "inputs", "kendall_tau_vs_v1", "kendall_tau_vs_v2", "top3",
+                       "top3_changes", "tau_p0", "tau_p0_low", "tau_p0_high", "n_models", "note"]
+PARETO_COLUMNS = ["dataset", "model", "family", P1_INPUT, "composite_v2", "unstable_fraction", "collisions_100", "on_front"]
 E4_COLUMNS = ["model", "trained_on", "tested_on", "horizon", "rmse_s", "rmse_s_own", "ratio", "low", "high",
               "n_drivers", "note"]
 E4_SUMMARY_COLUMNS = ["model", "horizon", "mean_degradation", "n_pairs", "worst_source", "worst_target", "worst_ratio"]
@@ -892,6 +925,220 @@ def e3_top3_changes(rankings: pd.DataFrame, sequence: Sequence[str] = TOP3_SEQUE
     return lines
 
 
+# ----------------------------------------------------------------------------- E3b: composite variants
+
+
+def composite_inputs(root, dataset: str, rankings: pd.DataFrame | None = None, labels: Sequence[str] | None = None) -> pd.DataFrame:
+    """The inputs of every composite variant per model (columns :data:`INPUTS_COLUMNS`, named as the
+    inputs of :mod:`follownet2.protocols.composite`), in the row order of ``rankings``.
+
+    The in-range P2 inputs, the P3 unstable fraction and the whole-event P1 spacing error come from
+    :func:`e3_rankings` (``rankings`` when given); ``fd_error_rel`` and ``fd_bins_compared`` from the
+    summary of ``p2.json``. The fundamental-diagram error is pooled over the samples of every profile
+    (the OpenACC windows and the pulse; P2 has no in-range version of it) and compares the bins with
+    at least 200 samples on both sides, whose number differs between models.
+    """
+    rankings = e3_rankings(root, dataset, labels) if rankings is None else rankings
+    models = list(rankings["model"])
+    frame = pd.DataFrame({"dataset": [dataset] * len(models), "model": models, "family": list(rankings["family"])})
+    for name, column in VARIANT_INPUTS.items():
+        frame[name] = rankings[column].to_numpy(dtype=np.float64)
+    p2 = [_summary(run_dir(root, dataset, m), "p2") for m in models]
+    frame[FD_INPUT] = np.array([_num(s, "fd_error_rel") for s in p2], dtype=np.float64)
+    frame["fd_bins_compared"] = np.array([_num(s, "fd_bins_compared") for s in p2], dtype=np.float64)
+    return frame[INPUTS_COLUMNS]
+
+
+def variant_composite(inputs: pd.DataFrame, columns: Sequence[str] | str = "v2", weights=None, method: str = MEAN_RANK) -> np.ndarray:
+    """Composite (:func:`~follownet2.protocols.composite.composite_score`) of the models (rows) of
+    ``inputs`` (columns named as the composite inputs, e.g. :func:`composite_inputs`) in their row
+    order; ``columns`` a variant name or the inputs. NaN for every model when no input has a value."""
+    columns = VARIANTS[columns] if isinstance(columns, str) else tuple(columns)
+    table = inputs[list(columns)].astype(np.float64).reset_index(drop=True)
+    if table.empty or table.isna().all(axis=None):
+        return np.full(len(table), np.nan)
+    return composite_score(table, columns, weights, method)["composite"].sort_index().to_numpy(dtype=np.float64)
+
+
+def composite_specs() -> list[tuple[str, tuple[str, ...], dict[str, float] | None, str, str]]:
+    """The composites of the sensitivity analysis: ``(label, inputs, weights, method, reference)``.
+
+    The four variants (reference v1), the Borda count of v2, v2 without each of its six inputs
+    (leave one out) and v2 with weight 2 on the unstable fraction, on the collisions and on both
+    (reference v2 for those).
+    """
+    v2 = VARIANTS["v2"]
+    specs = [(name, columns, None, MEAN_RANK, "v1") for name, columns in VARIANTS.items()]
+    specs.append(("borda v2", v2, None, "borda", "v2"))
+    specs += [(f"v2 without {c}", tuple(x for x in v2 if x != c), None, MEAN_RANK, "v2") for c in v2]
+    for chosen in ((SAFETY_INPUTS[0],), (SAFETY_INPUTS[1],), SAFETY_INPUTS):
+        specs.append((f"v2, weight 2 on {' and '.join(chosen)}", v2, dict.fromkeys(chosen, 2.0), MEAN_RANK, "v2"))
+    return specs
+
+
+def _variant_samples(inputs: pd.DataFrame, samples: Mapping[str, Mapping[str, np.ndarray]], reasons: Mapping[str, str],
+                     columns: Sequence[str], weights=None, method: str = MEAN_RANK) -> tuple[dict[str, np.ndarray] | None, str]:
+    """Replicates ``{model: [n_boot]}`` of a composite built from the E3 replicates of its inputs
+    (:func:`e3_replicates`: profiles and speeds, drivers for the whole-event P1 error), or ``(None,
+    reason)``. ``fd_error_rel`` has no resampling unit and is held at its point value (as in
+    :func:`~follownet2.protocols.composite.composite_bootstrap`)."""
+    models = list(inputs["model"])
+    n_boot = next((len(v) for block in samples.values() for v in block.values()), 0)
+    if not models or not n_boot:
+        return None, "no replicates"
+    matrices = {}
+    for name in columns:
+        point = inputs[name].to_numpy(dtype=np.float64)
+        if name not in VARIANT_INPUTS:  # fd_error_rel
+            matrices[name] = np.tile(point, (n_boot, 1))
+            continue
+        column = VARIANT_INPUTS[name]
+        block = samples.get(column)
+        if block is None and not np.isfinite(point).any():
+            matrices[name] = np.full((n_boot, len(models)), np.nan)
+        elif block is None or any(m not in block for m in models):
+            return None, f"{column}: {reasons.get(column, 'no replicates')}"
+        else:
+            matrices[name] = np.column_stack([np.asarray(block[m], dtype=np.float64) for m in models])
+    composite = composite_matrix(matrices, columns, weights, method)
+    composite[np.all([np.isnan(m).all(axis=1) for m in matrices.values()], axis=0)] = np.nan
+    return {m: composite[:, i] for i, m in enumerate(models)}, ""
+
+
+def _replicates_of(root, dataset, rankings, replicates, n_boot, seed) -> tuple[dict, dict]:
+    if replicates is not None:
+        return replicates
+    return e3_replicates(root, dataset, rankings, n_boot, seed, columns=VARIANT_REPLICATES)
+
+
+def e3_composite_variants(root, dataset: str, rankings: pd.DataFrame | None = None, replicates: tuple[dict, dict] | None = None,
+                          n_boot: int = 1000, seed: int = 0, labels: Sequence[str] | None = None) -> pd.DataFrame:
+    """E3b: every composite variant per model, best v2 first (columns :data:`VARIANTS_COLUMNS`).
+
+    ``composite_<variant>``: the mean normalised rank over the inputs of each variant of
+    :data:`~follownet2.protocols.composite.VARIANTS` (v1 is the composite of :func:`e3_rankings`);
+    ``composite_borda_v2``: the normalised Borda count of v2 (equal to ``composite_v2`` with average
+    ranks; lower is better); ``rank_<variant>``: rank of the composite (1 = best, average ranks on
+    ties); ``rank_v2_low``, ``rank_v2_high``: 95 % interval of the v2 rank over the replicates of
+    :func:`e3_replicates` (``replicates`` when given: in-range profiles and speeds with an
+    equilibrium, drivers for the whole-event P1 input, the draw shared with P0), ``fd_error_rel``
+    held at its point value (no resampling unit). The inputs ``p1_whole_rmse_s``, ``fd_error_rel``
+    and ``fd_bins_compared`` are listed with them.
+    """
+    rankings = e3_rankings(root, dataset, labels) if rankings is None else rankings
+    inputs = composite_inputs(root, dataset, rankings)
+    if inputs.empty:
+        return pd.DataFrame(columns=VARIANTS_COLUMNS)
+    out = inputs[["dataset", "model", "family", P1_INPUT, FD_INPUT, "fd_bins_compared"]].copy()
+    for name, columns in VARIANTS.items():
+        out[f"composite_{name}"] = variant_composite(inputs, columns)
+    out["composite_borda_v2"] = variant_composite(inputs, "v2", method="borda")
+    for name in VARIANTS:
+        out[f"rank_{name}"] = out[f"composite_{name}"].rank(method="average")
+    out["rank_v2_low"], out["rank_v2_high"] = np.nan, np.nan
+    samples, reasons = _replicates_of(root, dataset, rankings, replicates, n_boot, seed)
+    v2, _ = _variant_samples(inputs, samples, reasons, VARIANTS["v2"])
+    if v2 is not None and np.isfinite(out["composite_v2"].to_numpy(dtype=np.float64)).any():
+        distribution = rank_distribution(v2)
+        out["rank_v2_low"] = out["model"].map(distribution["rank_low"]).to_numpy(dtype=np.float64)
+        out["rank_v2_high"] = out["model"].map(distribution["rank_high"]).to_numpy(dtype=np.float64)
+    order = out.assign(_v=out["composite_v2"].fillna(np.inf)).sort_values(["_v", "model"], kind="stable").index
+    return out.loc[order, VARIANTS_COLUMNS].reset_index(drop=True)
+
+
+def _inputs_text(columns: Sequence[str], weights: Mapping[str, float] | None) -> str:
+    weights = weights or {}
+    return ", ".join(INPUT_NAMES.get(c, c) + (f" x{weights[c]:g}" if weights.get(c, 1.0) != 1.0 else "") for c in columns)
+
+
+def _top3_text(models: Sequence[str], values: np.ndarray) -> str:
+    """The first three models (ties broken by name) and the further models tied with the third."""
+    order = _ordered(pd.DataFrame({"model": list(models), "v": values}), "v")
+    top = list(order["model"].iloc[:3])
+    tied = [m for m, v in zip(order["model"].iloc[3:], order["value"].iloc[3:]) if len(order) > 3 and v == order["value"].iloc[2]]
+    return ", ".join(top) + (f" (tied with {top[-1]}: {', '.join(tied)})" if tied else "")
+
+
+def _top3_change(models: Sequence[str], values: np.ndarray, reference: np.ndarray, name: str) -> str:
+    """Entries into and exits from the top three (ties at the third position counted in) against ``name``."""
+    a = _top_set(pd.DataFrame({"model": list(models), "v": reference}), "v")
+    b = _top_set(pd.DataFrame({"model": list(models), "v": values}), "v")
+    enter, leave = sorted(b - a), sorted(a - b)
+    if not enter and not leave:
+        return f"vs {name}: none"
+    return f"vs {name}: enter {', '.join(enter) or 'none'}; leave {', '.join(leave) or 'none'}"
+
+
+def _point_tau(models: Sequence[str], a: np.ndarray, b: np.ndarray) -> float:
+    """Kendall's tau-b between two lower-is-better rankings, a missing value last."""
+    x, y = _last(dict(zip(models, a))), _last(dict(zip(models, b)))
+    return kendall_tau({m: float(v) for m, v in x.items()}, {m: float(v) for m, v in y.items()})[0]
+
+
+def e3_composite_sensitivity(root, dataset: str, rankings: pd.DataFrame | None = None, replicates: tuple[dict, dict] | None = None,
+                             n_boot: int = 1000, seed: int = 0, labels: Sequence[str] | None = None) -> pd.DataFrame:
+    """E3b: sensitivity of the composite to its inputs, aggregation and weights (columns
+    :data:`SENSITIVITY_COLUMNS`), one row per composite of :func:`composite_specs`.
+
+    ``kendall_tau_vs_v1``, ``kendall_tau_vs_v2``: Kendall's tau-b of the composite against v1 and
+    v2 (point values, a missing value last); ``top3``: its first three models (ties broken by
+    name); ``top3_changes``: the entries into and exits from the top three against v1 (the
+    variants) or v2 (Borda, leave one out, weights); ``tau_p0``: Kendall's tau-b of the P0
+    ranking against the composite, ``tau_p0_low``/``tau_p0_high`` its 95 % interval over the
+    replicates of :func:`e3_replicates` (the v1 row reproduces the P0-composite row of
+    :func:`e3_kendall`); ``note``: why an interval is missing.
+    """
+    rankings = e3_rankings(root, dataset, labels) if rankings is None else rankings
+    inputs = composite_inputs(root, dataset, rankings)
+    models = list(inputs["model"])
+    if not models:
+        return pd.DataFrame(columns=SENSITIVITY_COLUMNS)
+    samples, reasons = _replicates_of(root, dataset, rankings, replicates, n_boot, seed)
+    p0 = rankings["p0_rmse_a"].to_numpy(dtype=np.float64)
+    specs = composite_specs()
+    points = {label: variant_composite(inputs, columns, weights, method) for label, columns, weights, method, _ in specs}
+    rows = []
+    for label, columns, weights, method, reference in specs:
+        values = points[label]
+        frame = pd.DataFrame({"model": models, "p0_rmse_a": p0, "composite": values})
+        variant, reason = _variant_samples(inputs, samples, reasons, columns, weights, method)
+        boot = {k: v for k, v in (("p0_rmse_a", samples.get("p0_rmse_a")), ("composite", variant)) if v is not None}
+        why = {"p0_rmse_a": reasons.get("p0_rmse_a", "no replicates"), "composite": reason or "no replicates"}
+        tau = {"tau": float("nan"), "low": float("nan"), "high": float("nan"), "note": "fewer than two models with a value"}
+        if _present(frame, "p0_rmse_a") and _present(frame, "composite"):
+            tau = _tau_row(frame, boot, why, "p0_rmse_a", "composite")
+        rows.append({
+            "dataset": dataset, "variant_or_leave_one_out": label, "inputs": _inputs_text(columns, weights),
+            "kendall_tau_vs_v1": _point_tau(models, values, points["v1"]), "kendall_tau_vs_v2": _point_tau(models, values, points["v2"]),
+            "top3": _top3_text(models, values),
+            "top3_changes": "reference" if label == reference else _top3_change(models, values, points[reference], reference),
+            "tau_p0": tau["tau"], "tau_p0_low": tau["low"], "tau_p0_high": tau["high"], "n_models": len(models), "note": tau["note"],
+        })
+    return pd.DataFrame(rows, columns=SENSITIVITY_COLUMNS)
+
+
+def pareto_table(root, dataset: str, rankings: pd.DataFrame | None = None, labels: Sequence[str] | None = None) -> pd.DataFrame:
+    """E3b: realism against the traffic-level composite (columns :data:`PARETO_COLUMNS`), by the
+    whole-event P1 spacing error.
+
+    Per model the whole-event P1 spacing error, composite v2, the P3 unstable fraction and the
+    in-range 100-vehicle collisions; ``on_front`` marks the Pareto front of ``(p1_whole_rmse_s,
+    composite_v2)``, both lower is better (:func:`~follownet2.protocols.composite.pareto_front`; a
+    model without either value is not on it). The P1 error is one of the six inputs of v2.
+    """
+    rankings = e3_rankings(root, dataset, labels) if rankings is None else rankings
+    inputs = composite_inputs(root, dataset, rankings)
+    if inputs.empty:
+        return pd.DataFrame(columns=PARETO_COLUMNS)
+    out = inputs[["dataset", "model", "family", P1_INPUT]].copy()
+    out["composite_v2"] = variant_composite(inputs, "v2")
+    out["unstable_fraction"] = inputs["unstable_fraction"].to_numpy(dtype=np.float64)
+    out["collisions_100"] = inputs["collisions_100"].to_numpy(dtype=np.float64)
+    out["on_front"] = pareto_front(out[P1_INPUT], out["composite_v2"])
+    order = out.assign(_x=out[P1_INPUT].fillna(np.inf)).sort_values(["_x", "model"], kind="stable").index
+    return out.loc[order, PARETO_COLUMNS].reset_index(drop=True)
+
+
 # ----------------------------------------------------------------------------- E4
 
 
@@ -1017,3 +1264,46 @@ def campaign_status(root, version: str = VERSION) -> pd.DataFrame:
                 detail = ", ".join(f"{split}-fold{k} seed{s}: {n}" for (k, s), n in counts.items())
                 rows.append({"campaign": name, "dataset": dataset, "runs": total, "detail": detail})
     return pd.DataFrame(rows, columns=STATUS_COLUMNS)
+
+
+# ----------------------------------------------------------------------------- ablations (E3c)
+#: training ablations of the networks (scripts/m4.py, campaign ``ablation``), grouped with the
+#: reference entry they vary; decision M4-7
+ABLATION_GROUPS: dict[str, tuple[str, ...]] = {
+    "mlp": ("mlp", "mlp_hist30", "mlp_wide", "mlp_loop", "mlp_loop_h15", "mlp_loop_h30"),
+    "lstm": ("lstm", "lstm_hist30", "lstm_wide", "lstm_loop", "lstm_loop_h15", "lstm_loop_h30"),
+    "stability_mlp": ("stability_mlp", "stability_mlp_nbhd"),
+}
+ABLATION_COLUMNS = ("p0_rmse_a", "p1_h10_rmse_s", "p1_whole_rmse_s", "p1_whole_collision_rate", "p2_collisions_100",
+                    "p3_n_equilibria", "p3_unstable_fraction", "p3_unstable_fraction_large", "p3_max_gain",
+                    "p4_collision_rate_synthetic", "p4_collision_rate_empirical")
+
+
+def ablation_table(root, dataset: str) -> pd.DataFrame:
+    """E3c: the metrics of :data:`e3_rankings` for the reference networks and their training
+    ablations (fold 0, seed 0 of the driver split), with the P3 finite-perturbation fraction,
+    the maximal gain and the number of equilibria; one row per run that exists, ``group`` =
+    the reference entry. Empty when no ablation run exists."""
+    labels = [label for members in ABLATION_GROUPS.values() for label in members
+              if (run_dir(root, dataset, label) / "train.json").exists()]
+    if not any(label not in ("mlp", "lstm", "stability_mlp") for label in labels):
+        return pd.DataFrame(columns=["dataset", "group", "model", *ABLATION_COLUMNS])
+    frame = e3_rankings(root, dataset, labels).set_index("model")
+    extra = {}
+    for label in labels:
+        p3 = _summary(run_dir(root, dataset, label), "p3") or {}
+        whole = (_json(run_dir(root, dataset, label) / "train.json") or {}).get("test", {}).get("closed_loop_whole_event", {})
+        extra[label] = {
+            "p3_n_equilibria": p3.get("n_equilibria"),
+            "p3_unstable_fraction_large": p3.get("unstable_fraction_large"),
+            "p3_max_gain": p3.get("max_gain"),
+            "p1_whole_collision_rate": whole.get("collision_rate"),
+        }
+    frame = frame.join(pd.DataFrame(extra).T.astype(float), how="left")
+    frame["group"] = [next(g for g, members in ABLATION_GROUPS.items() if m in members) for m in frame.index]
+    frame["dataset"] = dataset
+    frame = frame.reset_index()
+    order = {label: i for i, members in enumerate(ABLATION_GROUPS.values()) for label in members}
+    frame = frame.sort_values("model", key=lambda s: s.map(order)).reset_index(drop=True)
+    columns = ["dataset", "group", "model", *[c for c in ABLATION_COLUMNS if c in frame.columns]]
+    return frame[columns]

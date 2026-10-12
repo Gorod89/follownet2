@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "openacc",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "9d5ebbb23d7b",
+  "data_version": "reconstructed",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": {
+    "class": "mdn_lstm",
+    "family": "network",
+    "label": "mdn_lstm",
+    "provenance": {
+      "config_hash": "5387658e5aeb",
+      "data_version": "reconstructed",
+      "dataset": "follownet_highd",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 2.5,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.027949599083619703,
+      "event_collision_rate": 0.1108786610878661,
+      "horizon_s": 10.0,
+      "n_events": 956,
+      "n_samples": 436500,
+      "n_windows": 4365,
+      "rmse_s": 6.4883853622244425,
+      "rmse_v": 1.7043009134927998
+    },
+    "h30": {
+      "collision_rate": 0.1161504424778761,
+      "event_collision_rate": 0.1161504424778761,
+      "horizon_s": 30.0,
+      "n_events": 904,
+      "n_samples": 271200,
+      "n_windows": 904,
+      "rmse_s": 49.16222165019976,
+      "rmse_v": 3.9766536342963192
+    },
+    "whole": {
+      "collision_rate": 0.17364016736401675,
+      "n_events": 956,
+      "n_samples": 479894,
+      "rmse_s": 107.89688517311833,
+      "rmse_v": 4.782082458670437
+    }
+  }
+}

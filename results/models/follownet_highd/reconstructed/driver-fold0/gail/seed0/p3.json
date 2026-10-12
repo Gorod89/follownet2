@@ -18,6 +18,7 @@
     ],
     "delta": 0.05,
     "delta_large": 1.0,
+    "device": "cpu",
     "fold": 0,
     "hold": 120.0,
     "protocol": "p3",
@@ -27,9 +28,9 @@
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "691e80afbf36",
+  "config_hash": "3b53e6f91840",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "gail",
     "family": "network",
@@ -48,11 +49,11 @@
     }
   },
   "protocol": "p3",
-  "seconds": 3.7,
+  "seconds": 5.1,
   "summary": {
     "agreement": null,
-    "max_gain": 1.2281573573513316,
-    "max_gain_large": 1.1507617411931474,
+    "max_gain": 1.2281594360426549,
+    "max_gain_large": 1.150761913970831,
     "n_collided_large": 0,
     "n_converged": 15,
     "n_equilibria": 14,

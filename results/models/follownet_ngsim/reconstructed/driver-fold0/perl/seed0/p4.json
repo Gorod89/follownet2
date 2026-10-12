@@ -1,0 +1,89 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "hold 60.0 s then the manoeuvre, episodes from the end of the warm-up; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "rare_event_suite": {
+      "episodes": [
+        "tgsim_nearmiss/reconstructed"
+      ],
+      "synthetic": "p4-v1"
+    },
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "episodes": [
+      "tgsim"
+    ],
+    "fold": 0,
+    "hold": 60.0,
+    "max_episodes": null,
+    "precision": "full",
+    "protocol": "p4",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "0c38ee36eafd",
+  "data_version": "reconstructed",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
+  "model": {
+    "class": "perl",
+    "family": "network",
+    "label": "perl",
+    "provenance": {
+      "config_hash": "f4899d37466f",
+      "data_version": "reconstructed",
+      "dataset": "follownet_ngsim",
+      "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p4",
+  "seconds": 2.4,
+  "summary": {
+    "amplification_mean": 1.109320561091105,
+    "collision_rate_empirical": 0.03420523138832998,
+    "collision_rate_synthetic": 0.35714285714285715,
+    "collision_rate_synthetic_in_range": 0.0,
+    "exceedance_4": 0.02748091603053435,
+    "exceedance_4_empirical": 0.02994325076229259,
+    "exceedance_4_in_range": 0.0215633423180593,
+    "exceedance_4_recorded": 0.0053339168340916,
+    "exceedance_6": 0.008778625954198474,
+    "exceedance_6_empirical": 0.008661576190895684,
+    "min_ttc_q05": 0.0,
+    "min_ttc_q05_empirical": 1.0070766722584699,
+    "min_ttc_q25": 0.0,
+    "min_ttc_q25_empirical": 3.234160039530485,
+    "min_ttc_q50": 2.1098420541570415,
+    "min_ttc_q50_empirical": 5.025135971687538,
+    "min_ttc_q50_in_range": 2.148408526853463,
+    "min_ttc_q50_recorded": 2.195702707399592,
+    "n_collided_hold": 0,
+    "n_episodes": 4473,
+    "n_episodes_skipped": 0,
+    "n_invalid": 0,
+    "n_scenarios": 14,
+    "n_scenarios_in_range": 5,
+    "speed_range": [
+      0.16,
+      20.84
+    ]
+  }
+}

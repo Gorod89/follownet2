@@ -28,14 +28,15 @@
     "fold": 0,
     "hold": 60.0,
     "max_episodes": null,
+    "precision": "full",
     "protocol": "p4",
     "split": "driver",
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "6d04f1db555b",
+  "config_hash": "0c38ee36eafd",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
   "model": {
     "class": "knn",
     "family": "network",
@@ -54,7 +55,7 @@
     }
   },
   "protocol": "p4",
-  "seconds": 15.4,
+  "seconds": 9.4,
   "summary": {
     "amplification_mean": 0.16175862153371165,
     "collision_rate_empirical": 0.15515314106863404,

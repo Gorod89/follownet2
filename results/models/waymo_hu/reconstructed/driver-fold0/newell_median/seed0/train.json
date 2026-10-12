@@ -1,0 +1,41 @@
+{
+  "class": "newell_median",
+  "config_hash": "c0c052dc9034",
+  "data_version": "reconstructed",
+  "dataset": "waymo_hu",
+  "family": "mechanistic",
+  "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
+  "model": "newell_median",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.0935672514619883,
+      "n_events": 171,
+      "n_samples": 27909,
+      "rmse_s": 20.851861794410855,
+      "rmse_v": 3.1033256966978464
+    },
+    "p0": {
+      "rmse_a": 6.142083125496613,
+      "rmse_s": 0.06142081847625015,
+      "rmse_v": 0.6142082146049209
+    }
+  },
+  "training": {
+    "kind": "median of per-event estimates",
+    "n_events": 556,
+    "n_used": 556,
+    "params": {
+      "V": 20.51685619354248,
+      "d": 3.1014593839645386,
+      "tau": 1.2324696779251099
+    },
+    "seconds": 10.6
+  }
+}

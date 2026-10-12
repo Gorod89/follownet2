@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "gru",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 42.0,
+  "seconds": 55.4,
   "summary": {
-    "collisions_100": 965,
-    "collisions_100_in_range": 508,
+    "collisions_100": 1007,
+    "collisions_100_in_range": 550,
     "collisions_20": 174,
     "collisions_20_in_range": 77,
-    "concave_growth_error": 119.29472704437362,
-    "concave_growth_error_in_range": 0.4432696895773518,
+    "concave_growth_error": 119.29486349516178,
+    "concave_growth_error_in_range": 0.44325426879038293,
     "fd_bins_compared": 29,
-    "fd_error": 6986.8824655366625,
-    "fd_error_rel": 6.663090240582764,
-    "growth_exponent_100": 0.047018803084957206,
-    "growth_exponent_100_in_range": 0.35896320183915076,
-    "growth_exponent_20": 0.10370703564364916,
-    "growth_exponent_20_in_range": 0.6113917044748184,
-    "hysteresis_area_100": 1953514.8939486977,
-    "hysteresis_area_20": 4416279.548550585,
-    "hysteresis_error": 7305747.465942087,
-    "hysteresis_error_in_range": 178.02925074140177,
+    "fd_error": 6921.858261035819,
+    "fd_error_rel": 6.600989187100817,
+    "growth_exponent_100": 0.04847677609024031,
+    "growth_exponent_100_in_range": 0.36367800951516416,
+    "growth_exponent_20": 0.10394706458503539,
+    "growth_exponent_20_in_range": 0.6119013017904431,
+    "hysteresis_area_100": 1930464.7742364078,
+    "hysteresis_area_20": 4416200.250951457,
+    "hysteresis_error": 7305624.193917962,
+    "hysteresis_error_in_range": 178.0126708446018,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 10,
@@ -98,10 +99,10 @@
       0.0,
       18.05
     ],
-    "wave_speed": 10.994161733258169,
-    "wave_speed_100": 1.795492858696292,
-    "wave_speed_in_range": 10.449537891194582,
-    "wave_speed_pulse": 4.340520800152126,
-    "wave_speed_pulse_100": 4.193565102091511
+    "wave_speed": 10.999285395009117,
+    "wave_speed_100": 8.57620896008754,
+    "wave_speed_in_range": 10.455883158379123,
+    "wave_speed_pulse": 4.340134926441347,
+    "wave_speed_pulse_100": 4.239149836786961
   }
 }

@@ -1,0 +1,71 @@
+{
+  "checklist": {
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-clean",
+    "stability_test": "analytic criterion (memoryless models) and step-response gain on 0.002-2 Hz, delta 0.05 m/s, v_e 5..30 m/s"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "delta": 0.05,
+    "delta_large": 1.0,
+    "device": "cpu",
+    "fold": 1,
+    "hold": 120.0,
+    "protocol": "p3",
+    "response": 300.0,
+    "split": "paired-clean",
+    "tol": 1e-05,
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "bc52477bb0ef",
+  "data_version": "reconstructed",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+  "model": {
+    "class": "stability_mlp",
+    "family": "network",
+    "label": "stability_mlp",
+    "provenance": {
+      "config_hash": "d9a9f6c80a79",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "paired-clean",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p3",
+  "seconds": 1.5,
+  "summary": {
+    "agreement": 1.0,
+    "max_gain": 1.1993011093770929,
+    "max_gain_large": 1.387649285703071,
+    "n_collided_large": 0,
+    "n_converged": 23,
+    "n_equilibria": 23,
+    "n_invalid": 0,
+    "n_speeds": 26,
+    "n_tracks": 24,
+    "peak_frequency": 0.02609803956028805,
+    "tol": 1e-05,
+    "tracks_share": 1.0,
+    "unstable_fraction": 0.8260869565217391,
+    "unstable_fraction_1e3": 0.8260869565217391,
+    "unstable_fraction_analytic": 0.8260869565217391,
+    "unstable_fraction_large": 1.0
+  }
+}

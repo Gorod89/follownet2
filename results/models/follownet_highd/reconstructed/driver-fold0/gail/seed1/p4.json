@@ -28,14 +28,15 @@
     "fold": 0,
     "hold": 60.0,
     "max_episodes": null,
+    "precision": "full",
     "protocol": "p4",
     "split": "driver",
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "6d04f1db555b",
+  "config_hash": "0c38ee36eafd",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
   "model": {
     "class": "gail",
     "family": "network",
@@ -54,7 +55,7 @@
     }
   },
   "protocol": "p4",
-  "seconds": 4.2,
+  "seconds": 2.8,
   "summary": {
     "amplification_mean": 0.3491792082786559,
     "collision_rate_empirical": 0.34182875027945453,
@@ -71,7 +72,7 @@
     "min_ttc_q25": 0.0,
     "min_ttc_q25_empirical": 0.0,
     "min_ttc_q50": 0.0,
-    "min_ttc_q50_empirical": 2.1688305576276954,
+    "min_ttc_q50_empirical": 2.168892188763656,
     "min_ttc_q50_in_range": 0.0,
     "min_ttc_q50_recorded": 2.195702707399592,
     "n_collided_hold": 0,

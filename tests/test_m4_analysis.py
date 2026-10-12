@@ -350,7 +350,8 @@ def test_report_runs_end_to_end(world):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     out = world["top"] / "m4"
-    path = module.main([f"root={world['root']}", f"out={out}", "n_boot=40", f"splits={world['splits']}", f"events={world['events']}"])
+    path = module.main([f"root={world['root']}", f"out={out}", "n_boot=40", f"splits={world['splits']}", f"events={world['events']}",
+                        "models=all"])
     text = path.read_text(encoding="utf-8")
     for heading in ("## Campaigns", "## E1", "## E2", "## E3", "## E4", "### alpha"):
         assert heading in text

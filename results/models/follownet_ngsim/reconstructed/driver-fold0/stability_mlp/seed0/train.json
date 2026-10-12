@@ -1,10 +1,10 @@
 {
   "class": "stability_mlp",
-  "config_hash": "c9361a8d9123",
+  "config_hash": "14a4bc7d93bd",
   "data_version": "reconstructed",
   "dataset": "follownet_ngsim",
   "family": "network",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": "stability_mlp",
   "n_parameters": 4481,
   "seed": 0,
@@ -252,7 +252,7 @@
     "n_train_events": 1238,
     "n_train_windows": 439146,
     "n_val_windows": 101278,
-    "seconds": 338.8,
+    "seconds": 162.7,
     "stability_penalty": 1.5245141524339272e-06,
     "unstable_fraction": 0.1111111111111111
   }

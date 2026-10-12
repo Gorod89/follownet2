@@ -28,7 +28,13 @@ is `docs/model_contract.md`; the data side `docs/data_layout.md` and `docs/loade
   random numbers except where a `seed` argument says so.
 * Device: `model.to(device)`; tensors are built on that device; nothing is read back inside
   a stepping loop (the GPU is shared; see `sim/rollout.py`). Default `dtype` float32 for
-  rollouts and float64 for the equilibrium and gain computations of P3.
+  rollouts and float64 for the equilibrium and gain computations of P3. Precision: the
+  runner switches TF32 off (`torch.backends.cudnn.allow_tf32`,
+  `torch.backends.cuda.matmul.allow_tf32`) and runs P3 on the CPU: with TF32 the recurrent
+  layers add noise of about 1e-3 m/s^2 to the acceleration, the settle criterion of P3 never
+  holds (an LSTM with 15 equilibria on the CPU had none on the GPU), and the platoon
+  collisions of P2 move by about 7 %. The keys `p3.device` and `precision: full` of
+  `conf/evaluate.yaml` are part of the result hashes.
 * Tests pin one torch thread (`tests/conftest.py`) and use the synthetic IDM events of the
   fixtures or the models `idm`, `persistence`, `constant_speed` and a tiny `mlp`.
 
@@ -270,7 +276,13 @@ on `B` (`nan` when missing).
 Inputs per model: `concave_growth_error` (P2), `hysteresis_error` (P2), `unstable_fraction`
 (P3, numerical), `collisions_100` (P2). Ranks within the compared set (average ranks on
 ties, lower is better), normalised to `(rank - 1) / (n - 1)`; the composite is their mean
-(lower is better). Uncertainty: the four inputs are simulation outputs without a driver
+(lower is better). This is variant `v1`, the primary score of the leaderboard. Variants
+(`follownet2.protocols.composite.VARIANTS`): `v1+p1` adds the whole-event P1 spacing
+error, `v1+fd` the fundamental-diagram error, `v2` both (a realism component next to the
+traffic-level inputs); `composite_score` also takes weights and a Borda rank sum. The
+sensitivity analysis of E3 (`e3_composite_sensitivity`: every variant, leave-one-input-out,
+doubled safety weights) reports Kendall's tau of every composite against the one-step
+ranking and the top three; the leaderboard shows `v2` next to `v1`. Uncertainty: the four inputs are simulation outputs without a driver
 dimension, so the bootstrap resamples the P2 profiles (concave-growth, hysteresis and
 collision inputs) and the P3 speeds (unstable fraction) with replacement, 1000 times with a
 seed, and reports the rank distribution of every model; seeds of the training add to it in

@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "ngsim",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "9de8b9140df1",
+  "data_version": "reconstructed",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
+  "model": {
+    "class": "knn",
+    "family": "network",
+    "label": "knn",
+    "provenance": {
+      "config_hash": "e7b3a5e9b0a0",
+      "data_version": "reconstructed",
+      "dataset": "tgsim",
+      "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 40.2,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.051807645736031825,
+      "event_collision_rate": 0.17837653478854024,
+      "horizon_s": 10.0,
+      "n_events": 2932,
+      "n_samples": 1156200,
+      "n_windows": 11562,
+      "rmse_s": 3.9511268562188215,
+      "rmse_v": 0.9803481434381834
+    },
+    "h30": {
+      "collision_rate": 0.2059032716927454,
+      "event_collision_rate": 0.2962561041779707,
+      "horizon_s": 30.0,
+      "n_events": 1843,
+      "n_samples": 843600,
+      "n_windows": 2812,
+      "rmse_s": 11.077485090790704,
+      "rmse_v": 1.185056423698795
+    },
+    "whole": {
+      "collision_rate": 0.23806275579809005,
+      "n_events": 2932,
+      "n_samples": 1299210,
+      "rmse_s": 17.818096008821403,
+      "rmse_v": 1.285947631589172
+    }
+  }
+}

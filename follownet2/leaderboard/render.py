@@ -99,6 +99,8 @@ MAIN_CELLS: list[tuple[str, str, Cell]] = [
      _pair("p4_collision_rate_synthetic", "p4_collision_rate_empirical", "{} / {}")),
     ("composite", "composite", lambda r: num(r["composite"])),
     ("composite_rank", "composite rank [95% CI]", lambda r: rank(r["composite_rank"], r["composite_rank_low"], r["composite_rank_high"])),
+    ("composite_v2", "composite v2", lambda r: num(r["composite_v2"])),
+    ("rank_v2", "rank v2", lambda r: rank(r["rank_v2"], None, None)),
     ("p0_ratio_seed_min", "P0 ratio seed spread", lambda r: interval(r["p0_ratio_seed_min"], r["p0_ratio_seed_max"])),
     ("p1_whole_rmse_s_seed_min", "P1 whole seed spread (m)", lambda r: interval(r["p1_whole_rmse_s_seed_min"], r["p1_whole_rmse_s_seed_max"])),
     ("p0_ratio_fold_min", "P0 ratio fold spread", lambda r: interval(r["p0_ratio_fold_min"], r["p0_ratio_fold_max"])),

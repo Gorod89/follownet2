@@ -28,14 +28,15 @@
     "fold": 0,
     "hold": 60.0,
     "max_episodes": null,
+    "precision": "full",
     "protocol": "p4",
     "split": "driver",
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "6d04f1db555b",
+  "config_hash": "0c38ee36eafd",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
   "model": {
     "class": "newell_median",
     "family": "mechanistic",
@@ -54,7 +55,7 @@
     }
   },
   "protocol": "p4",
-  "seconds": 4.7,
+  "seconds": 4.9,
   "summary": {
     "amplification_mean": 0.3000279664993285,
     "collision_rate_empirical": 0.18734630002235636,

@@ -18,6 +18,7 @@
     ],
     "delta": 0.05,
     "delta_large": 1.0,
+    "device": "cpu",
     "fold": 0,
     "hold": 120.0,
     "protocol": "p3",
@@ -27,9 +28,9 @@
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "691e80afbf36",
+  "config_hash": "3b53e6f91840",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "gipps_median",
     "family": "mechanistic",
@@ -48,11 +49,11 @@
     }
   },
   "protocol": "p3",
-  "seconds": 5.3,
+  "seconds": 1.5,
   "summary": {
     "agreement": null,
-    "max_gain": 1.6322851535690353,
-    "max_gain_large": 1.4526769129579487,
+    "max_gain": 1.6322851535688383,
+    "max_gain_large": 1.4526769129579489,
     "n_collided_large": 1,
     "n_converged": 16,
     "n_equilibria": 16,

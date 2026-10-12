@@ -114,10 +114,27 @@ def campaign_protocols(datasets, models, failed) -> None:
                 failed.append(("protocols", dataset, model))
 
 
-ABLATIONS = (
-    "mlp_loop_h15", "mlp_loop_h30", "lstm_loop_h15", "lstm_loop_h30",
-    "mlp_hist30", "lstm_hist30", "mlp_wide", "lstm_wide", "stability_mlp_nbhd",
-)
+def campaign_recompute(datasets, models, failed, names=("p3",)) -> None:
+    """Every existing run directory of the datasets (all splits, folds, seeds): the protocols
+    ``names`` are recomputed where their configuration or the checkpoint changed, skipped
+    otherwise (``scripts/evaluate.py`` compares the hashes)."""
+    import re
+
+    root = Path(__file__).resolve().parents[1] / "results" / "models"
+    pattern = re.compile(r"^(?P<split>.+)-fold(?P<fold>\d+)$")
+    for dataset in datasets:
+        for train_json in sorted((root / dataset / "reconstructed").glob("*/*/seed*/train.json")):
+            seed_dir = train_json.parent
+            label, split_fold = seed_dir.parent.name, seed_dir.parent.parent.name
+            match = pattern.match(split_fold)
+            if match is None or (models and label not in models):
+                continue
+            seed = int(seed_dir.name[len("seed"):])
+            if not protocols(dataset, label, names, (), match["split"], int(match["fold"]), seed):
+                failed.append(("recompute", dataset, split_fold, label, seed))
+
+
+from follownet2.leaderboard.tables import ABLATION_LABELS as ABLATIONS  # one list, never ranked
 
 
 def campaign_ablation(datasets, models, failed) -> None:
@@ -145,6 +162,7 @@ CAMPAIGNS = {
     "main": (campaign_main, MAIN_DATASETS, MODELS),
     "ablation": (campaign_ablation, MAIN_DATASETS, ABLATIONS),
     "folds": (campaign_folds, MAIN_DATASETS, MODELS),
+    "recompute": (campaign_recompute, TRANSFER_DATASETS, ()),  # P3 of every run directory
     "seeds": (campaign_seeds, MAIN_DATASETS, MODELS),
     "paired": (campaign_paired, LEAK_DATASETS, SUBSET),
     "event": (campaign_event, LEAK_DATASETS, SUBSET),
@@ -157,13 +175,19 @@ def main() -> None:
     if len(sys.argv) < 2 or sys.argv[1] not in CAMPAIGNS:
         raise SystemExit(f"usage: m4.py <{'|'.join(CAMPAIGNS)}> [datasets=a,b] [models=a,b]")
     function, datasets, models = CAMPAIGNS[sys.argv[1]]
+    names = None
     for arg in sys.argv[2:]:
         if arg.startswith("datasets="):
             datasets = tuple(arg.split("=", 1)[1].split(","))
         elif arg.startswith("models="):
             models = tuple(arg.split("=", 1)[1].split(","))
+        elif arg.startswith("protocols="):  # recompute campaign: which protocols to recompute
+            names = tuple(arg.split("=", 1)[1].split(","))
     failed: list = []
-    function(datasets, models, failed)
+    if names is not None and function is campaign_recompute:
+        function(datasets, models, failed, names)
+    else:
+        function(datasets, models, failed)
     print("### failed:", failed if failed else "none", flush=True)
 
 

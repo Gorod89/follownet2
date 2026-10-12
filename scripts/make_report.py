@@ -4,7 +4,7 @@
                                   [p2_dataset=ngsim]
 
 Reads the CSVs of milestone 4 under ``m4`` (``e1_ratios.csv``, ``e2_paired.csv``,
-``e3_rankings.csv``, ``e4_transfer.csv``) and the P2 tables of the run directories under ``root``
+``e3_rankings.csv``, ``e3_pareto.csv``, ``e4_transfer.csv``) and the P2 tables of the run directories under ``root``
 (``<root>/<dataset>/reconstructed/driver-fold0/<label>/seed0/``), draws every figure of
 ``follownet2/figures/plots.py``, writes each as PNG (200 dpi) and PDF into ``out`` and lists the
 files in ``out/README.md``, one line each. The P1 horizons come from ``e3_rankings.csv`` when it
@@ -137,6 +137,8 @@ def figure_jobs(args: dict) -> list[tuple[str, Callable | None, str]]:
     m4, root = args["m4"], args["root"]
     e1, e2 = read_csv(m4, "e1_ratios.csv"), read_csv(m4, "e2_paired.csv")
     e3, e4 = read_csv(m4, "e3_rankings.csv"), read_csv(m4, "e4_transfer.csv")
+    pareto = read_csv(m4, "e3_pareto.csv")
+    kendall = read_csv(m4, "e3_kendall.csv")
     p2_dataset = args["p2_dataset"]
     vehicles, profiles = load_p2(root, p2_dataset)
     horizons, sources = load_horizons(m4, root)
@@ -161,6 +163,16 @@ def figure_jobs(args: dict) -> list[tuple[str, Callable | None, str]]:
          f"E3 (H5.3): rank of every model under P0, P1 10 s, P1 whole event and the composite, "
          f"{_names(plots.MAIN_DATASETS)}; rank 1 = lowest value, ties broken by the model name "
          "(`results/m4/e3_rankings.csv`)."),
+        ("e3_pareto_scatter", None if pareto is None else lambda: plots.pareto_scatter(pareto),
+         "E3b: realism against the traffic-level composite: whole-event P1 spacing RMSE (log axis) against composite v2 "
+         "(mean normalised rank of the concave-growth and hysteresis errors, the unstable fraction, the 100-vehicle "
+         "collisions, the whole-event P1 spacing RMSE and the relative fundamental-diagram error; 0 = best) per model, "
+         f"{_names(plots.MAIN_DATASETS)}, family colours, every model labelled, the Pareto front of the two (both lower "
+         "is better) as a step line, models on it with a dark rim (`results/m4/e3_pareto.csv`)."),
+        ("e3_tau_summary", None if kendall is None else lambda: plots.tau_summary(kendall),
+         "E3 across datasets: Kendall's tau between the one-step, the whole-event closed-loop and the composite "
+         "rankings of the 24 entries, one group of bars per dataset with 95 % bootstrap intervals "
+         "(`results/m4/e3_kendall.csv`)."),
         ("e4_transfer_heatmap", None if e4 is None else lambda: plots.transfer_heatmap(e4),
          f"E4 (P5): whole-event relative degradation rmse_s(A -> B) / rmse_s(B -> B) of {len(e4_models)} SUBSET "
          f"models over {len(e4_datasets)} datasets (rows trained on, columns tested on), diverging log colour "

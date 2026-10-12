@@ -1,0 +1,71 @@
+{
+  "checklist": {
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver",
+    "stability_test": "analytic criterion (memoryless models) and step-response gain on 0.002-2 Hz, delta 0.05 m/s, v_e 5..30 m/s"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "delta": 0.05,
+    "delta_large": 1.0,
+    "device": "cpu",
+    "fold": 0,
+    "hold": 120.0,
+    "protocol": "p3",
+    "response": 300.0,
+    "split": "driver",
+    "tol": 1e-05,
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "3b53e6f91840",
+  "data_version": "reconstructed",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+  "model": {
+    "class": "idm",
+    "family": "mechanistic",
+    "label": "idm",
+    "provenance": {
+      "config_hash": "a5234ae28175",
+      "data_version": "reconstructed",
+      "dataset": "waymo_hu",
+      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p3",
+  "seconds": 0.9,
+  "summary": {
+    "agreement": 1.0,
+    "max_gain": 1.0000000000582965,
+    "max_gain_large": 1.0000000000000018,
+    "n_collided_large": 0,
+    "n_converged": 26,
+    "n_equilibria": 26,
+    "n_invalid": 0,
+    "n_speeds": 26,
+    "n_tracks": 26,
+    "peak_frequency": 0.0,
+    "tol": 1e-05,
+    "tracks_share": 1.0,
+    "unstable_fraction": 0.0,
+    "unstable_fraction_1e3": 0.0,
+    "unstable_fraction_analytic": 0.0,
+    "unstable_fraction_large": 0.0
+  }
+}

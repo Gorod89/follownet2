@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
   "model": {
     "class": "maml_lstm",
     "family": "network",
@@ -60,29 +61,29 @@
     }
   },
   "protocol": "p2",
-  "seconds": 56.0,
+  "seconds": 57.8,
   "summary": {
-    "collisions_100": 1047,
-    "collisions_100_in_range": 757,
-    "collisions_20": 201,
-    "collisions_20_in_range": 96,
-    "concave_growth_error": 53.42183614075643,
-    "concave_growth_error_in_range": 0.41952828660738406,
+    "collisions_100": 1066,
+    "collisions_100_in_range": 759,
+    "collisions_20": 202,
+    "collisions_20_in_range": 95,
+    "concave_growth_error": 53.44661141368041,
+    "concave_growth_error_in_range": 0.41949060132414046,
     "fd_bins_compared": 29,
-    "fd_error": 18650.85676685386,
-    "fd_error_rel": 18.41586374901981,
-    "growth_exponent_100": 0.5999680289393204,
-    "growth_exponent_100_in_range": 0.723113419906724,
-    "growth_exponent_20": 0.47457891432489885,
-    "growth_exponent_20_in_range": 0.5074828046052854,
-    "hysteresis_area_100": 430866.0979422737,
-    "hysteresis_area_20": 854619.9071313326,
-    "hysteresis_error": 2209958.160992217,
-    "hysteresis_error_in_range": 140.49519239672668,
+    "fd_error": 15046.969162258307,
+    "fd_error_rel": 15.123053529612228,
+    "growth_exponent_100": 0.597793134500917,
+    "growth_exponent_100_in_range": 0.7216553890696401,
+    "growth_exponent_20": 0.4705853361407398,
+    "growth_exponent_20_in_range": 0.5063532364378904,
+    "hysteresis_area_100": 457283.96541087655,
+    "hysteresis_area_20": 850850.5355738197,
+    "hysteresis_error": 2210659.9298821855,
+    "hysteresis_error_in_range": 140.53658296479477,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 10,
-    "n_wave_profiles": 9,
+    "n_wave_profiles": 8,
     "pulse": {
       "accel": 1.5,
       "decel": -3.0,
@@ -92,16 +93,16 @@
       "v_low": 5.95
     },
     "s_init_converged_share": 0.75,
-    "settled_share": 0.2685,
-    "settled_share_in_range": 0.475,
+    "settled_share": 0.368,
+    "settled_share_in_range": 0.591,
     "speed_range": [
       0.0,
       18.05
     ],
-    "wave_speed": 11.080527592329943,
-    "wave_speed_100": 20.481784669215905,
-    "wave_speed_in_range": 0.6558201584050484,
-    "wave_speed_pulse": 6.46130572782056,
-    "wave_speed_pulse_100": -1.8505691700295266
+    "wave_speed": 1.079381932397475,
+    "wave_speed_100": -6.548095505984834,
+    "wave_speed_in_range": 1.079381932397475,
+    "wave_speed_pulse": 6.432606297243334,
+    "wave_speed_pulse_100": 2.303946668579517
   }
 }

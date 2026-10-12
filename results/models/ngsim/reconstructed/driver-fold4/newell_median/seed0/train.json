@@ -1,0 +1,41 @@
+{
+  "class": "newell_median",
+  "config_hash": "0480a4d49e94",
+  "data_version": "reconstructed",
+  "dataset": "ngsim",
+  "family": "mechanistic",
+  "git_revision": "b37491fc8e298e11d9d8cba7933183e62fc1880e",
+  "model": "newell_median",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 4,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.016855865153078776,
+      "n_events": 2907,
+      "n_samples": 1299985,
+      "rmse_s": 8.37909640338806,
+      "rmse_v": 1.5674598668984332
+    },
+    "p0": {
+      "rmse_a": 5.856476617372587,
+      "rmse_s": 0.05856476810195611,
+      "rmse_v": 0.5856476665501916
+    }
+  },
+  "training": {
+    "kind": "median of per-event estimates",
+    "n_events": 1000,
+    "n_used": 1000,
+    "params": {
+      "V": 15.053993225097656,
+      "d": 2.3418939113616943,
+      "tau": 1.2234326601028442
+    },
+    "seconds": 135.0
+  }
+}

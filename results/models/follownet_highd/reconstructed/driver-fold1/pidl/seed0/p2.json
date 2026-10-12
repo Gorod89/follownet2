@@ -1,0 +1,108 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "hold 60.0 s then the leader profile; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 1,
+    "hold": 60.0,
+    "n_vehicles": [
+      20,
+      100
+    ],
+    "precision": "full",
+    "profiles": "data/scenarios/openacc_profiles.json",
+    "protocol": "p2",
+    "pulse": {
+      "accel": 1.5,
+      "decel": -3.0,
+      "hold_low": 10.0,
+      "tail": 240.0,
+      "v0": "auto",
+      "v0_max": 25.0,
+      "v_low_ratio": 0.4
+    },
+    "source_sample": 20000,
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30,
+    "window": 300.0
+  },
+  "config_hash": "34ce3bc7ab77",
+  "data_version": "reconstructed",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+  "model": {
+    "class": "pidl",
+    "family": "network",
+    "label": "pidl",
+    "provenance": {
+      "config_hash": "f8b23476c5bc",
+      "data_version": "reconstructed",
+      "dataset": "follownet_highd",
+      "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p2",
+  "seconds": 45.2,
+  "summary": {
+    "collisions_100": 933,
+    "collisions_100_in_range": 838,
+    "collisions_20": 54,
+    "collisions_20_in_range": 39,
+    "concave_growth_error": 0.8479137507080089,
+    "concave_growth_error_in_range": 0.8591543241640647,
+    "fd_bins_compared": 25,
+    "fd_error": 1177.7957627411133,
+    "fd_error_rel": 0.41542338929030637,
+    "growth_exponent_100": 0.3913525629774728,
+    "growth_exponent_100_in_range": 0.4051784753410111,
+    "growth_exponent_20": 0.06346160534513598,
+    "growth_exponent_20_in_range": 0.0384787054647374,
+    "hysteresis_area_100": 699.936473925857,
+    "hysteresis_area_20": 425.64006229129427,
+    "hysteresis_error": 371.472755888785,
+    "hysteresis_error_in_range": 378.2603671035661,
+    "n_invalid": 0,
+    "n_profiles": 20,
+    "n_profiles_in_range": 19,
+    "n_wave_profiles": 12,
+    "pulse": {
+      "accel": 1.5,
+      "decel": -3.0,
+      "hold_low": 10.0,
+      "tail": 240.0,
+      "v0": 25.0,
+      "v_low": 10.0
+    },
+    "s_init_converged_share": 0.75,
+    "settled_share": 0.7575,
+    "settled_share_in_range": 0.7447368421052631,
+    "speed_range": [
+      4.81,
+      26.82
+    ],
+    "wave_speed": 6.120528729039737,
+    "wave_speed_100": -5.128963492361789,
+    "wave_speed_in_range": 6.649983730144625,
+    "wave_speed_pulse": 13.692159299949479,
+    "wave_speed_pulse_100": 28.04692341887748
+  }
+}

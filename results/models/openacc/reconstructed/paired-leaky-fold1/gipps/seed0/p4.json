@@ -1,0 +1,89 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "hold 60.0 s then the manoeuvre, episodes from the end of the warm-up; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "rare_event_suite": {
+      "episodes": [
+        "tgsim_nearmiss/reconstructed"
+      ],
+      "synthetic": "p4-v1"
+    },
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "paired-leaky"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "episodes": [
+      "tgsim"
+    ],
+    "fold": 1,
+    "hold": 60.0,
+    "max_episodes": null,
+    "precision": "full",
+    "protocol": "p4",
+    "split": "paired-leaky",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "2e4760405533",
+  "data_version": "reconstructed",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
+  "model": {
+    "class": "gipps",
+    "family": "mechanistic",
+    "label": "gipps",
+    "provenance": {
+      "config_hash": "d0016709a787",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "paired-leaky",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p4",
+  "seconds": 3.0,
+  "summary": {
+    "amplification_mean": 1.108265010515848,
+    "collision_rate_empirical": 0.0628213726805276,
+    "collision_rate_synthetic": 0.07142857142857142,
+    "collision_rate_synthetic_in_range": 0.07142857142857142,
+    "exceedance_4": 0.04370229007633588,
+    "exceedance_4_empirical": 0.04063381822625242,
+    "exceedance_4_in_range": 0.04370229007633588,
+    "exceedance_4_recorded": 0.0053339168340916,
+    "exceedance_6": 0.01583969465648855,
+    "exceedance_6_empirical": 0.030065444914591972,
+    "min_ttc_q05": 1.2278042700164002,
+    "min_ttc_q05_empirical": 0.0,
+    "min_ttc_q25": 2.7047358801199937,
+    "min_ttc_q25_empirical": 3.294707649752278,
+    "min_ttc_q50": 3.3813492957627016,
+    "min_ttc_q50_empirical": 6.432557837817013,
+    "min_ttc_q50_in_range": 3.3813492957627016,
+    "min_ttc_q50_recorded": 2.195702707399592,
+    "n_collided_hold": 0,
+    "n_episodes": 4473,
+    "n_episodes_skipped": 0,
+    "n_invalid": 0,
+    "n_scenarios": 14,
+    "n_scenarios_in_range": 14,
+    "speed_range": [
+      1.33,
+      36.93
+    ]
+  }
+}

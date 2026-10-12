@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "openacc",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "9d5ebbb23d7b",
+  "data_version": "reconstructed",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": {
+    "class": "newell",
+    "family": "mechanistic",
+    "label": "newell",
+    "provenance": {
+      "config_hash": "182bd1b70b4f",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "69d4f48a2dd04238ad6d8409ddbd9fdc3d9e5871",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 2.9,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.0002290950744558992,
+      "event_collision_rate": 0.0010460251046025104,
+      "horizon_s": 10.0,
+      "n_events": 956,
+      "n_samples": 436500,
+      "n_windows": 4365,
+      "rmse_s": 33.474286628933655,
+      "rmse_v": 6.4118617059875
+    },
+    "h30": {
+      "collision_rate": 0.0,
+      "event_collision_rate": 0.0,
+      "horizon_s": 30.0,
+      "n_events": 904,
+      "n_samples": 271200,
+      "n_windows": 904,
+      "rmse_s": 102.26670436063809,
+      "rmse_v": 6.336583913158066
+    },
+    "whole": {
+      "collision_rate": 0.0020920502092050207,
+      "n_events": 956,
+      "n_samples": 479894,
+      "rmse_s": 181.14241948849045,
+      "rmse_v": 6.493051252072187
+    }
+  }
+}

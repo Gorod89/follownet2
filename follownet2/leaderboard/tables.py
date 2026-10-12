@@ -4,9 +4,12 @@ Per dataset, from the run directories ``<root>/<dataset>/reconstructed/<split>-f
 validated by :func:`follownet2.leaderboard.checklist.validate_dataset`:
 
 * ``main``: one row per admitted entry (driver split, fold 0, seed 0), sorted by the composite and
-  then by the whole-event P1 spacing error; a column group without any value for the dataset is
-  left out (P1 at 30 s without 30 s windows; P2-P4 and the composite for the datasets with P1
-  only; the spread columns without a second seed or fold);
+  then by the whole-event P1 spacing error; the composite v2 with realism inputs (the composite's
+  four inputs plus the whole-event P1 spacing error and ``fd_error_rel``,
+  :data:`~follownet2.protocols.composite.VARIANTS`) and its rank stand next to it (point values);
+  a column group without any value for the dataset is left out (P1 at 30 s without 30 s windows;
+  P2-P4 and the composites for the datasets with P1 only; the spread columns without a second seed
+  or fold);
 * ``leak``: the admitted runs under the ``event`` split, labelled "driver leak", never ranked;
 * ``transfer``: per admitted model with ``p1_<other>.json`` and target, the whole-event relative
   degradation ``rmse_s(A -> B) / rmse_s(B -> B)``; its mean is :func:`transfer_means`;
@@ -59,6 +62,13 @@ from follownet2.utils import read_json
 
 N_BOOT, SEED = 1000, 0
 REFERENCE = an.REFERENCE
+#: training ablations of the reference networks (scripts/m4.py, campaign ``ablation``): they
+#: live under ``driver-fold0`` like the reference entries but are analysed in the M4 report,
+#: never ranked on the leaderboard
+ABLATION_LABELS = (
+    "mlp_loop_h15", "mlp_loop_h30", "lstm_loop_h15", "lstm_loop_h30",
+    "mlp_hist30", "lstm_hist30", "mlp_wide", "lstm_wide", "stability_mlp_nbhd",
+)
 FAMILIES = ("baseline", "mechanistic", "network")
 #: driver-bootstrap metrics: column -> (per-event table, statistic)
 DRIVER_METRICS = {
@@ -69,6 +79,12 @@ DRIVER_METRICS = {
 }
 #: training seeds (driver split, fold 0) whose runs may enter the composite bootstrap
 COMPOSITE_SEEDS = (0, 1, 2)
+#: the note that defines the second composite of the main table
+V2_NOTE = ("Composite v2 (columns `composite v2`, `rank v2`; the table stays sorted by the composite above): the mean "
+           "normalised rank of six inputs, the four of the composite (P2 concave-growth and hysteresis errors, P3 unstable "
+           "fraction, P2 collisions_100) plus two realism inputs, the whole-event P1 spacing RMSE and the relative "
+           "fundamental-diagram error of P2 (`fd_error_rel`, pooled over the samples of all P2 profiles); equal weights, "
+           "average ranks on ties, a missing value last, over the same models as the composite; rank 1 = best.")
 
 
 def _ci(column: str) -> list[str]:
@@ -85,7 +101,7 @@ GROUPS: dict[str, list[str]] = {
     "p2": ["p2_concave_growth_error", "p2_hysteresis_error", "p2_collisions_100"],
     "p3": ["p3_unstable_fraction", "p3_unstable_fraction_large"],
     "p4": ["p4_collision_rate_synthetic", "p4_collision_rate_empirical"],
-    "composite": ["composite", "composite_rank", "composite_rank_low", "composite_rank_high"],
+    "composite": ["composite", "composite_rank", "composite_rank_low", "composite_rank_high", "composite_v2", "rank_v2"],
     "seeds": ["p0_ratio_seed_min", "p0_ratio_seed_max", "p1_whole_rmse_s_seed_min", "p1_whole_rmse_s_seed_max", "n_seeds"],
     "folds": ["p0_ratio_fold_min", "p0_ratio_fold_max", "p1_whole_rmse_s_fold_min", "p1_whole_rmse_s_fold_max", "n_folds"],
 }
@@ -318,15 +334,31 @@ def _probe_reference(root, dataset: str, runs: pd.DataFrame, label: str, fold: i
 
 
 def _fold_spread(root, dataset: str, runs: pd.DataFrame, labels: Sequence[str]) -> dict[str, dict]:
-    """Per model: range of the P0 ratio (against the reference on the same probe events, as in
-    E1) and of the whole-event P1 error over the admitted clean arms of the paired split."""
-    clean = _admitted(runs, FOLD_SPREAD)
+    """Per model: range of the P0 ratio and of the whole-event P1 error over the folds.
+
+    Folds 1-4 of the driver split (full test parts, the ratio against the reference run of the
+    same fold) together with the ranked entry of fold 0 are used when the model has them
+    (campaign ``folds``); otherwise the admitted clean arms of the paired split (probe events,
+    the ratio against the reference on the same probe events, as in E1)."""
+    spread = _admitted(runs, FOLD_SPREAD)
+    entries = _admitted(runs, ENTRY)
+    ref_dirs = {int(k): d for k, d in zip(spread.loc[(spread["split"] == MAIN_SPLIT) & (spread["model"] == REFERENCE), "fold"],
+                                           spread.loc[(spread["split"] == MAIN_SPLIT) & (spread["model"] == REFERENCE), "directory"])}
+    ref_entry = entries.loc[entries["model"] == REFERENCE, "directory"]
+    if len(ref_entry):
+        ref_dirs[MAIN_FOLD] = ref_entry.iloc[0]
     out = {}
     for label in labels:
-        part = clean[clean["model"] == label]
+        own = spread[(spread["model"] == label) & (spread["split"] == MAIN_SPLIT)]
+        if len(own):
+            part = pd.concat([entries[entries["model"] == label], own])
+            references = {int(k): (an._p0_rmse(ref_dirs[int(k)]) if int(k) in ref_dirs else np.nan) for k in part["fold"]}
+        else:
+            part = spread[(spread["model"] == label) & (spread["split"] == CLEAN)]
+            references = {int(k): _probe_reference(root, dataset, runs, label, int(k)) for k in part["fold"]}
         ratios, wholes = [], []
         for k, d in zip(part["fold"], part["directory"]):
-            base = _probe_reference(root, dataset, runs, label, int(k))
+            base = references.get(int(k), np.nan)
             ratios.append(an._p0_rmse(d) / base if base else np.nan)
             wholes.append(_whole(d))
         r_min, r_max, _ = an._spread(ratios)
@@ -358,7 +390,7 @@ def main_table(root, dataset: str, runs: pd.DataFrame, n_boot: int = N_BOOT, see
     whole-event P1 error (columns :data:`RANK_COLUMNS`, index model; None when not available)
     and the notes (intervals that could not be computed, missing reference)."""
     notes: list[str] = []
-    labels = sorted(_admitted(runs, ENTRY)["model"])
+    labels = sorted(m for m in _admitted(runs, ENTRY)["model"] if m not in ABLATION_LABELS)
     if not labels:
         return pd.DataFrame(columns=[c for g in CORE for c in GROUPS[g]]), None, None, ["no admitted entry"]
     directories = {m: an.run_dir(root, dataset, m) for m in labels}
@@ -402,6 +434,9 @@ def main_table(root, dataset: str, runs: pd.DataFrame, n_boot: int = N_BOOT, see
         values = pd.Series(an._composite(subset), index=compared)
         frame.loc[compared, "composite"] = values
         frame.loc[compared, "composite_rank"] = values.rank(method="average")
+        v2 = pd.Series(an.variant_composite(an.composite_inputs(root, dataset, subset), "v2"), index=compared)
+        frame.loc[compared, "composite_v2"] = v2
+        frame.loc[compared, "rank_v2"] = v2.rank(method="average")
         replicates, composite_notes, seeds_of = composite_replicates(root, dataset, runs, compared, n_boot, seed)
         if replicates is not None:
             composite_ranks = rank_distribution(replicates)[RANK_COLUMNS]
@@ -416,6 +451,7 @@ def main_table(root, dataset: str, runs: pd.DataFrame, n_boot: int = N_BOOT, see
             notes += composite_notes
         else:
             notes.append(f"composite rank: no interval ({'; '.join(composite_notes) or 'no replicates'})")
+        notes.append(V2_NOTE)
         if len(compared) < len(labels):
             notes.append(f"no composite input (P2, P3) for {', '.join(m for m in labels if m not in compared)}: no composite")
 

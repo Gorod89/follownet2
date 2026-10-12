@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "waymo_hu",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "cd1e81ad64a8",
+  "data_version": "reconstructed",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": {
+    "class": "newell",
+    "family": "mechanistic",
+    "label": "newell",
+    "provenance": {
+      "config_hash": "780fe0077f91",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "ba7263357d22ea8fbafa8462a813cdb86da2d71b",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 0.7,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.04093567251461988,
+      "event_collision_rate": 0.04093567251461988,
+      "horizon_s": 10.0,
+      "n_events": 171,
+      "n_samples": 17100,
+      "n_windows": 171,
+      "rmse_s": 12.083445762522008,
+      "rmse_v": 3.9853265663057456
+    },
+    "h30": {
+      "collision_rate": NaN,
+      "event_collision_rate": NaN,
+      "horizon_s": 30.0,
+      "n_events": 0,
+      "n_samples": 0,
+      "n_windows": 0,
+      "rmse_s": NaN,
+      "rmse_v": NaN
+    },
+    "whole": {
+      "collision_rate": 0.04093567251461988,
+      "n_events": 171,
+      "n_samples": 27909,
+      "rmse_s": 11.524341322046922,
+      "rmse_v": 3.5065263024972393
+    }
+  }
+}

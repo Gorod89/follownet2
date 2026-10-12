@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
   "model": {
     "class": "ddpg",
     "family": "network",
@@ -60,7 +61,7 @@
     }
   },
   "protocol": "p2",
-  "seconds": 60.1,
+  "seconds": 43.0,
   "summary": {
     "collisions_100": 0,
     "collisions_100_in_range": 0,

@@ -1,0 +1,82 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "tested_on": "openacc",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "9d5ebbb23d7b",
+  "data_version": "reconstructed",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": {
+    "class": "constant_speed",
+    "family": "baseline",
+    "label": "constant_speed",
+    "provenance": {
+      "config_hash": "fa8db308a97d",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "fa9fc1c3fda2630cd0271321f9990641c823cd09",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 2.2,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.0865979381443299,
+      "event_collision_rate": 0.3253138075313807,
+      "horizon_s": 10.0,
+      "n_events": 956,
+      "n_samples": 436500,
+      "n_windows": 4365,
+      "rmse_s": 8.64483167123575,
+      "rmse_v": 2.131739098326649
+    },
+    "h30": {
+      "collision_rate": 0.2721238938053097,
+      "event_collision_rate": 0.2721238938053097,
+      "horizon_s": 30.0,
+      "n_events": 904,
+      "n_samples": 271200,
+      "n_windows": 904,
+      "rmse_s": 50.511299382189904,
+      "rmse_v": 4.030802883583341
+    },
+    "whole": {
+      "collision_rate": 0.3817991631799163,
+      "n_events": 956,
+      "n_samples": 479894,
+      "rmse_s": 109.94060112609507,
+      "rmse_v": 4.758079967932101
+    }
+  }
+}

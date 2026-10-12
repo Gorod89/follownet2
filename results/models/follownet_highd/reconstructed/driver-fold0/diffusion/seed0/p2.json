@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
   "model": {
     "class": "diffusion",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 963.3,
+  "seconds": 520.3,
   "summary": {
     "collisions_100": 212,
     "collisions_100_in_range": 211,
     "collisions_20": 73,
     "collisions_20_in_range": 72,
-    "concave_growth_error": 5.602723383712352,
-    "concave_growth_error_in_range": 5.890064334552926,
+    "concave_growth_error": 5.602707350513477,
+    "concave_growth_error_in_range": 5.890061788822301,
     "fd_bins_compared": 25,
-    "fd_error": 1887.830146101886,
-    "fd_error_rel": 0.5494004208121923,
-    "growth_exponent_100": -1.2797917009550945,
-    "growth_exponent_100_in_range": -1.2993527272450545,
-    "growth_exponent_20": -0.11084697931718024,
-    "growth_exponent_20_in_range": -0.14541778487341628,
-    "hysteresis_area_100": 1231.5170182178888,
-    "hysteresis_area_20": 5916.89053748243,
-    "hysteresis_error": 35845.41513538117,
-    "hysteresis_error_in_range": 37828.464482148316,
+    "fd_error": 1887.5873789083687,
+    "fd_error_rel": 0.5491778320961898,
+    "growth_exponent_100": -1.2799172525106073,
+    "growth_exponent_100_in_range": -1.2994865399063678,
+    "growth_exponent_20": -0.11069789417268207,
+    "growth_exponent_20_in_range": -0.14526389353514998,
+    "hysteresis_area_100": 1231.5454084291187,
+    "hysteresis_area_20": 5917.097432571933,
+    "hysteresis_error": 35845.370408662966,
+    "hysteresis_error_in_range": 37828.42182353417,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 19,
@@ -98,10 +99,10 @@
       4.81,
       26.82
     ],
-    "wave_speed": 12.011200249825466,
-    "wave_speed_100": -3.072498609281853,
-    "wave_speed_in_range": 13.563188948868158,
-    "wave_speed_pulse": 10.398225042620563,
-    "wave_speed_pulse_100": 9.965150060599711
+    "wave_speed": 12.00937417525604,
+    "wave_speed_100": -3.463537861321627,
+    "wave_speed_in_range": 13.560856371533989,
+    "wave_speed_pulse": 10.398261537950507,
+    "wave_speed_pulse_100": 9.965151252520746
   }
 }

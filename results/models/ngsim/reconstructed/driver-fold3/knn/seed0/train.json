@@ -1,0 +1,56 @@
+{
+  "class": "knn",
+  "config_hash": "1bd284dc187b",
+  "data_version": "reconstructed",
+  "dataset": "ngsim",
+  "family": "network",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
+  "model": "knn",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 3,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.20745598895409043,
+      "n_events": 2897,
+      "n_samples": 1300294,
+      "rmse_s": 20.653866918649143,
+      "rmse_v": 1.4219950666211882
+    },
+    "p0": {
+      "rmse_a": 0.677890359489052,
+      "rmse_s": 0.006778872095778201,
+      "rmse_v": 0.06778872117800039
+    }
+  },
+  "training": {
+    "best_val_rmse_a": 0.6757639941178835,
+    "config": {
+      "batch_size": 4096,
+      "batches_per_epoch": 200,
+      "closed_loop_batch": 512,
+      "closed_loop_horizon": 50,
+      "closed_loop_weight": 0.0,
+      "device": "cuda",
+      "epochs": 40,
+      "grad_clip": 1.0,
+      "lr": 0.001,
+      "patience": 6,
+      "seed": 0,
+      "val_batches": 50,
+      "weight_decay": 0.0
+    },
+    "epochs_run": 0,
+    "history": [],
+    "n_parameters": 0,
+    "n_reference": 50000,
+    "n_train_events": 9460,
+    "n_train_windows": 4224527,
+    "n_val_windows": 885686,
+    "seconds": 1.6
+  }
+}

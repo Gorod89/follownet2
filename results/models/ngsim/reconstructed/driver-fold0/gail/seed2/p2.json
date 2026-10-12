@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "gail",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 46.5,
+  "seconds": 54.5,
   "summary": {
-    "collisions_100": 1389,
+    "collisions_100": 1392,
     "collisions_100_in_range": 877,
     "collisions_20": 359,
     "collisions_20_in_range": 166,
-    "concave_growth_error": 0.7317458361381147,
-    "concave_growth_error_in_range": 0.7526610381585386,
+    "concave_growth_error": 0.7317458304313247,
+    "concave_growth_error_in_range": 0.7526609785749695,
     "fd_bins_compared": 29,
-    "fd_error": 7210.193787387436,
-    "fd_error_rel": 6.940298190233047,
-    "growth_exponent_100": 0.5740606561143092,
-    "growth_exponent_100_in_range": 0.3190966450117973,
-    "growth_exponent_20": 0.8482129141039194,
-    "growth_exponent_20_in_range": 0.6028995928729872,
-    "hysteresis_area_100": 97746.93415537298,
-    "hysteresis_area_20": 277469.8804997314,
-    "hysteresis_error": 434.8431519606197,
-    "hysteresis_error_in_range": 147.70538564504542,
+    "fd_error": 7211.44956145817,
+    "fd_error_rel": 6.944689190171926,
+    "growth_exponent_100": 0.5731383562255609,
+    "growth_exponent_100_in_range": 0.3190989293346169,
+    "growth_exponent_20": 0.8482106427697027,
+    "growth_exponent_20_in_range": 0.6028996666779469,
+    "hysteresis_area_100": 97444.09659643724,
+    "hysteresis_area_20": 277444.2623167714,
+    "hysteresis_error": 434.84320914424796,
+    "hysteresis_error_in_range": 147.7053698811834,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 10,
@@ -92,16 +93,16 @@
       "v_low": 5.95
     },
     "s_init_converged_share": 0.75,
-    "settled_share": 0.7425,
+    "settled_share": 0.743,
     "settled_share_in_range": 1.0,
     "speed_range": [
       0.0,
       18.05
     ],
-    "wave_speed": 12.927742399138047,
-    "wave_speed_100": 4.272551735062354,
-    "wave_speed_in_range": -3.0071494461628565,
-    "wave_speed_pulse": 1.6454405073540759,
-    "wave_speed_pulse_100": 1.232924390844168
+    "wave_speed": 12.92778291256621,
+    "wave_speed_100": 4.175696319086821,
+    "wave_speed_in_range": -3.0071528501664213,
+    "wave_speed_pulse": 1.6454390366406355,
+    "wave_speed_pulse_100": 1.2328837327834767
   }
 }

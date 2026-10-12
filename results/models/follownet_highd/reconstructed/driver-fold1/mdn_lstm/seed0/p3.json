@@ -1,0 +1,71 @@
+{
+  "checklist": {
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver",
+    "stability_test": "analytic criterion (memoryless models) and step-response gain on 0.002-2 Hz, delta 0.05 m/s, v_e 5..30 m/s"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "delta": 0.05,
+    "delta_large": 1.0,
+    "device": "cpu",
+    "fold": 1,
+    "hold": 120.0,
+    "protocol": "p3",
+    "response": 300.0,
+    "split": "driver",
+    "tol": 1e-05,
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "aca667600c0d",
+  "data_version": "reconstructed",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+  "model": {
+    "class": "mdn_lstm",
+    "family": "network",
+    "label": "mdn_lstm",
+    "provenance": {
+      "config_hash": "233b018d52a2",
+      "data_version": "reconstructed",
+      "dataset": "follownet_highd",
+      "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p3",
+  "seconds": 4.4,
+  "summary": {
+    "agreement": null,
+    "max_gain": 3.894951344686182,
+    "max_gain_large": 3.0420338448622206,
+    "n_collided_large": 1,
+    "n_converged": 11,
+    "n_equilibria": 11,
+    "n_invalid": 0,
+    "n_speeds": 26,
+    "n_tracks": 22,
+    "peak_frequency": 0.029985368655720917,
+    "tol": 1e-05,
+    "tracks_share": 1.0,
+    "unstable_fraction": 0.8181818181818182,
+    "unstable_fraction_1e3": 0.8181818181818182,
+    "unstable_fraction_analytic": null,
+    "unstable_fraction_large": 0.9090909090909091
+  }
+}

@@ -28,14 +28,15 @@
     "fold": 0,
     "hold": 60.0,
     "max_episodes": null,
+    "precision": "full",
     "protocol": "p4",
     "split": "driver",
     "version": "reconstructed",
     "warmup": 30
   },
-  "config_hash": "6d04f1db555b",
+  "config_hash": "0c38ee36eafd",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
   "model": {
     "class": "gipps",
     "family": "mechanistic",
@@ -54,7 +55,7 @@
     }
   },
   "protocol": "p4",
-  "seconds": 3.4,
+  "seconds": 2.8,
   "summary": {
     "amplification_mean": 0.7005169391632073,
     "collision_rate_empirical": 0.026156941649899398,

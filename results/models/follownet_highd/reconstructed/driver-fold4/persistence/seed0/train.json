@@ -1,0 +1,35 @@
+{
+  "class": "persistence",
+  "config_hash": "433e8dbc0d0e",
+  "data_version": "reconstructed",
+  "dataset": "follownet_highd",
+  "family": "baseline",
+  "git_revision": "4cf4abb69f2702dce1d342d48edc0c5b8c85d551",
+  "model": "persistence",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 4,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.0903277378097522,
+      "n_events": 2502,
+      "n_samples": 297738,
+      "rmse_s": 9.282808632173598,
+      "rmse_v": 2.274219948607238
+    },
+    "p0": {
+      "rmse_a": 0.019453481769299463,
+      "rmse_s": 0.0001945424255837094,
+      "rmse_v": 0.0019453477231381924
+    }
+  },
+  "training": {
+    "n_train_events": 8133,
+    "n_train_windows": 967827,
+    "n_val_windows": 223363
+  }
+}

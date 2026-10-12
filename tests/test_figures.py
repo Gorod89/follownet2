@@ -469,3 +469,22 @@ def test_script_skips_figures_without_input(report, tmp_path, capsys):
 def test_script_rejects_unknown_arguments(report):
     with pytest.raises(SystemExit, match="unknown argument"):
         report.arguments(["colour=red"])
+
+
+def test_tau_summary_draws_one_group_per_dataset(tmp_path):
+    import pandas as pd
+    from matplotlib.figure import Figure
+    from follownet2.figures import plots, style
+
+    rows = []
+    for dataset in ("ngsim", "follownet_highd", "openacc"):
+        for a, b, tau in (("P0", "composite", -0.5), ("P1 whole", "composite", 0.3), ("P0", "P1 whole", -0.2)):
+            rows.append({"dataset": dataset, "ranking_a": a, "ranking_b": b, "tau": tau, "low": tau - 0.1, "high": tau + 0.1})
+    rows.append({"dataset": "tgsim", "ranking_a": "P0", "ranking_b": "composite", "tau": -0.6, "low": -0.7, "high": -0.5})
+    fig = plots.tau_summary(pd.DataFrame(rows))
+    assert isinstance(fig, Figure)
+    ax = fig.axes[0]
+    assert [t.get_text() for t in ax.get_xticklabels()] == [style.dataset_label(d, short=True) for d in ("ngsim", "follownet_highd", "openacc")]
+    assert len(ax.patches) == 9  # three pairs for three complete datasets; tgsim is incomplete and left out
+    style.save(fig, tmp_path / "tau")
+    assert (tmp_path / "tau.png").exists() and (tmp_path / "tau.pdf").exists()

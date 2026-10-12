@@ -30,16 +30,16 @@
   },
   "config_hash": "73bf244e536b",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "d9e4216c0c272b1791d23f1555fd469c3d868885",
   "model": {
     "class": "stability_mlp",
     "family": "network",
     "label": "stability_mlp",
     "provenance": {
-      "config_hash": "61e74affd543",
+      "config_hash": "aae83d7813a5",
       "data_version": "reconstructed",
       "dataset": "waymo_hu",
-      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
       "seed": 0,
       "split": {
         "fold": 0,
@@ -49,7 +49,7 @@
     }
   },
   "protocol": "p1",
-  "seconds": 1.4,
+  "seconds": 1.6,
   "summary": {
     "h10": {
       "collision_rate": 0.017179384738314023,
@@ -58,8 +58,8 @@
       "n_events": 2503,
       "n_samples": 250300,
       "n_windows": 2503,
-      "rmse_s": 3.49271792902621,
-      "rmse_v": 0.7719334676023666
+      "rmse_s": 3.4927173071660524,
+      "rmse_v": 0.771933501299483
     },
     "h30": {
       "collision_rate": NaN,
@@ -75,8 +75,8 @@
       "collision_rate": 0.021574111066719935,
       "n_events": 2503,
       "n_samples": 297857,
-      "rmse_s": 4.312979819240141,
-      "rmse_v": 0.7980763895521488
+      "rmse_s": 4.312979198929413,
+      "rmse_v": 0.7980764336591515
     }
   }
 }

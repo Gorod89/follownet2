@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
   "model": {
     "class": "mdn_lstm",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 103.4,
+  "seconds": 58.3,
   "summary": {
-    "collisions_100": 1367,
-    "collisions_100_in_range": 853,
-    "collisions_20": 213,
-    "collisions_20_in_range": 90,
-    "concave_growth_error": 82.5929959112451,
-    "concave_growth_error_in_range": 0.46927885278360154,
+    "collisions_100": 1381,
+    "collisions_100_in_range": 865,
+    "collisions_20": 214,
+    "collisions_20_in_range": 93,
+    "concave_growth_error": 82.8069820338118,
+    "concave_growth_error_in_range": 0.4620162644432836,
     "fd_bins_compared": 29,
-    "fd_error": 7402.278441668206,
-    "fd_error_rel": 7.361728793712058,
-    "growth_exponent_100": 0.26411898984294646,
-    "growth_exponent_100_in_range": 0.7353911704322734,
-    "growth_exponent_20": 0.1617271434734841,
-    "growth_exponent_20_in_range": 0.48570022283982234,
-    "hysteresis_area_100": 406633.143444272,
-    "hysteresis_area_20": 1177038.4468883565,
-    "hysteresis_error": 2857564.7552854326,
-    "hysteresis_error_in_range": 138.29350025276068,
+    "fd_error": 7531.935395736833,
+    "fd_error_rel": 7.50347711633609,
+    "growth_exponent_100": 0.24914143056410018,
+    "growth_exponent_100_in_range": 0.6946233944668205,
+    "growth_exponent_20": 0.163790578821905,
+    "growth_exponent_20_in_range": 0.4969512932511888,
+    "hysteresis_area_100": 384105.85703428864,
+    "hysteresis_area_20": 1157237.2845500906,
+    "hysteresis_error": 2848881.711220114,
+    "hysteresis_error_in_range": 131.56021665141387,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 10,
@@ -92,16 +93,16 @@
       "v_low": 5.95
     },
     "s_init_converged_share": 0.6,
-    "settled_share": 0.647,
-    "settled_share_in_range": 0.803,
+    "settled_share": 0.7455,
+    "settled_share_in_range": 1.0,
     "speed_range": [
       0.0,
       18.05
     ],
-    "wave_speed": 1.6894472097765147,
-    "wave_speed_100": -8.171310977626144,
-    "wave_speed_in_range": 1.6894472097765147,
-    "wave_speed_pulse": 2.776088793659657,
-    "wave_speed_pulse_100": 0.03292164057835744
+    "wave_speed": 1.876139547421562,
+    "wave_speed_100": -11.101913077809144,
+    "wave_speed_in_range": 1.876139547421562,
+    "wave_speed_pulse": 2.676903940832802,
+    "wave_speed_pulse_100": 1.3319577422298663
   }
 }

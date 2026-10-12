@@ -1,0 +1,89 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "hold 60.0 s then the manoeuvre, episodes from the end of the warm-up; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, median of per-event estimates parameters from the training part",
+    "rare_event_suite": {
+      "episodes": [
+        "tgsim_nearmiss/reconstructed"
+      ],
+      "synthetic": "p4-v1"
+    },
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "episodes": [
+      "tgsim"
+    ],
+    "fold": 0,
+    "hold": 60.0,
+    "max_episodes": null,
+    "precision": "full",
+    "protocol": "p4",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "0c38ee36eafd",
+  "data_version": "reconstructed",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
+  "model": {
+    "class": "newell_median",
+    "family": "mechanistic",
+    "label": "newell_median",
+    "provenance": {
+      "config_hash": "8da490ff929b",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "ba7263357d22ea8fbafa8462a813cdb86da2d71b",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p4",
+  "seconds": 2.8,
+  "summary": {
+    "amplification_mean": 0.8000761667887364,
+    "collision_rate_empirical": 0.2416722557567628,
+    "collision_rate_synthetic": 0.07142857142857142,
+    "collision_rate_synthetic_in_range": 0.07142857142857142,
+    "exceedance_4": 0.06183206106870229,
+    "exceedance_4_empirical": 0.2537148443161248,
+    "exceedance_4_in_range": 0.06183206106870229,
+    "exceedance_4_recorded": 0.0053339168340916,
+    "exceedance_6": 0.05114503816793893,
+    "exceedance_6_empirical": 0.2487816106325963,
+    "min_ttc_q05": 0.9519771831727799,
+    "min_ttc_q05_empirical": 0.0,
+    "min_ttc_q25": 2.1797349307742278,
+    "min_ttc_q25_empirical": 0.21608800650672721,
+    "min_ttc_q50": 3.1145333691480155,
+    "min_ttc_q50_empirical": 1.9653660188273365,
+    "min_ttc_q50_in_range": 3.1145333691480155,
+    "min_ttc_q50_recorded": 2.195702707399592,
+    "n_collided_hold": 0,
+    "n_episodes": 4473,
+    "n_episodes_skipped": 0,
+    "n_invalid": 0,
+    "n_scenarios": 14,
+    "n_scenarios_in_range": 14,
+    "speed_range": [
+      1.33,
+      36.93
+    ]
+  }
+}

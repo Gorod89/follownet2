@@ -1,4 +1,4 @@
-"""The six figures of the report (docs/leaderboard.md, section 4).
+"""The figures of the report (docs/leaderboard.md, section 4), and the Pareto view of E3b.
 
 Every function takes data frames (the CSVs of ``results/m4`` or tables of the run directories,
 read by ``scripts/make_report.py``) and returns a :class:`matplotlib.figure.Figure` 160 mm wide;
@@ -22,6 +22,7 @@ from matplotlib.patches import Patch
 from matplotlib.textpath import TextPath
 
 from follownet2.figures import style
+from follownet2.protocols.composite import pareto_front
 
 #: as in follownet2.experiments.analysis (tests/test_figures.py checks they agree)
 REFERENCE = "persistence"
@@ -382,6 +383,188 @@ def rank_bump_chart(rankings: pd.DataFrame, datasets: Sequence[str] = MAIN_DATAS
     return fig
 
 
+# ----------------------------------------------------------------------------- E3b
+
+#: label positions around a point, tried in this order: (dx, dy) unit offset, alignment
+_LABEL_SPOTS = (
+    (1.0, 0.0, "left", "center"), (-1.0, 0.0, "right", "center"),
+    (0.71, 0.71, "left", "bottom"), (0.71, -0.71, "left", "top"),
+    (-0.71, 0.71, "right", "bottom"), (-0.71, -0.71, "right", "top"),
+    (0.0, 1.0, "center", "bottom"), (0.0, -1.0, "center", "top"),
+)
+#: further distances (pt) of a label from its marker when the near positions are taken (leader line)
+_LABEL_RINGS = (0.0, 6.0, 12.0, 20.0, 30.0, 42.0)
+PARETO_MARKER_PT = 2.7  # marker radius
+
+
+def _overlap(a: Sequence[float], b: Sequence[float]) -> float:
+    """Area of the intersection of two boxes ``(x0, y0, x1, y1)``."""
+    w = min(a[2], b[2]) - max(a[0], b[0])
+    h = min(a[3], b[3]) - max(a[1], b[1])
+    return w * h if w > 0 and h > 0 else 0.0
+
+
+def _distance(box: Sequence[float], point: Sequence[float]) -> float:
+    """Distance from a point to a box ``(x0, y0, x1, y1)`` (0 inside)."""
+    dx = max(box[0] - point[0], 0.0, point[0] - box[2])
+    dy = max(box[1] - point[1], 0.0, point[1] - box[3])
+    return float(np.hypot(dx, dy))
+
+
+def _inside(points: np.ndarray, box: Sequence[float]) -> int:
+    """Number of the points ``[k, 2]`` inside a box."""
+    if not len(points):
+        return 0
+    return int(((points[:, 0] >= box[0]) & (points[:, 0] <= box[2]) & (points[:, 1] >= box[1]) & (points[:, 1] <= box[3])).sum())
+
+
+def _label_points(fig: Figure, ax, xs: np.ndarray, ys: np.ndarray, texts: Sequence[str], fontsize: float,
+                  marker_pt: float = PARETO_MARKER_PT, lines: Sequence[tuple[np.ndarray, np.ndarray]] = ()) -> list:
+    """Label every point of ``ax`` (data coordinates ``xs``, ``ys``), greedily and crowded points
+    first: each label takes the first position around its marker, ring by ring, that overlaps no
+    placed label, no other marker, none of the polylines ``lines`` (data coordinates) and no placed
+    leader line, stays inside the axes and is not nearer to another marker than to its own, else
+    the position of least cost; labels away from the first ring get a leader line, which must not
+    cross a placed label or another marker either. Call it once the layout is final; the labels stay
+    out of the layout. Returns the annotations in the order of ``texts``."""
+    fig.draw_without_rendering()
+    renderer = fig.canvas.get_renderer()
+    scale = fig.dpi / 72.0  # pixels per point
+    points = ax.transData.transform(np.column_stack([xs, ys]))
+    frame = ax.get_window_extent(renderer)
+    bounds = (frame.x0, frame.y0, frame.x1, frame.y1)
+    segments = []  # thin boxes around the segments of the polylines, in pixels
+    for lx, ly in lines:
+        path = ax.transData.transform(np.column_stack([lx, ly]))
+        for (ax0, ay0), (ax1, ay1) in zip(path[:-1], path[1:]):
+            segments.append((min(ax0, ax1) - scale, min(ay0, ay1) - scale, max(ax0, ax1) + scale, max(ay0, ay1) + scale))
+    sizes = []
+    for text in texts:
+        probe = ax.text(0.0, 0.0, text, fontsize=fontsize)
+        extent = probe.get_window_extent(renderer)
+        probe.remove()
+        sizes.append((extent.width, extent.height))
+    radius = marker_pt * scale
+    markers = [(px - radius, py - radius, px + radius, py + radius) for px, py in points]
+    crowd = [int((np.hypot(*(points - p).T) < 30.0 * scale).sum()) for p in points]
+    placed: list[tuple] = []
+    leaders = np.empty((0, 2))  # sample points of the placed leader lines
+    fractions = np.linspace(0.2, 1.0, 9)[:, None]
+    annotations: dict[int, object] = {}
+    for i in sorted(range(len(texts)), key=lambda k: (-crowd[k], points[k][0], k)):
+        (px, py), (w, h) = points[i], sizes[i]
+        others = [j for j in range(len(points)) if j != i]
+        best = None
+        for ring in _LABEL_RINGS:
+            distance = (marker_pt + 1.5 + ring) * scale
+            for dx, dy, ha, va in _LABEL_SPOTS:
+                x0 = px + dx * distance - {"left": 0.0, "right": w, "center": w / 2}[ha]
+                y0 = py + dy * distance - {"bottom": 0.0, "top": h, "center": h / 2}[va]
+                box = (x0, y0, x0 + w, y0 + h)
+                cost = sum(_overlap(box, b) for b in placed)
+                cost += sum(_overlap(box, markers[j]) for j in others)
+                cost += 2.0 * h * sum(_overlap(box, s) for s in segments) / scale
+                cost += 4.0 * (w * h - _overlap(box, bounds))
+                cost += 0.1 * w * h * _inside(leaders, box)
+                own = _distance(box, (px, py))
+                if any(_distance(box, points[j]) < own for j in others):  # the label would read as another point's
+                    cost += 0.5 * w * h
+                if ring > 0.0:
+                    path = np.array([px, py]) + fractions * np.array([dx * distance, dy * distance])
+                    cost += 0.1 * w * h * (sum(_inside(path, b) for b in placed) + sum(_inside(path, markers[j]) for j in others))
+                if best is None or cost < best[0] - 1e-9:
+                    best = (cost, ring, distance, dx, dy, ha, va, box)
+                if cost <= 0.0:
+                    break
+            if best[0] <= 0.0:
+                break
+        _, ring, distance, dx, dy, ha, va, box = best
+        placed.append(box)
+        if ring > 0.0:
+            leaders = np.vstack([leaders, np.array([px, py]) + fractions * np.array([dx * distance, dy * distance])])
+        arrow = None if ring == 0.0 else {"arrowstyle": "-", "color": style.SECONDARY, "linewidth": 0.4, "shrinkA": 0.5,
+                                          "shrinkB": marker_pt}
+        annotation = ax.annotate(texts[i], xy=(xs[i], ys[i]), xytext=(dx * distance / scale, dy * distance / scale),
+                                 textcoords="offset points", ha=ha, va=va, fontsize=fontsize, color=style.INK,
+                                 arrowprops=arrow, annotation_clip=False, zorder=5)
+        annotation.set_in_layout(False)
+        annotations[i] = annotation
+    return [annotations[i] for i in range(len(texts))]
+
+
+def pareto_scatter(pareto: pd.DataFrame, datasets: Sequence[str] = MAIN_DATASETS, x: str = "p1_whole_rmse_s",
+                   y: str = "composite_v2") -> Figure:
+    """E3b: realism against the traffic-level composite, one panel per dataset (stacked): the
+    whole-event P1 spacing RMSE (log axis) against composite v2 per model, family colours, every
+    model labelled, the Pareto front of the two (both lower is better) as a step line that bounds
+    the dominated region above and to the right of it; models on the front have a dark rim.
+    ``pareto``: ``dataset, model, family, p1_whole_rmse_s, composite_v2`` and ``on_front`` when
+    known (otherwise computed with :func:`~follownet2.protocols.composite.pareto_front`)
+    (``results/m4/e3_pareto.csv``). A model without both values is left out.
+    """
+    _require(pareto, ("dataset", "model", "family", x, y), "pareto_scatter")
+    blocks = []
+    for dataset in datasets:
+        block = pareto[pareto["dataset"] == dataset].drop_duplicates("model").copy()
+        block[x] = pd.to_numeric(block[x], errors="coerce").astype(float)
+        block[y] = pd.to_numeric(block[y], errors="coerce").astype(float)
+        if "on_front" in block.columns:
+            block["front"] = block["on_front"].astype(str).str.lower().isin(("true", "1", "1.0"))
+        else:
+            block["front"] = pareto_front(block[x], block[y])
+        blocks.append(block[np.isfinite(block[x]) & (block[x] > 0) & np.isfinite(block[y])].reset_index(drop=True))
+    fontsize = style.FONT_SIZE - 2.0
+    lines: list[list[tuple[np.ndarray, np.ndarray]]] = []
+    with style.context():
+        fig = style.figure(height_mm=16.0 + 86.0 * max(len(datasets), 1))
+        axes = fig.subplots(max(len(datasets), 1), 1, squeeze=False)[:, 0]
+        for i, (ax, dataset, block) in enumerate(zip(axes, datasets, blocks)):
+            style.panel_label(ax, i, style.dataset_label(dataset))
+            ax.set_xscale("log")
+            lines.append([])
+            if block.empty:
+                _empty(ax)
+                continue
+            xv, yv = block[x].to_numpy(), block[y].to_numpy()
+            low, high = _log_limits(xv, pad=1.3)
+            low = min(low, float(xv.min()) / 1.6)  # room for labels left of the leftmost points (the front starts there)
+            span = float(yv.max() - yv.min()) or 0.2
+            y_low, y_high = float(yv.min()) - 0.08 * span, float(yv.max()) + 0.08 * span
+            ax.set_xlim(low, high)
+            ax.set_ylim(y_low, y_high)
+            _log_axis(ax.xaxis, low, high)
+            if np.log10(high / low) < 1.5:  # narrow range: plain labels between the decades as well
+                ax.xaxis.set_major_locator(ticker.LogLocator(base=10, subs=(1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0)))
+            ax.grid(axis="x", which="major")
+            front = block[block["front"]].sort_values([x, y], kind="stable")
+            if len(front):
+                fx, fy = front[x].to_numpy(), front[y].to_numpy()
+                step_x, step_y = np.repeat(fx, 2)[1:], np.repeat(fy, 2)[:-1]  # right, then down, from front point to front point
+                ax.plot(step_x, step_y, color=style.INK, linewidth=0.8, zorder=2, solid_joinstyle="miter")
+                tails = [(np.array([fx[0], fx[0]]), np.array([y_high, fy[0]])), (np.array([fx[-1], high]), np.array([fy[-1], fy[-1]]))]
+                for tx, ty in tails:  # the boundary of the dominated region beyond the front
+                    ax.plot(tx, ty, color=style.INK, linewidth=0.6, linestyle=(0, (1.0, 1.6)), zorder=2)
+                lines[-1] = [(step_x, step_y), *tails]
+            rim = np.where(block["front"].to_numpy(), style.INK, "white")
+            ax.scatter(xv, yv, s=(2.0 * PARETO_MARKER_PT) ** 2, c=[style.family_color(f) for f in block["family"]],
+                       edgecolors=list(rim), linewidths=np.where(block["front"].to_numpy(), 0.9, 0.5), zorder=3)
+            style.note(ax, f"{int(block['front'].sum())} of {len(block)} models on the front; lower left is better")
+        fig.supxlabel("Whole-event P1 spacing RMSE (m, log scale)")
+        fig.supylabel("Composite v2 (mean normalised rank, 0 = best)")
+        shown = pd.concat(blocks)["family"] if any(len(b) for b in blocks) else []
+        handles = [Line2D([], [], linestyle="none", marker="o", markersize=2.0 * PARETO_MARKER_PT, markerfacecolor=style.family_color(f),
+                          markeredgecolor="white", markeredgewidth=0.5, label=f) for f in _families_present(shown)]
+        handles += [Line2D([], [], linestyle="none", marker="o", markersize=2.0 * PARETO_MARKER_PT, markerfacecolor="white",
+                           markeredgecolor=style.INK, markeredgewidth=0.9, label="on the front"),
+                    Line2D([], [], color=style.INK, linewidth=0.8, label="Pareto front")]
+        _top_legend(fig, handles)
+        for ax, block, polylines in zip(axes, blocks, lines):
+            if len(block):
+                _label_points(fig, ax, block[x].to_numpy(), block[y].to_numpy(), block["model"].astype(str).tolist(), fontsize,
+                              lines=polylines)
+    return fig
+
+
 # ----------------------------------------------------------------------------- P2
 
 
@@ -618,4 +801,52 @@ def horizon_curves(rankings: pd.DataFrame, datasets: Sequence[str] = MAIN_DATASE
                             color=style.INK, annotation_clip=False,
                             arrowprops={"arrowstyle": "-", "color": style.SECONDARY, "linewidth": 0.5,
                                         "shrinkA": 1.5, "shrinkB": 2.5} if abs(p - t) > gap / 4 else None)
+    return fig
+
+
+TAU_PAIRS: tuple[tuple[str, str, str], ...] = (
+    ("P0", "composite", "one step vs composite"),
+    ("P1 whole", "composite", "closed loop (whole event) vs composite"),
+    ("P0", "P1 whole", "one step vs closed loop (whole event)"),
+)
+
+
+def tau_summary(kendall: pd.DataFrame, pairs: Sequence[tuple[str, str, str]] = TAU_PAIRS,
+                datasets: Sequence[str] | None = None) -> Figure:
+    """E3 across datasets: Kendall's tau between pairs of rankings (grouped bars, one group per
+    dataset, one bar per pair) with the 95 % bootstrap interval as whiskers and a line at 0.
+    ``kendall``: ``dataset, ranking_a, ranking_b, tau, low, high`` (``results/m4/e3_kendall.csv``).
+    Datasets without a value for every pair are left out.
+    """
+    _require(kendall, ("dataset", "ranking_a", "ranking_b", "tau", "low", "high"), "tau_summary")
+    order = [d for d in (datasets or style.DATASET_ORDER) if d in set(kendall["dataset"])]
+    rows = []
+    for dataset in order:
+        for a, b, name in pairs:
+            part = kendall[(kendall["dataset"] == dataset) & (kendall["ranking_a"] == a) & (kendall["ranking_b"] == b)]
+            if len(part) == 0:
+                part = kendall[(kendall["dataset"] == dataset) & (kendall["ranking_a"] == b) & (kendall["ranking_b"] == a)]
+            if len(part):
+                rows.append((dataset, name, float(part["tau"].iloc[0]), float(part["low"].iloc[0]), float(part["high"].iloc[0])))
+    frame = pd.DataFrame(rows, columns=["dataset", "pair", "tau", "low", "high"])
+    shown = [d for d in order if (frame["dataset"] == d).sum() == len(pairs)]
+    frame = frame[frame["dataset"].isin(shown)]
+    fig = style.figure(height_mm=62)
+    ax = fig.add_subplot(111)
+    width = 0.8 / max(len(pairs), 1)
+    palette = ("#0072B2", "#D55E00", "#7f7f7f")
+    for j, (_, _, name) in enumerate(pairs):
+        part = frame[frame["pair"] == name].set_index("dataset").reindex(shown)
+        x = np.arange(len(shown)) + (j - (len(pairs) - 1) / 2) * width
+        tau = part["tau"].to_numpy(dtype=float)
+        err = np.vstack([tau - part["low"].to_numpy(dtype=float), part["high"].to_numpy(dtype=float) - tau])
+        ax.bar(x, tau, width=width * 0.92, color=palette[j % len(palette)], label=name)
+        ax.errorbar(x, tau, yerr=np.clip(err, 0, None), fmt="none", ecolor="black", elinewidth=0.8, capsize=2)
+    ax.axhline(0.0, color="black", linewidth=0.8)
+    ax.set_xticks(np.arange(len(shown)))
+    ax.set_xticklabels([style.dataset_label(d, short=True) for d in shown])
+    ax.set_ylabel("Kendall's tau between rankings")
+    ax.set_ylim(-1.0, 1.0)
+    ax.legend(loc="upper left", bbox_to_anchor=(0.0, 1.02), ncol=1, frameon=False, fontsize=8)
+    ax.spines[["top", "right"]].set_visible(False)
     return fig

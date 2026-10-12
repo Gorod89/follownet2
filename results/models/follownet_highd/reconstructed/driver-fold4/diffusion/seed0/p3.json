@@ -1,0 +1,71 @@
+{
+  "checklist": {
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver",
+    "stability_test": "analytic criterion (memoryless models) and step-response gain on 0.002-2 Hz, delta 0.05 m/s, v_e 5..30 m/s"
+  },
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "delta": 0.05,
+    "delta_large": 1.0,
+    "device": "cpu",
+    "fold": 4,
+    "hold": 120.0,
+    "protocol": "p3",
+    "response": 300.0,
+    "split": "driver",
+    "tol": 1e-05,
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "8316233aec68",
+  "data_version": "reconstructed",
+  "git_revision": "4cf4abb69f2702dce1d342d48edc0c5b8c85d551",
+  "model": {
+    "class": "diffusion",
+    "family": "network",
+    "label": "diffusion",
+    "provenance": {
+      "config_hash": "2a179c728f37",
+      "data_version": "reconstructed",
+      "dataset": "follownet_highd",
+      "git_revision": "4cf4abb69f2702dce1d342d48edc0c5b8c85d551",
+      "seed": 0,
+      "split": {
+        "fold": 4,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p3",
+  "seconds": 16.2,
+  "summary": {
+    "agreement": null,
+    "max_gain": 2.0295123797960004,
+    "max_gain_large": 238.9640011283104,
+    "n_collided_large": 1,
+    "n_converged": 5,
+    "n_equilibria": 5,
+    "n_invalid": 0,
+    "n_speeds": 26,
+    "n_tracks": 25,
+    "peak_frequency": 0.06662589575869347,
+    "tol": 1e-05,
+    "tracks_share": 1.0,
+    "unstable_fraction": 0.8,
+    "unstable_fraction_1e3": 0.8,
+    "unstable_fraction_analytic": null,
+    "unstable_fraction_large": 1.0
+  }
+}

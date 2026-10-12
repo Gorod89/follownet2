@@ -1,0 +1,35 @@
+{
+  "class": "constant_speed",
+  "config_hash": "eac5fe26f06c",
+  "data_version": "reconstructed",
+  "dataset": "follownet_highd",
+  "family": "baseline",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
+  "model": "constant_speed",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 2,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.13309352517985612,
+      "n_events": 2502,
+      "n_samples": 297738,
+      "rmse_s": 9.69127342520206,
+      "rmse_v": 1.9563381429292912
+    },
+    "p0": {
+      "rmse_a": 0.36944436676866854,
+      "rmse_s": 0.0036944468990332013,
+      "rmse_v": 0.03694443668861934
+    }
+  },
+  "training": {
+    "n_train_events": 8133,
+    "n_train_windows": 967827,
+    "n_val_windows": 223363
+  }
+}

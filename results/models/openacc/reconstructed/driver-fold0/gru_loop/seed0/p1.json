@@ -1,0 +1,81 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "10 s, 30 s, whole event; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      10.0,
+      30.0
+    ],
+    "protocol": "p1",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "e742be505ac0",
+  "data_version": "reconstructed",
+  "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
+  "model": {
+    "class": "gru",
+    "family": "network",
+    "label": "gru_loop",
+    "provenance": {
+      "config_hash": "c5392fd502f3",
+      "data_version": "reconstructed",
+      "dataset": "openacc",
+      "git_revision": "3df21f1f07c2f1fb61f784d151c18ea2f4f70781",
+      "seed": 0,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1",
+  "seconds": 2.2,
+  "summary": {
+    "h10": {
+      "collision_rate": 0.0004581901489117984,
+      "event_collision_rate": 0.0020920502092050207,
+      "horizon_s": 10.0,
+      "n_events": 956,
+      "n_samples": 436500,
+      "n_windows": 4365,
+      "rmse_s": 3.0846433458261684,
+      "rmse_v": 0.749975284120539
+    },
+    "h30": {
+      "collision_rate": 0.0011061946902654867,
+      "event_collision_rate": 0.0011061946902654867,
+      "horizon_s": 30.0,
+      "n_events": 904,
+      "n_samples": 271200,
+      "n_windows": 904,
+      "rmse_s": 9.588384880201346,
+      "rmse_v": 0.9747074675590469
+    },
+    "whole": {
+      "collision_rate": 0.012552301255230125,
+      "n_events": 956,
+      "n_samples": 479894,
+      "rmse_s": 16.608424845986367,
+      "rmse_v": 1.1783080324130295
+    }
+  }
+}

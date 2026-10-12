@@ -14,6 +14,7 @@ p1:
   transfer_datasets: []  # other datasets whose test parts are scored with P1 (p1_<name>.json)
 
 p2:
+  precision: full  # TF32 off (follownet2/protocols/evaluate.py); part of the hash so that earlier results recompute
   profiles: data/scenarios/openacc_profiles.json  # built from the AstaZero files when missing
   window: 300.0  # s, length of the OpenACC windows
   n_vehicles: [20, 100]
@@ -24,6 +25,7 @@ p2:
   source_sample: 20000  # events of the training dataset for the fundamental diagram (null: all)
 
 p3:
+  device: cpu  # float64 on the CPU: GPU recurrent layers use TF32, whose noise defeats the settle criterion
   delta: 0.05  # m/s, step of the leader speed for the verdict (linear regime)
   delta_large: 1.0  # m/s, finite perturbation: max_gain_large, unstable_fraction_large
   hold: 120.0
@@ -31,6 +33,7 @@ p3:
   tol: 1.0e-5  # verdict tolerance on the gain; the 1e-3 band is reported next to it
 
 p4:
+  precision: full  # TF32 off, as for P2
   hold: 60.0
   episodes: [tgsim]  # near-miss sets (reconstructed and confirmed) rolled by every model
   max_episodes: null

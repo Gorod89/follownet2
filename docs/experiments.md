@@ -27,6 +27,9 @@ calibration keeps its 2,000-event sample (decision C5).
 | `paired` | SUBSET on `ngsim` and `openacc`, splits `paired-clean` and `paired-leaky`, folds 0-4, seed 0 | E2 (paired design, decision R2) |
 | `event` | SUBSET on `ngsim` and `openacc`, split `event`, fold 0, seed 0 | E2 (unpaired comparison) |
 | `transfer` | SUBSET on `openacc`, `waymo_hu`, `follownet_ngsim`, `tgsim` (driver split, fold 0, seed 0) and P1 of every SUBSET run on the test parts of all six datasets | E4 |
+| `ablation` | the training ablations of decision M4-7 on `ngsim` and `follownet_highd` (fold 0, seed 0), P1-P4 | E3c |
+| `folds` | folds 1-4 of the driver split for all 24 labels on `ngsim` and `follownet_highd`, P1-P4 | fold spread of E1 and E3 |
+| `recompute [protocols=p2,p4]` | every existing run directory of the six datasets: the named protocols are recomputed where their configuration hash or the checkpoint changed (after a change of a protocol, such as the precision rule of `docs/protocols.md` section 0) | maintenance |
 
 ## 2. Paired splits (E2)
 

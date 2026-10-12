@@ -75,8 +75,8 @@ class Run:
             return UNUSED
         if self.split == MAIN_SPLIT and self.fold == MAIN_FOLD:
             return ENTRY if self.seed == MAIN_SEED else SEED_SPREAD
-        if self.split == CLEAN and self.seed == MAIN_SEED:
-            return FOLD_SPREAD
+        if self.seed == MAIN_SEED and (self.split == MAIN_SPLIT or self.split == CLEAN):
+            return FOLD_SPREAD  # folds 1-4 of the driver split (full test parts), or the clean arms of E2
         if self.split in LEAK_SPLITS:
             return LEAK
         return UNUSED

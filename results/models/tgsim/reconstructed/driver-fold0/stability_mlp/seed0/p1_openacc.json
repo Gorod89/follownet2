@@ -30,16 +30,16 @@
   },
   "config_hash": "9d5ebbb23d7b",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
   "model": {
     "class": "stability_mlp",
     "family": "network",
     "label": "stability_mlp",
     "provenance": {
-      "config_hash": "e1ceff7ea342",
+      "config_hash": "55493499ba51",
       "data_version": "reconstructed",
       "dataset": "tgsim",
-      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
       "seed": 0,
       "split": {
         "fold": 0,
@@ -49,7 +49,7 @@
     }
   },
   "protocol": "p1",
-  "seconds": 2.0,
+  "seconds": 2.5,
   "summary": {
     "h10": {
       "collision_rate": 0.03757159221076747,
@@ -58,8 +58,8 @@
       "n_events": 956,
       "n_samples": 436500,
       "n_windows": 4365,
-      "rmse_s": 5.583643867007201,
-      "rmse_v": 1.3642677861384012
+      "rmse_s": 5.583643858989485,
+      "rmse_v": 1.3642677851004545
     },
     "h30": {
       "collision_rate": 0.12831858407079647,
@@ -68,8 +68,8 @@
       "n_events": 904,
       "n_samples": 271200,
       "n_windows": 904,
-      "rmse_s": 29.79681531674251,
-      "rmse_v": 2.549013216977299
+      "rmse_s": 29.796815324491906,
+      "rmse_v": 2.549013217043518
     },
     "whole": {
       "collision_rate": 0.20815899581589958,

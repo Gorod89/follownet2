@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
   "model": {
     "class": "seq2seq",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 101.1,
+  "seconds": 58.5,
   "summary": {
-    "collisions_100": 421,
-    "collisions_100_in_range": 42,
-    "collisions_20": 130,
-    "collisions_20_in_range": 25,
-    "concave_growth_error": 86.46661940163719,
-    "concave_growth_error_in_range": 49.70534840831229,
+    "collisions_100": 405,
+    "collisions_100_in_range": 40,
+    "collisions_20": 132,
+    "collisions_20_in_range": 27,
+    "concave_growth_error": 86.32862727305117,
+    "concave_growth_error_in_range": 49.4042590168973,
     "fd_bins_compared": 29,
-    "fd_error": 11308.655325456464,
-    "fd_error_rel": 11.744975119270055,
-    "growth_exponent_100": 0.042282562927347826,
-    "growth_exponent_100_in_range": -0.3485803784193587,
-    "growth_exponent_20": -0.9493094401852993,
-    "growth_exponent_20_in_range": -1.3957712640805542,
-    "hysteresis_area_100": 362774.6470421888,
-    "hysteresis_area_20": 920142.8030090366,
-    "hysteresis_error": 1851824.901857701,
-    "hysteresis_error_in_range": 732750.9089597942,
+    "fd_error": 10863.43770615031,
+    "fd_error_rel": 11.101580459689327,
+    "growth_exponent_100": 0.008173307309153303,
+    "growth_exponent_100_in_range": -0.3451615297124563,
+    "growth_exponent_20": -0.8582657483168609,
+    "growth_exponent_20_in_range": -1.3839612499469538,
+    "hysteresis_area_100": 336495.22516486025,
+    "hysteresis_area_20": 930835.8648885926,
+    "hysteresis_error": 1854025.1546494828,
+    "hysteresis_error_in_range": 725282.4069366776,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 10,
@@ -102,6 +103,6 @@
     "wave_speed_100": NaN,
     "wave_speed_in_range": NaN,
     "wave_speed_pulse": NaN,
-    "wave_speed_pulse_100": NaN
+    "wave_speed_pulse_100": -3.1147169709708
   }
 }

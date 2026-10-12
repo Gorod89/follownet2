@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
   "model": {
     "class": "lstm",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 68.0,
+  "seconds": 43.1,
   "summary": {
-    "collisions_100": 1876,
-    "collisions_100_in_range": 1778,
-    "collisions_20": 282,
-    "collisions_20_in_range": 262,
-    "concave_growth_error": 1.8401027323259445,
-    "concave_growth_error_in_range": 1.9278454479181621,
+    "collisions_100": 1866,
+    "collisions_100_in_range": 1768,
+    "collisions_20": 274,
+    "collisions_20_in_range": 254,
+    "concave_growth_error": 1.8442431975641884,
+    "concave_growth_error_in_range": 1.9316199092214792,
     "fd_bins_compared": 25,
-    "fd_error": 971.8463774006941,
-    "fd_error_rel": 0.2960799255585707,
-    "growth_exponent_100": 0.2749958496283443,
-    "growth_exponent_100_in_range": 0.2687274419136128,
-    "growth_exponent_20": 0.3567793124592063,
-    "growth_exponent_20_in_range": 0.3528106482835014,
-    "hysteresis_area_100": 904.2638362185851,
-    "hysteresis_area_20": 1546.0824192550701,
-    "hysteresis_error": 5211.946411328353,
-    "hysteresis_error_in_range": 5494.852423277481,
+    "fd_error": 992.0695665281595,
+    "fd_error_rel": 0.28914782653269244,
+    "growth_exponent_100": 0.2666066451012195,
+    "growth_exponent_100_in_range": 0.26173950916858035,
+    "growth_exponent_20": 0.3494362170046301,
+    "growth_exponent_20_in_range": 0.3445782481958988,
+    "hysteresis_area_100": 878.901359415996,
+    "hysteresis_area_20": 1505.917328030556,
+    "hysteresis_error": 5255.661846507924,
+    "hysteresis_error_in_range": 5540.77415958426,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 19,
@@ -92,16 +93,16 @@
       "v_low": 10.0
     },
     "s_init_converged_share": 0.25,
-    "settled_share": 0.6355,
-    "settled_share_in_range": 0.6257894736842106,
+    "settled_share": 0.601,
+    "settled_share_in_range": 0.5894736842105263,
     "speed_range": [
       4.81,
       26.82
     ],
-    "wave_speed": 3.149167464726312,
-    "wave_speed_100": -47.30356873483581,
-    "wave_speed_in_range": 3.404083658917139,
-    "wave_speed_pulse": 0.5506133361288262,
-    "wave_speed_pulse_100": 1.021385012897264
+    "wave_speed": 1.0683918925341467,
+    "wave_speed_100": -39.0717839814034,
+    "wave_speed_in_range": 1.1258498143131697,
+    "wave_speed_pulse": 0.5207663463045213,
+    "wave_speed_pulse_100": 0.9993387929877836
   }
 }

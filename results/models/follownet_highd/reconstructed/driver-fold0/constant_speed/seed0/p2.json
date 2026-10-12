@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+  "git_revision": "e893976d6339ecb382deb0e0444e725fec4f3324",
   "model": {
     "class": "constant_speed",
     "family": "baseline",
@@ -60,7 +61,7 @@
     }
   },
   "protocol": "p2",
-  "seconds": 24.3,
+  "seconds": 18.9,
   "summary": {
     "collisions_100": 17,
     "collisions_100_in_range": 16,

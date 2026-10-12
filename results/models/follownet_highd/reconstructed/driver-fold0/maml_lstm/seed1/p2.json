@@ -22,6 +22,7 @@
       20,
       100
     ],
+    "precision": "full",
     "profiles": "data/scenarios/openacc_profiles.json",
     "protocol": "p2",
     "pulse": {
@@ -39,9 +40,9 @@
     "warmup": 30,
     "window": 300.0
   },
-  "config_hash": "b57e5a0382f1",
+  "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
   "model": {
     "class": "maml_lstm",
     "family": "network",
@@ -60,25 +61,25 @@
     }
   },
   "protocol": "p2",
-  "seconds": 84.6,
+  "seconds": 48.4,
   "summary": {
-    "collisions_100": 1712,
-    "collisions_100_in_range": 1612,
+    "collisions_100": 1716,
+    "collisions_100_in_range": 1616,
     "collisions_20": 274,
     "collisions_20_in_range": 254,
-    "concave_growth_error": 1.9078664177715035,
-    "concave_growth_error_in_range": 1.9612613495736342,
+    "concave_growth_error": 1.9036398270678982,
+    "concave_growth_error_in_range": 1.960189194771787,
     "fd_bins_compared": 25,
-    "fd_error": 1489.772596860378,
-    "fd_error_rel": 0.4401761053814824,
-    "growth_exponent_100": 0.040728155081640516,
-    "growth_exponent_100_in_range": 0.0372239912619114,
-    "growth_exponent_20": 0.18279153152989241,
-    "growth_exponent_20_in_range": 0.19298519348155344,
-    "hysteresis_area_100": 491.4784943347284,
-    "hysteresis_area_20": 815.452999884755,
-    "hysteresis_error": 3913.714141587346,
-    "hysteresis_error_in_range": 4127.070296341893,
+    "fd_error": 1487.8812587969462,
+    "fd_error_rel": 0.4395278073875131,
+    "growth_exponent_100": 0.041783796607709756,
+    "growth_exponent_100_in_range": 0.037803412627744476,
+    "growth_exponent_20": 0.1833091771320761,
+    "growth_exponent_20_in_range": 0.19296133667414503,
+    "hysteresis_area_100": 533.1686959831329,
+    "hysteresis_area_20": 814.9074385858954,
+    "hysteresis_error": 3908.7320650392694,
+    "hysteresis_error_in_range": 4122.331962742044,
     "n_invalid": 0,
     "n_profiles": 20,
     "n_profiles_in_range": 19,
@@ -92,16 +93,16 @@
       "v_low": 10.0
     },
     "s_init_converged_share": 0.65,
-    "settled_share": 0.942,
+    "settled_share": 0.9425,
     "settled_share_in_range": 0.9436842105263158,
     "speed_range": [
       4.81,
       26.82
     ],
-    "wave_speed": 3.88039794114179,
-    "wave_speed_100": -4.85698987292961,
-    "wave_speed_in_range": 4.4404715574378075,
-    "wave_speed_pulse": 9.947456260654539,
-    "wave_speed_pulse_100": 11.10089531562139
+    "wave_speed": 3.9186888360479126,
+    "wave_speed_100": -4.347823453965747,
+    "wave_speed_in_range": 4.443808093690198,
+    "wave_speed_pulse": 9.948107540990934,
+    "wave_speed_pulse_100": 11.101615846704306
   }
 }

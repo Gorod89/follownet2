@@ -1,0 +1,44 @@
+{
+  "class": "newell",
+  "config_hash": "780fe0077f91",
+  "data_version": "reconstructed",
+  "dataset": "openacc",
+  "family": "mechanistic",
+  "git_revision": "ba7263357d22ea8fbafa8462a813cdb86da2d71b",
+  "model": "newell",
+  "n_parameters": 0,
+  "seed": 0,
+  "split": {
+    "fold": 0,
+    "kind": "driver",
+    "seed": 0
+  },
+  "test": {
+    "closed_loop_whole_event": {
+      "collision_rate": 0.005230125523012552,
+      "n_events": 956,
+      "n_samples": 479894,
+      "rmse_s": 13.034273439398595,
+      "rmse_v": 2.5178872503506446
+    },
+    "p0": {
+      "rmse_a": 6.549530958399002,
+      "rmse_s": 0.065495294693163,
+      "rmse_v": 0.6549529338974514
+    }
+  },
+  "training": {
+    "collision_rate": 0.002,
+    "kind": "pooled",
+    "n_events": 2000,
+    "objective": 0.5286985144007854,
+    "params": {
+      "V": 36.6075325012207,
+      "d": 11.888260841369629,
+      "tau": 0.8198999166488647
+    },
+    "rmse_s": 10.986795516635183,
+    "rmse_v": 2.287973656699366,
+    "seconds": 7.5
+  }
+}
