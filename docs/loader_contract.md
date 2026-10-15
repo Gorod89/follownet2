@@ -1,7 +1,7 @@
 # Loader contract
 
-Binding for every module in `follownet2/data/loaders/`. Read `follownet2/data/extraction.py`
-and `follownet2/data/schema.py` first: loaders only translate a source format into the two
+Binding for every module in `trafficloop/data/loaders/`. Read `trafficloop/data/extraction.py`
+and `trafficloop/data/schema.py` first: loaders only translate a source format into the two
 intermediate representations defined there. Filtering, segmentation, acceleration estimates,
 regimes, reconstruction and splits are done downstream and must not be duplicated in a loader.
 

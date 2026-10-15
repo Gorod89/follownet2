@@ -1,6 +1,6 @@
-# FollowNet-2 raw data sources: licence, access and exactly what to fetch.
+# TrafficLoop raw data sources: licence, access and exactly what to fetch.
 #
-# Read by follownet2/data/download.py and scripts/download_data.py; the licence table for
+# Read by trafficloop/data/download.py and scripts/download_data.py; the licence table for
 # readers is docs/licences.md. Values were checked on 2026-09-27 against the hosts' own pages
 # and APIs. Sizes are exact bytes unless stated otherwise.
 #
@@ -272,7 +272,7 @@ ngsim:
   # One Socrata table, one query per location. bytes_estimate: 100 B per quoted CSV row of the
   # 13 selected columns, scaled from a 2,000-row sample (176.6 B/row for all 25 columns, us-101).
   # Names and integer columns match the parquet files of cf-stability (which hold all 25
-  # columns) and what follownet2/data/loaders/ngsim.py reads.
+  # columns) and what trafficloop/data/loaders/ngsim.py reads.
   tables:
     - name: ngsim_i-80_raw
       subset: [i-80]
@@ -341,7 +341,7 @@ tgsim:
     - The centreline and lane-annotation files named in the descriptions (needed to project xloc_kf/yloc_kf on the road) are not attachments of the tables; where they are hosted is not known.
   # All columns of each table. bytes_estimate: the CSV size stated in the description (read
   # as MiB) plus 2 quote characters per field, rounded up to the MB. The names are the keys
-  # of DATASETS in follownet2/data/loaders/tgsim.py.
+  # of DATASETS in trafficloop/data/loaders/tgsim.py.
   tables:
     - name: i90_94_stationary
       id: "9uas-hf8b"
@@ -437,7 +437,7 @@ highd:
     a confirmation of the intended use). Once it is granted, download the archive and unpack
     the 60 recordings so that data/raw/highd holds XX_recordingMeta.csv, XX_tracksMeta.csv,
     XX_tracks.csv and XX_highway.jpg (XX = 01 to 60). The data must not be redistributed:
-    FollowNet-2 publishes extraction code and event check sums only, never events.
+    TrafficLoop publishes extraction code and event check sums only, never events.
   expected: ["*_recordingMeta.csv", "*_tracksMeta.csv", "*_tracks.csv"]
   notes:
     - "Format: https://levelxdata.com/wp-content/uploads/2023/10/highD-Format.pdf"
@@ -460,7 +460,7 @@ exid:
     Apply on the landing page for the free non-commercial licence. Once it is granted, unpack
     the recordings so that data/raw/exid holds XX_recordingMeta.csv, XX_tracksMeta.csv,
     XX_tracks.csv and XX_background.png, with the maps (Lanelet2 .osm, OpenDRIVE .xodr) of
-    each location. The data must not be redistributed: FollowNet-2 publishes extraction code
+    each location. The data must not be redistributed: TrafficLoop publishes extraction code
     and event check sums only, never events.
   expected: ["*_recordingMeta.csv", "*_tracksMeta.csv", "*_tracks.csv"]
   notes:

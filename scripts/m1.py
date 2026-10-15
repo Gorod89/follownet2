@@ -9,8 +9,8 @@ import hydra
 from _common import show
 from omegaconf import DictConfig
 
-from follownet2 import pipeline
-from follownet2.utils import resolve_path, write_json
+from trafficloop import pipeline
+from trafficloop.utils import resolve_path, write_json
 
 STEPS = {
     "build": pipeline.build_dataset,

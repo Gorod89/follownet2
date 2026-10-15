@@ -19,9 +19,9 @@ import pytest
 import requests
 import yaml
 
-from follownet2 import utils
-from follownet2.data import download as dl
-from follownet2.utils import REPO_ROOT, DiskSpaceError
+from trafficloop import utils
+from trafficloop.data import download as dl
+from trafficloop.utils import REPO_ROOT, DiskSpaceError
 
 PAYLOAD = bytes(range(256)) * 800  # 204,800 bytes
 SHA256 = hashlib.sha256(PAYLOAD).hexdigest()

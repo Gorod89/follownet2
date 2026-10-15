@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from follownet2.data.extraction import (
+from trafficloop.data.extraction import (
     ExtractionConfig,
     PairSeries,
     extract_all,
@@ -15,7 +15,7 @@ from follownet2.data.extraction import (
     resample_tracks,
     tracks_to_pairs,
 )
-from follownet2.data.schema import DT
+from trafficloop.data.schema import DT
 
 
 def make_pair(n=900, seed=0, **changes) -> PairSeries:

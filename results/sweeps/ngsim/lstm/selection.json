@@ -1,0 +1,66 @@
+{
+  "closed_loop": {
+    "criterion": "val_rmse_s_10s",
+    "hyperparameters": {
+      "batch_size": 4096,
+      "hidden": 256,
+      "history": 30,
+      "lr": 0.000127,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    "index": 1,
+    "label": "sweep_lstm_01",
+    "val_collision_rate_10s": 0.017452006980802792,
+    "val_rmse_a": 0.011612112354776305,
+    "val_rmse_a_p0": 0.01193902381844066,
+    "val_rmse_s_10s": 2.4177253838400414
+  },
+  "coincide": true,
+  "dataset": "ngsim",
+  "experiment": "E5",
+  "fold": 0,
+  "kendall_tau_criteria": {
+    "p": 0.350195287197447,
+    "tau": 0.18333333333333335
+  },
+  "model": "lstm",
+  "n": 16,
+  "n_validated": 16,
+  "one_step": {
+    "criterion": "val_rmse_a",
+    "hyperparameters": {
+      "batch_size": 4096,
+      "hidden": 256,
+      "history": 30,
+      "lr": 0.000127,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    "index": 1,
+    "label": "sweep_lstm_01",
+    "val_collision_rate_10s": 0.017452006980802792,
+    "val_rmse_a": 0.011612112354776305,
+    "val_rmse_a_p0": 0.01193902381844066,
+    "val_rmse_s_10s": 2.4177253838400414
+  },
+  "reference": {
+    "hyperparameters": {
+      "batch_size": 4096,
+      "hidden": 64,
+      "history": 10,
+      "lr": 0.001,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    "index": 0,
+    "label": "sweep_lstm_00",
+    "val_collision_rate_10s": 0.01894789329344303,
+    "val_rmse_a": 0.11611261511981356,
+    "val_rmse_a_p0": 0.11625825900442308,
+    "val_rmse_s_10s": 3.0661176778967145
+  },
+  "seed": 0,
+  "split": "driver",
+  "version": "reconstructed"
+}

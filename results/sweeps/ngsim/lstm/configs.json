@@ -1,0 +1,208 @@
+{
+  "configs": [
+    {
+      "batch_size": 4096,
+      "hidden": 64,
+      "history": 10,
+      "index": 0,
+      "label": "sweep_lstm_00",
+      "lr": 0.001,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 4096,
+      "hidden": 256,
+      "history": 30,
+      "index": 1,
+      "label": "sweep_lstm_01",
+      "lr": 0.000127,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 4096,
+      "hidden": 64,
+      "history": 10,
+      "index": 2,
+      "label": "sweep_lstm_02",
+      "lr": 0.000301,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 32,
+      "history": 10,
+      "index": 3,
+      "label": "sweep_lstm_03",
+      "lr": 0.000266,
+      "use_a_prev": false,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 32,
+      "history": 10,
+      "index": 4,
+      "label": "sweep_lstm_04",
+      "lr": 0.0028,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 256,
+      "history": 10,
+      "index": 5,
+      "label": "sweep_lstm_05",
+      "lr": 0.00185,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 32,
+      "history": 10,
+      "index": 6,
+      "label": "sweep_lstm_06",
+      "lr": 0.000396,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 4096,
+      "hidden": 256,
+      "history": 20,
+      "index": 7,
+      "label": "sweep_lstm_07",
+      "lr": 0.000696,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 4096,
+      "hidden": 64,
+      "history": 10,
+      "index": 8,
+      "label": "sweep_lstm_08",
+      "lr": 0.00223,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 4096,
+      "hidden": 256,
+      "history": 30,
+      "index": 9,
+      "label": "sweep_lstm_09",
+      "lr": 0.0005,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 32,
+      "history": 20,
+      "index": 10,
+      "label": "sweep_lstm_10",
+      "lr": 0.000257,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 32,
+      "history": 30,
+      "index": 11,
+      "label": "sweep_lstm_11",
+      "lr": 0.000111,
+      "use_a_prev": true,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 32,
+      "history": 20,
+      "index": 12,
+      "label": "sweep_lstm_12",
+      "lr": 0.000271,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 256,
+      "history": 10,
+      "index": 13,
+      "label": "sweep_lstm_13",
+      "lr": 0.000289,
+      "use_a_prev": false,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 4096,
+      "hidden": 32,
+      "history": 30,
+      "index": 14,
+      "label": "sweep_lstm_14",
+      "lr": 0.000101,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": 64,
+      "history": 10,
+      "index": 15,
+      "label": "sweep_lstm_15",
+      "lr": 0.000146,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    }
+  ],
+  "dataset": "ngsim",
+  "experiment": "E5",
+  "fold": 0,
+  "model": "lstm",
+  "n": 16,
+  "seed": 0,
+  "space": {
+    "batch_size": [
+      1024,
+      4096
+    ],
+    "budget": "epochs, patience and batches per epoch of conf/train.yaml",
+    "hidden": {
+      "width": [
+        32,
+        64,
+        128,
+        256
+      ]
+    },
+    "history": [
+      10,
+      20,
+      30
+    ],
+    "lr": {
+      "log_uniform": [
+        0.0001,
+        0.003
+      ],
+      "significant_digits": 3
+    },
+    "use_a_prev": [
+      false,
+      true
+    ],
+    "weight_decay": [
+      0.0,
+      1e-05,
+      0.0001
+    ]
+  },
+  "split": "driver",
+  "version": "reconstructed"
+}

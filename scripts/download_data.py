@@ -24,8 +24,8 @@ from pathlib import Path
 import pyarrow.parquet as pq
 import requests
 
-from follownet2.data import download as dl
-from follownet2.utils import REPO_ROOT, DiskSpaceError, free_bytes, require_free_space, resolve_path
+from trafficloop.data import download as dl
+from trafficloop.utils import REPO_ROOT, DiskSpaceError, free_bytes, require_free_space, resolve_path
 
 REFUSED = 2  # exit code of --yes for a source this script does not download
 

@@ -1,6 +1,6 @@
 # Leaderboard and report (milestone 5)
 
-Binding for `follownet2/leaderboard/`, `follownet2/figures/`, `scripts/make_leaderboard.py`
+Binding for `trafficloop/leaderboard/`, `trafficloop/figures/`, `scripts/make_leaderboard.py`
 and `scripts/make_report.py`. Runs and their files are described in `docs/experiments.md`
 (section 1), the metrics in `docs/protocols.md`, the checklist in `docs/checklist.md`.
 
@@ -8,9 +8,11 @@ and `scripts/make_report.py`. Runs and their files are described in `docs/experi
 
 An *entry* is one run directory `results/models/<dataset>/<version>/<split>-fold<k>/<label>/seed<s>/`
 with `train.json` and the protocol files `p1.json` ... `p4.json` (`p1_<other>.json` for
-transfer). The leaderboard of a dataset lists the entries of the driver split, fold 0, seed 0;
-seeds 1-2 and the folds of the paired clean arms give the spread columns. An entry is
-*admitted* only when its checklist is complete:
+transfer); `p1s.json` and `p2h.json` (protocols P1s and P2h, `docs/protocols.md`) are neither
+checked nor shown here, they feed E1b and E3d of the M4 report. The leaderboard of a dataset
+lists the entries of the driver split, fold 0, seed 0; seeds 1-2 and folds 1-4 of the driver
+split (where the campaign `folds` ran, otherwise the clean arms of the paired split) give the
+spread columns. An entry is *admitted* only when its checklist is complete:
 
 * every protocol file present has a `checklist` block;
 * the fields `data_version`, `reconstruction_method`, `split_type`,
@@ -22,7 +24,7 @@ seeds 1-2 and the folds of the paired clean arms give the spread columns. An ent
 * `train.json` carries the provenance (`config_hash`, `git_revision`) and the protocol files
   name the same model configuration hash (`model.provenance.config_hash`).
 
-`follownet2/leaderboard/checklist.py`: `validate_entry(directory) -> list[str]` (problems;
+`trafficloop/leaderboard/checklist.py`: `validate_entry(directory) -> list[str]` (problems;
 empty when admitted). Refused entries are listed in a separate table with their problems;
 they never appear in a ranking. Entries under the `event` split are labelled "driver leak"
 and listed apart from the driver-split ranking (checklist rule 2).
@@ -49,10 +51,10 @@ with every dataset and `results/leaderboard/index.html`, one self-contained page
 4. **Provenance footer**: data version, reconstruction method, split, seeds, git revision
    of the runs, protocol configuration hashes, date.
 
-Intervals come from `follownet2.stats` (`bootstrap_groups`, `percentile_ci`,
-`rank_distribution`) and `follownet2.protocols.composite` with 1000 replicates and seed 0;
+Intervals come from `trafficloop.stats` (`bootstrap_groups`, `percentile_ci`,
+`rank_distribution`) and `trafficloop.protocols.composite` with 1000 replicates and seed 0;
 the per-event tables are used only when they reproduce their JSON summary (as in
-`follownet2/experiments/analysis.py`, which may be reused).
+`trafficloop/experiments/analysis.py`, which may be reused).
 
 ## 3. Rank-stability plot
 

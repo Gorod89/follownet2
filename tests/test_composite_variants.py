@@ -1,5 +1,5 @@
-"""Composite variants with realism inputs (follownet2/protocols/composite.py), their E3b analyses
-(follownet2/experiments/analysis.py, scripts/m4_report.py), the Pareto figure (follownet2/figures/plots.py,
+"""Composite variants with realism inputs (trafficloop/protocols/composite.py), their E3b analyses
+(trafficloop/experiments/analysis.py, scripts/m4_report.py), the Pareto figure (trafficloop/figures/plots.py,
 scripts/make_report.py) and the v2 columns of the leaderboard, on hand-made tables and a fabricated
 results tree: dataset ``alpha`` with five models, one of which (``gap``) keeps a large gap and never
 reacts (stable, no collision, small platoon errors, the worst P1 and FD errors)."""
@@ -20,10 +20,10 @@ import pandas as pd  # noqa: E402
 import pytest  # noqa: E402
 from matplotlib.figure import Figure  # noqa: E402
 
-from follownet2.experiments import analysis as an  # noqa: E402
-from follownet2.figures import plots, style  # noqa: E402
-from follownet2.leaderboard import render, tables  # noqa: E402
-from follownet2.protocols.composite import (  # noqa: E402
+from trafficloop.experiments import analysis as an  # noqa: E402
+from trafficloop.figures import plots, style  # noqa: E402
+from trafficloop.leaderboard import render, tables  # noqa: E402
+from trafficloop.protocols.composite import (  # noqa: E402
     FD_INPUT,
     INPUTS,
     P1_INPUT,

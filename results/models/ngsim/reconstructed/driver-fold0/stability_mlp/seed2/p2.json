@@ -42,16 +42,16 @@
   },
   "config_hash": "2f433d8a62f2",
   "data_version": "reconstructed",
-  "git_revision": "83e3f28c96d3e46f151009e08a97151f6d89977e",
+  "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
   "model": {
     "class": "stability_mlp",
     "family": "network",
     "label": "stability_mlp",
     "provenance": {
-      "config_hash": "7b3ea79d5055",
+      "config_hash": "f5ffdbf2e17c",
       "data_version": "reconstructed",
       "dataset": "ngsim",
-      "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+      "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
       "seed": 2,
       "split": {
         "fold": 0,
@@ -61,7 +61,7 @@
     }
   },
   "protocol": "p2",
-  "seconds": 38.3,
+  "seconds": 36.9,
   "summary": {
     "collisions_100": 690,
     "collisions_100_in_range": 264,

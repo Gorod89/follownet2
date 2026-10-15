@@ -1,0 +1,14 @@
+# Certified hybrid of cf-stability (ResidualIDM with the budget of its decision D86; docs/models.md):
+# a = IDM(theta) + r_max * tanh(lipschitz * g(x / scale)), theta frozen, g spectrally normalised,
+# lipschitz = safety * admissible budget / r_max of the a priori string-stability certificate.
+# Core: the pooled IDM of the training part (the core of the idm entry); when it admits no budget,
+# the pooled IDM with the string-stability margin stability_margin (D72), then that core with
+# fallback_r_max (decision M2-8 in docs/decisions.md).
+name: residual_idm_certified
+kwargs:
+  hidden: [64, 64]
+  r_max: 0.3  # m/s^2, amplitude of the residual (the certified configuration of cf-stability, E4 and D86)
+  safety: 0.9  # share of the admissible budget (certificate.safety of cf-stability)
+  stability_margin: 0.2  # 1/s^2, margin of the fallback core (calibration.stability_margin of cf-stability E4)
+  fallback_r_max: 0.1  # m/s^2, amplitude of the last fallback
+optim: {}

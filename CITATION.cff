@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "If you use FollowNet-2, please cite this repository (and the paper once it is published)."
-title: "FollowNet-2: a traffic-level evaluation protocol and benchmark for car-following models"
+message: "If you use TrafficLoop, please cite this repository (and the paper once it is published)."
+title: "TrafficLoop: a traffic-level evaluation protocol and benchmark for car-following models"
 type: software
-version: 0.1.0
-date-released: "2026-10-12"
+version: 0.3.0
+date-released: "2026-10-15"
 license: MIT
-repository-code: "https://github.com/Gorod89/follownet2"
-url: "https://gorod89.github.io/follownet2/leaderboard/"
+repository-code: "https://github.com/Gorod89/trafficloop"
+url: "https://gorod89.github.io/trafficloop/leaderboard/"
 authors:
   - family-names: Gorodnichev
     given-names: Mikhail

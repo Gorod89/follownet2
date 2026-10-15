@@ -19,7 +19,7 @@ disk (see `docs/decisions.md`, D11 and D12).
 | Data version | `meta["data_version"]` of every event: `raw` or `reconstructed` |
 | On disk | `data/events/<dataset>/<version>/`: `samples.parquet` (one row per sample: `event_id`, `t`, `s`, `dv`, `v`, `a`, `v_lead`, `x_lead`, `x_follower`), `events.parquet` (one row per event: ids, `n_samples`, `duration`, `data_version`, `meta_json`), `manifest.json` (configuration, hash, source files with SHA-256, counts). Same layout as cf-stability |
 
-Extraction rules: `follownet2/data/extraction.py` and `docs/decisions.md` (D1, D2, D2a). The
+Extraction rules: `trafficloop/data/extraction.py` and `docs/decisions.md` (D1, D2, D2a). The
 tables of real-data checks in parts A and B were obtained while the rules still required 151
 samples and treated every negative speed as invalid; the numbers of the current rules are
 in `results/m1/REPORT.md`.
@@ -40,7 +40,7 @@ in `results/m1/REPORT.md`.
 
 ## Part A. Layout of the gap-based sources: FollowNet, OpenACC, Waymo pairs
 
-What `follownet2/data/loaders/follownet.py`, `openacc.py` and `waymo_hu.py` rely on, checked on
+What `trafficloop/data/loaders/follownet.py`, `openacc.py` and `waymo_hu.py` rely on, checked on
 2026-09-27 against the files under `../cf-stability/data/raw/` (read-only, in memory) and the
 authors' documentation.
 
@@ -310,7 +310,7 @@ count either vehicle.
 
 ## Part B. Layout of the track-based sources: NGSIM, TGSIM, highD, exiD, UTE, CitySim
 
-What `follownet2/data/loaders/ngsim.py`, `tgsim.py`, `highd.py`, `exid.py`, `ute.py` and
+What `trafficloop/data/loaders/ngsim.py`, `tgsim.py`, `highd.py`, `exid.py`, `ute.py` and
 `citysim.py` rely on, checked on 2026-09-27/28. Only the NGSIM files are on this machine
 (`../cf-stability/data/raw/ngsim`, read-only); the other sources are described from their
 metadata and documentation as collected by the reconnaissance (`data_sources.md`).

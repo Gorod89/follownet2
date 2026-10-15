@@ -4,10 +4,10 @@ import numpy as np
 import pytest
 import torch
 
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.data.schema import DT
-from follownet2.models.mechanistic import IDM
-from follownet2.protocols.scenarios import (
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.data.schema import DT
+from trafficloop.models.mechanistic import IDM
+from trafficloop.protocols.scenarios import (
     HOLD,
     constant_speed_event,
     initial_gap,
@@ -16,7 +16,7 @@ from follownet2.protocols.scenarios import (
     speed_from_segments,
     with_hold,
 )
-from follownet2.sim.rollout import rollout
+from trafficloop.sim.rollout import rollout
 
 
 def test_speed_from_segments_integrates_piecewise_constant_acceleration():

@@ -1,0 +1,64 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "1 s windows; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "closed loop, NRMSE(s)+NRMSE(v), differential evolution, pooled parameters from the training part",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 2
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 0,
+    "horizons": [
+      1.0
+    ],
+    "protocol": "p1s",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30,
+    "whole": false
+  },
+  "config_hash": "3b10667015a4",
+  "data_version": "reconstructed",
+  "git_revision": "534f77de12aff6da0b9bcc98771f6bf05240b4d0",
+  "model": {
+    "class": "gipps",
+    "family": "mechanistic",
+    "label": "gipps",
+    "provenance": {
+      "config_hash": "c26572be26e7",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "c9c11ba50d557fd8d24b34eafbb9af856c337c1a",
+      "seed": 2,
+      "split": {
+        "fold": 0,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1s",
+  "seconds": 4.8,
+  "summary": {
+    "h1": {
+      "collision_rate": 7.774357060671083e-06,
+      "event_collision_rate": 0.00034106412005457026,
+      "horizon_s": 1.0,
+      "n_events": 2932,
+      "n_samples": 1286280,
+      "n_windows": 128628,
+      "rmse_s": 0.47355584699078507,
+      "rmse_v": 0.8170473723831999
+    }
+  }
+}

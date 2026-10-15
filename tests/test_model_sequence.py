@@ -16,15 +16,15 @@ import torch
 from omegaconf import OmegaConf
 from torch.distributions import MixtureSameFamily, Normal
 
-from follownet2.data.batch import A_PREV, WARMUP
-from follownet2.data.loaders.synthetic import SyntheticConfig, make_events
-from follownet2.data.schema import Event
-from follownet2.models import registry
-from follownet2.models.sequence import SIGMA_FLOOR, Seq2Seq
-from follownet2.sim.differentiable import rollout_windows
-from follownet2.train.trainer import TrainConfig
-from follownet2.train.windows import WindowSet
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.batch import A_PREV, WARMUP
+from trafficloop.data.loaders.synthetic import SyntheticConfig, make_events
+from trafficloop.data.schema import Event
+from trafficloop.models import registry
+from trafficloop.models.sequence import SIGMA_FLOOR, Seq2Seq
+from trafficloop.sim.differentiable import rollout_windows
+from trafficloop.train.trainer import TrainConfig
+from trafficloop.train.windows import WindowSet
+from trafficloop.utils import REPO_ROOT
 
 NAMES = ("mlp", "gru", "lstm", "seq2seq", "mdn_lstm")
 BUDGET = TrainConfig(epochs=6, batch_size=128, lr=3e-3, batches_per_epoch=80, patience=6, device="cpu", seed=0)

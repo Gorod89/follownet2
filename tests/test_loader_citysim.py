@@ -15,9 +15,9 @@ import pandas as pd
 import pytest
 import yaml
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders.citysim import FEET, MPH, load_pairs
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders.citysim import FEET, MPH, load_pairs
+from trafficloop.utils import REPO_ROOT
 
 POINTS = [
     "carCenterX", "carCenterY", "headX", "headY", "tailX", "tailY", "boundingBox1X", "boundingBox1Y",

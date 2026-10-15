@@ -39,8 +39,8 @@ def _take_args(argv: list[str]) -> list[str]:
 
 
 def episode_config(cfg):
-    from follownet2.data.rare_events import EpisodeConfig
-    from follownet2.utils import to_plain
+    from trafficloop.data.rare_events import EpisodeConfig
+    from trafficloop.utils import to_plain
 
     mining = dict(to_plain(cfg.get("episodes")) or {})
     mining.pop("enabled", None)
@@ -54,11 +54,11 @@ def run(cfg, max_events: int | None = None, out: str | None = None) -> dict:
 
     import numpy as np
 
-    from follownet2 import pipeline
-    from follownet2.data.episodes import JUMP_THRESHOLD, MIN_PIECE, reconstruct_episodes
-    from follownet2.data.reconstruction import summarise
-    from follownet2.data.schema import EventSet, events_dir
-    from follownet2.utils import config_hash, git_revision, require_free_space, resolve_path
+    from trafficloop import pipeline
+    from trafficloop.data.episodes import JUMP_THRESHOLD, MIN_PIECE, reconstruct_episodes
+    from trafficloop.data.reconstruction import summarise
+    from trafficloop.data.schema import EventSet, events_dir
+    from trafficloop.utils import config_hash, git_revision, require_free_space, resolve_path
 
     name = cfg.dataset.name + pipeline.NEAR_MISS_SUFFIX
     root = resolve_path(cfg.paths.events)

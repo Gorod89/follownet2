@@ -1,4 +1,4 @@
-"""Figures of the report (follownet2/figures, scripts/make_report.py; docs/leaderboard.md, sections 4-6)
+"""Figures of the report (trafficloop/figures, scripts/make_report.py; docs/leaderboard.md, sections 4-6)
 on fabricated frames and a fabricated results root: every figure function returns a 160 mm wide
 figure that ``style.save`` writes as PNG and PDF, the figure-specific rules hold (persistence is the
 line at 1, ranks with ties and gaps, in-range OpenACC profiles only, capped colours with the true
@@ -22,7 +22,7 @@ from matplotlib import colors as mcolors  # noqa: E402
 from matplotlib.collections import PolyCollection  # noqa: E402
 from matplotlib.figure import Figure  # noqa: E402
 
-from follownet2.figures import plots, style  # noqa: E402
+from trafficloop.figures import plots, style  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 FAMILIES = {"persistence": "baseline", "constant_speed": "baseline", "idm": "mechanistic", "gipps": "mechanistic",
@@ -162,7 +162,7 @@ def test_palettes_are_complete_and_distinct():
 
 
 def test_constants_match_the_analysis():
-    from follownet2.experiments import analysis as an
+    from trafficloop.experiments import analysis as an
 
     assert plots.SUBSET == an.SUBSET
     assert plots.MAIN_DATASETS == an.MAIN_DATASETS
@@ -220,7 +220,7 @@ def test_figure_is_built_and_saved(figures, name, tmp_path):
 
 
 def test_every_function_is_exported():
-    import follownet2.figures as figures_package
+    import trafficloop.figures as figures_package
 
     for name in plots.__all__:
         assert callable(getattr(figures_package, name))
@@ -474,7 +474,7 @@ def test_script_rejects_unknown_arguments(report):
 def test_tau_summary_draws_one_group_per_dataset(tmp_path):
     import pandas as pd
     from matplotlib.figure import Figure
-    from follownet2.figures import plots, style
+    from trafficloop.figures import plots, style
 
     rows = []
     for dataset in ("ngsim", "follownet_highd", "openacc"):

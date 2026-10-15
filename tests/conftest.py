@@ -4,9 +4,9 @@ import numpy as np
 import pytest
 import torch
 
-from follownet2.data.loaders.synthetic import SyntheticConfig, make_events
-from follownet2.data.regimes import assign_regimes
-from follownet2.data.schema import EventSet
+from trafficloop.data.loaders.synthetic import SyntheticConfig, make_events
+from trafficloop.data.regimes import assign_regimes
+from trafficloop.data.schema import EventSet
 
 
 @pytest.fixture(scope="session", autouse=True)

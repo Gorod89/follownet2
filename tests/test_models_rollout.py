@@ -8,13 +8,13 @@ import numpy as np
 import pytest
 import torch
 
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.data.loaders.synthetic import IDM_NOMINAL
-from follownet2.models.base import ThreeChannelAdapter
-from follownet2.models.mechanistic import IDM, Gipps, Newell, gipps_speed, idm_acc
-from follownet2.models.persistence import PersistenceBaseline, ZeroAcceleration
-from follownet2.protocols.p0 import RecordedAcceleration, evaluate_p0, pooled_rmse
-from follownet2.sim.rollout import rollout, rollout_errors
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.data.loaders.synthetic import IDM_NOMINAL
+from trafficloop.models.base import ThreeChannelAdapter
+from trafficloop.models.mechanistic import IDM, Gipps, Newell, gipps_speed, idm_acc
+from trafficloop.models.persistence import PersistenceBaseline, ZeroAcceleration
+from trafficloop.protocols.p0 import RecordedAcceleration, evaluate_p0, pooled_rmse
+from trafficloop.sim.rollout import rollout, rollout_errors
 
 from conftest import rms
 
@@ -196,7 +196,7 @@ def newell_event(tau=1.2, d=4.0, n=400, brake=True):
 
     The speed of the leader changes for the first time at sample 101.
     """
-    from follownet2.data.schema import Event
+    from trafficloop.data.schema import Event
 
     m = int(round(tau / 0.1))
     acc = np.zeros(n + m)

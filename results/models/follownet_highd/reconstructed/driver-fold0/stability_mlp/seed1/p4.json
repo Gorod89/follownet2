@@ -36,16 +36,16 @@
   },
   "config_hash": "0c38ee36eafd",
   "data_version": "reconstructed",
-  "git_revision": "17f6bf4a0336865369fa4a0cf670154e40285698",
+  "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
   "model": {
     "class": "stability_mlp",
     "family": "network",
     "label": "stability_mlp",
     "provenance": {
-      "config_hash": "a43fa157ab9d",
+      "config_hash": "7b1f71a4b607",
       "data_version": "reconstructed",
       "dataset": "follownet_highd",
-      "git_revision": "d22e57347fa67c023ea3e8c0315e2a4093772485",
+      "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
       "seed": 1,
       "split": {
         "fold": 0,
@@ -55,7 +55,7 @@
     }
   },
   "protocol": "p4",
-  "seconds": 2.6,
+  "seconds": 2.1,
   "summary": {
     "amplification_mean": 0.3860847552617389,
     "collision_rate_empirical": 0.07265817124972054,

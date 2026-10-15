@@ -7,18 +7,18 @@ import pytest
 import torch
 from scipy.optimize import differential_evolution as scipy_de
 
-from follownet2.calibration.calibrate import (
+from trafficloop.calibration.calibrate import (
     CalibrationConfig,
     calibrate_global,
     calibrate_per_event,
     parameter_spread,
     score_events,
 )
-from follownet2.calibration.de import differential_evolution, latin_hypercube
-from follownet2.data.batch import EventBatch
-from follownet2.data.loaders.synthetic import IDM_NOMINAL, SyntheticConfig, make_events
-from follownet2.models.mechanistic import IDM, Gipps, Newell
-from follownet2.sim.rollout import rollout, rollout_errors
+from trafficloop.calibration.de import differential_evolution, latin_hypercube
+from trafficloop.data.batch import EventBatch
+from trafficloop.data.loaders.synthetic import IDM_NOMINAL, SyntheticConfig, make_events
+from trafficloop.models.mechanistic import IDM, Gipps, Newell
+from trafficloop.sim.rollout import rollout, rollout_errors
 
 CPU = dict(device="cpu", dtype="float64")
 

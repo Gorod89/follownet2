@@ -15,9 +15,9 @@ import pandas as pd
 import pytest
 import yaml
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders.exid import load_pairs
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders.exid import load_pairs
+from trafficloop.utils import REPO_ROOT
 
 TRACKS = [
     "recordingId", "trackId", "frame", "trackLifetime", "xCenter", "yCenter", "heading", "width", "length",

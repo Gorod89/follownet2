@@ -10,17 +10,17 @@ import torch
 from omegaconf import OmegaConf
 from scipy import stats
 
-from follownet2.data.batch import WARMUP
-from follownet2.data.loaders.synthetic import SyntheticConfig, make_events
-from follownet2.models import registry
-from follownet2.models.persistence import ZeroAcceleration
-from follownet2.models.policy import (
+from trafficloop.data.batch import WARMUP
+from trafficloop.data.loaders.synthetic import SyntheticConfig, make_events
+from trafficloop.models import registry
+from trafficloop.models.persistence import ZeroAcceleration
+from trafficloop.models.policy import (
     DDPG, GAIL, HEADWAY_MU, HEADWAY_SIGMA, ReplayBuffer, episode_statistics, zhu_reward,
 )
-from follownet2.sim.differentiable import StepInfo, rollout_windows
-from follownet2.train.trainer import TrainConfig
-from follownet2.train.windows import WindowSet
-from follownet2.utils import REPO_ROOT
+from trafficloop.sim.differentiable import StepInfo, rollout_windows
+from trafficloop.train.trainer import TrainConfig
+from trafficloop.train.windows import WindowSet
+from trafficloop.utils import REPO_ROOT
 
 F32 = dict(device="cpu", dtype=torch.float32)
 #: small networks for the interface tests

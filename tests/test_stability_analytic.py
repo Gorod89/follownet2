@@ -9,10 +9,10 @@ import pytest
 import torch
 from scipy.optimize import brentq
 
-from follownet2.models.base import CFModel
-from follownet2.models.mechanistic import IDM, Gipps, idm_acc
-from follownet2.models.network import mlp
-from follownet2.stability.analytic import (
+from trafficloop.models.base import CFModel
+from trafficloop.models.mechanistic import IDM, Gipps, idm_acc
+from trafficloop.models.network import mlp
+from trafficloop.stability.analytic import (
     SPEEDS,
     acceleration,
     equilibrium_gap,

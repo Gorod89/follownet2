@@ -1,0 +1,76 @@
+{
+  "closed_loop": {
+    "criterion": "val_rmse_s_10s",
+    "hyperparameters": {
+      "batch_size": 1024,
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "history": 20,
+      "lr": 0.00287,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    "index": 10,
+    "label": "sweep_mlp_10",
+    "val_collision_rate_10s": 0.04649713288456744,
+    "val_rmse_a": 0.007540075846068536,
+    "val_rmse_a_p0": 0.007970991191617786,
+    "val_rmse_s_10s": 2.849966153754168
+  },
+  "coincide": false,
+  "dataset": "ngsim",
+  "experiment": "E5",
+  "fold": 0,
+  "kendall_tau_criteria": {
+    "p": 0.22813365876907285,
+    "tau": -0.2333333333333333
+  },
+  "model": "mlp",
+  "n": 16,
+  "n_validated": 16,
+  "one_step": {
+    "criterion": "val_rmse_a",
+    "hyperparameters": {
+      "batch_size": 4096,
+      "hidden": [
+        64,
+        64
+      ],
+      "history": 20,
+      "lr": 0.00293,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    "index": 9,
+    "label": "sweep_mlp_09",
+    "val_collision_rate_10s": 0.03527798553976565,
+    "val_rmse_a": 0.006701516476573585,
+    "val_rmse_a_p0": 0.007235129455919499,
+    "val_rmse_s_10s": 2.888551738460069
+  },
+  "reference": {
+    "hyperparameters": {
+      "batch_size": 4096,
+      "hidden": [
+        64,
+        64
+      ],
+      "history": 10,
+      "lr": 0.001,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    "index": 0,
+    "label": "sweep_mlp_00",
+    "val_collision_rate_10s": 0.03216155572176515,
+    "val_rmse_a": 0.09213144600517235,
+    "val_rmse_a_p0": 0.09195497572032313,
+    "val_rmse_s_10s": 4.053767367384976
+  },
+  "seed": 0,
+  "split": "driver",
+  "version": "reconstructed"
+}

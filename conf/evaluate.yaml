@@ -5,7 +5,7 @@ defaults:
   - train
   - _self_
 
-protocols: [p1, p2, p3, p4]  # subset to run, in this order
+protocols: [p1, p1s, p2, p2h, p3, p4]  # subset to run, in this order
 force: false  # compute again although a result with the same protocol configuration exists
 
 p1:
@@ -13,8 +13,13 @@ p1:
   batch_windows: 4096
   transfer_datasets: []  # other datasets whose test parts are scored with P1 (p1_<name>.json)
 
+p1s:  # short windows of P1: a horizon between the one step of P0 and the 10 s of P1
+  horizons: [1.0]  # s
+  batch_windows: 4096
+  whole: false  # the whole-event rollout is in p1.json
+
 p2:
-  precision: full  # TF32 off (follownet2/protocols/evaluate.py); part of the hash so that earlier results recompute
+  precision: full  # TF32 off (trafficloop/protocols/evaluate.py); part of the hash so that earlier results recompute
   profiles: data/scenarios/openacc_profiles.json  # built from the AstaZero files when missing
   window: 300.0  # s, length of the OpenACC windows
   n_vehicles: [20, 100]
@@ -23,6 +28,15 @@ p2:
   # the tail of 240 s lets the wave (about 2 s per vehicle) reach the hundredth follower
   pulse: {v0: auto, v0_max: 25.0, v_low_ratio: 0.4, decel: -3.0, accel: 1.5, hold_low: 10.0, tail: 240.0}
   source_sample: 20000  # events of the training dataset for the fundamental diagram (null: all)
+
+p2h:  # P2 on the human platoon windows (NGSIM, TGSIM, the manual AstaZero runs); identical to p2 but the profiles
+  precision: full
+  profiles: data/scenarios/human_profiles.json  # scripts/build_human_profiles.py; never built implicitly
+  window: 300.0  # s, the longest window (the windows of the track sources are 60 to 300 s)
+  n_vehicles: [20, 100]
+  hold: 60.0
+  pulse: {v0: auto, v0_max: 25.0, v_low_ratio: 0.4, decel: -3.0, accel: 1.5, hold_low: 10.0, tail: 240.0}
+  source_sample: 20000
 
 p3:
   device: cpu  # float64 on the CPU: GPU recurrent layers use TF32, whose noise defeats the settle criterion

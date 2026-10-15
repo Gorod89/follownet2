@@ -9,11 +9,11 @@ import numpy as np
 import pytest
 from numpy.lib import format as npy_format
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders import follownet
-from follownet2.data.extraction import to_grid
-from follownet2.data.loaders.follownet import SafeUnpickler, last_report, load_pairs
-from follownet2.utils import resolve_path
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders import follownet
+from trafficloop.data.extraction import to_grid
+from trafficloop.data.loaders.follownet import SafeUnpickler, last_report, load_pairs
+from trafficloop.utils import resolve_path
 
 REAL_DIR = resolve_path(follownet.DEFAULT_RAW_DIR)
 

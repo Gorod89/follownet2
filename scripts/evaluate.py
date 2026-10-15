@@ -13,7 +13,7 @@ import hydra
 from _common import show
 from omegaconf import DictConfig
 
-from follownet2.protocols.evaluate import evaluate_run
+from trafficloop.protocols.evaluate import evaluate_run
 
 
 @hydra.main(version_base=None, config_path="../conf", config_name="evaluate")

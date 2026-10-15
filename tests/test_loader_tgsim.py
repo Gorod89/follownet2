@@ -13,9 +13,9 @@ import pyarrow.parquet as pq
 import pytest
 import yaml
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders.tgsim import DATASETS, load_pairs
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders.tgsim import DATASETS, load_pairs
+from trafficloop.utils import REPO_ROOT
 
 BASE = ["id", "time", "xloc_kf", "yloc_kf", "lane_kf", "speed_kf", "acceleration_kf", "length_smoothed", "width_smoothed", "type_most_common"]
 V0, ACC = 15.0, 0.3  # m/s, m/s^2 of every vehicle: gaps stay constant
@@ -75,7 +75,7 @@ def i395_events(tmp_path_factory):
     )
     raw_dir = tmp_path_factory.mktemp("tgsim_i395")
     pd.concat([rows, corrupt]).sort_values(["id", "time"])[BASE].to_csv(raw_dir / "I395-final.csv", index=False)
-    logger = logging.getLogger("follownet2.data.loaders.tgsim")
+    logger = logging.getLogger("trafficloop.data.loaders.tgsim")
     records: list[logging.LogRecord] = []
     handler = logging.Handler(logging.INFO)
     handler.emit = records.append

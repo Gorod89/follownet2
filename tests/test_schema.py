@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from follownet2 import compat
-from follownet2.data.schema import ARRAY_FIELDS, EVENTS_FILE, Event, EventSet, EventValidationError
+from trafficloop import compat
+from trafficloop.data.schema import ARRAY_FIELDS, EVENTS_FILE, Event, EventSet, EventValidationError
 
 
 def test_parquet_round_trip(driver_events, tmp_path):

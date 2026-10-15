@@ -1,4 +1,4 @@
-"""Analyses of milestone 4 (follownet2/experiments/analysis.py) and scripts/m4_report.py on a
+"""Analyses of milestone 4 (trafficloop/experiments/analysis.py) and scripts/m4_report.py on a
 fabricated results tree: two datasets (``alpha`` with every protocol, ``beta`` for the transfer),
 models whose errors scale with a quality factor ``q`` (lower is better), the paired arms of E2
 with their split file and event index, a second seed, an event split and transfer files."""
@@ -13,8 +13,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from follownet2.experiments import analysis as an
-from follownet2.stats import bootstrap_groups, holm
+from trafficloop.experiments import analysis as an
+from trafficloop.stats import bootstrap_groups, holm
 
 REPO = Path(__file__).resolve().parents[1]
 #: model -> (family, quality); twin is an exact copy of persistence

@@ -6,7 +6,7 @@
 Reads the CSVs of milestone 4 under ``m4`` (``e1_ratios.csv``, ``e2_paired.csv``,
 ``e3_rankings.csv``, ``e3_pareto.csv``, ``e4_transfer.csv``) and the P2 tables of the run directories under ``root``
 (``<root>/<dataset>/reconstructed/driver-fold0/<label>/seed0/``), draws every figure of
-``follownet2/figures/plots.py``, writes each as PNG (200 dpi) and PDF into ``out`` and lists the
+``trafficloop/figures/plots.py``, writes each as PNG (200 dpi) and PDF into ``out`` and lists the
 files in ``out/README.md``, one line each. The P1 horizons come from ``e3_rankings.csv`` when it
 carries them for a dataset, otherwise from the ``p1.json`` of its runs. A figure whose input is
 missing is skipped and named; nothing is trained or evaluated.
@@ -24,9 +24,9 @@ matplotlib.use("Agg")
 
 import pandas as pd  # noqa: E402
 
-from follownet2.experiments import analysis as an  # noqa: E402
-from follownet2.figures import plots, style  # noqa: E402
-from follownet2.utils import REPO_ROOT, read_json, resolve_path  # noqa: E402
+from trafficloop.experiments import analysis as an  # noqa: E402
+from trafficloop.figures import plots, style  # noqa: E402
+from trafficloop.utils import REPO_ROOT, read_json, resolve_path  # noqa: E402
 
 DEFAULTS = {"root": "results/models", "m4": "results/m4", "out": "results/figures", "p2_dataset": "ngsim"}
 #: summary key of p1.json -> column of e3_rankings.csv
@@ -132,6 +132,11 @@ def _source(source: str) -> str:
     return f"`{source}`" if source.endswith(".csv") else source.replace("p1.json", "`p1.json`")
 
 
+E1B_POOLED = {"h1_rmse_s": "1 s", "h10_rmse_s": "10 s", "h30_rmse_s": "30 s", "whole_rmse_s": "Whole event"}
+E1B_MEDIAN = {f"{h}_median_rmse_s": label for h, label in
+              (("h1", "1 s"), ("h10", "10 s"), ("h30", "30 s"), ("whole", "Whole event"))}
+
+
 def figure_jobs(args: dict) -> list[tuple[str, Callable | None, str]]:
     """``(stem, builder or None when the input is missing, description)`` of every figure."""
     m4, root = args["m4"], args["root"]
@@ -139,6 +144,7 @@ def figure_jobs(args: dict) -> list[tuple[str, Callable | None, str]]:
     e3, e4 = read_csv(m4, "e3_rankings.csv"), read_csv(m4, "e4_transfer.csv")
     pareto = read_csv(m4, "e3_pareto.csv")
     kendall = read_csv(m4, "e3_kendall.csv")
+    e1b = read_csv(m4, "e1_horizons.csv")
     p2_dataset = args["p2_dataset"]
     vehicles, profiles = load_p2(root, p2_dataset)
     horizons, sources = load_horizons(m4, root)
@@ -183,6 +189,12 @@ def figure_jobs(args: dict) -> list[tuple[str, Callable | None, str]]:
          + (f"; {_names(no_h30)} has no 30 s windows" if no_h30 else "")
          + (f" (from {_source(next(iter(sources.values())))})." if len(set(sources.values())) == 1 else
             " (" + "; ".join(f"{style.dataset_label(d)} from {_source(s)}" for d, s in sources.items()) + ").")),
+        ("e1b_horizon_pooled", None if e1b is None else lambda: plots.horizon_curves(e1b, horizons=E1B_POOLED),
+         f"E1b: pooled P1 spacing RMSE at 1 s (protocol p1s), 10 s, 30 s and the whole event per model, "
+         f"{_names(plots.MAIN_DATASETS)}, family colours, log axis (`results/m4/e1_horizons.csv`)."),
+        ("e1b_horizon_median", None if e1b is None else lambda: plots.horizon_curves(e1b, horizons=E1B_MEDIAN),
+         f"E1b: median over windows (over events for the whole event) of the P1 spacing RMSE at 1 s, 10 s, 30 s and the "
+         f"whole event per model, {_names(plots.MAIN_DATASETS)}, family colours, log axis (`results/m4/e1_horizons.csv`)."),
         ("p2_concave_growth_curves",
          None if not p2_models else lambda: plots.concave_growth_curves(vehicles, profiles, p2_models, dataset=p2_dataset),
          f"P2: speed standard deviation against the vehicle index (0 = leader) along the platoon of {followers} "
@@ -197,7 +209,7 @@ def write_readme(out: Path, entries: Sequence[tuple[Path, str]]) -> Path:
         "# Figures of the report",
         "",
         "Written by `scripts/make_report.py` (docs/leaderboard.md, section 4; style in "
-        "`follownet2/figures/style.py`): 160 mm wide, 9 pt text, PNG at 200 dpi and PDF with the same content. "
+        "`trafficloop/figures/style.py`): 160 mm wide, 9 pt text, PNG at 200 dpi and PDF with the same content. "
         "Families: network blue, mechanistic vermillion, baseline bluish green (Okabe-Ito). One line per file:",
         "",
     ]

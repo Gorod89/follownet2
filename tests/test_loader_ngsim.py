@@ -19,9 +19,9 @@ import pyarrow.parquet as pq
 import pytest
 import yaml
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders.ngsim import FEET, FIELDS, load_pairs
-from follownet2.utils import REPO_ROOT, resolve_path
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders.ngsim import FEET, FIELDS, load_pairs
+from trafficloop.utils import REPO_ROOT, resolve_path
 
 T0 = 1_118_846_979_700  # ms, first time stamp of the real us-101 table
 PARQUET_COLUMNS = [  # cf-stability: all 25 fields
@@ -76,7 +76,7 @@ def write(raw_dir: Path, rows: pd.DataFrame, fmt: str = "parquet") -> Path:
         if fmt == "parquet":  # without the pandas metadata, to keep the file small
             table = pa.Table.from_pandas(part[PARQUET_COLUMNS], preserve_index=False).replace_schema_metadata()
             pq.write_table(table, path, compression="zstd", store_schema=False)
-        elif fmt == "download":  # as follownet2/data/download.py writes a Socrata table
+        elif fmt == "download":  # as trafficloop/data/download.py writes a Socrata table
             table = pa.Table.from_pandas(part[DOWNLOAD_COLUMNS].astype({c: "Int64" for c in DOWNLOAD_INTEGERS}), preserve_index=False)
             pq.write_table(table, path, compression="zstd")
     if fmt == "csv":

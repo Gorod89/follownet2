@@ -1,0 +1,46 @@
+{
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "criterion": "E5 validation",
+    "fold": 0,
+    "horizon_s": 10.0,
+    "max_events": 2000,
+    "part": "val",
+    "precision": "full",
+    "seed": 0,
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "580b0daf69c6",
+  "criteria": {
+    "val_collision_rate_10s": 0.06083271004736973,
+    "val_event_collision_rate_10s": 0.19,
+    "val_n_events": 2000,
+    "val_n_windows_10s": 8022,
+    "val_rmse_a": 0.06434742337473442,
+    "val_rmse_a_p0": 0.06379447324371212,
+    "val_rmse_s_10s": 4.838741341698288,
+    "val_rmse_v_10s": 1.4326530349834037
+  },
+  "experiment": "E5",
+  "git_revision": "14a666339e6a6ad2b920d5222d62a48850f174c3",
+  "hyperparameters": {
+    "batch_size": 1024,
+    "hidden": 256,
+    "history": 10,
+    "lr": 0.00185,
+    "use_a_prev": false,
+    "weight_decay": 1e-05
+  },
+  "label": "sweep_lstm_05",
+  "model": {
+    "class": "lstm",
+    "config_hash": "5282d22a9f27",
+    "label": "sweep_lstm_05"
+  },
+  "seconds": 30.5
+}

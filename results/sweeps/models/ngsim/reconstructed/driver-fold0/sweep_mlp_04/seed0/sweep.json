@@ -1,0 +1,50 @@
+{
+  "config": {
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "criterion": "E5 validation",
+    "fold": 0,
+    "horizon_s": 10.0,
+    "max_events": 2000,
+    "part": "val",
+    "precision": "full",
+    "seed": 0,
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30
+  },
+  "config_hash": "580b0daf69c6",
+  "criteria": {
+    "val_collision_rate_10s": 0.10097232610321616,
+    "val_event_collision_rate_10s": 0.2855,
+    "val_n_events": 2000,
+    "val_n_windows_10s": 8022,
+    "val_rmse_a": 0.012419504445156786,
+    "val_rmse_a_p0": 0.012424627598082378,
+    "val_rmse_s_10s": 4.940880308431904,
+    "val_rmse_v_10s": 1.4694807588225474
+  },
+  "experiment": "E5",
+  "git_revision": "36be4b2aac3ace816c72d1ba9f5e416f20f04db5",
+  "hyperparameters": {
+    "batch_size": 1024,
+    "hidden": [
+      32,
+      32,
+      32
+    ],
+    "history": 10,
+    "lr": 0.000662,
+    "use_a_prev": true,
+    "weight_decay": 0.0001
+  },
+  "label": "sweep_mlp_04",
+  "model": {
+    "class": "mlp",
+    "config_hash": "dc8c8e3bae6f",
+    "label": "sweep_mlp_04"
+  },
+  "seconds": 0.3
+}

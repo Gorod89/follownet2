@@ -21,7 +21,7 @@ SUBSET = ("idm", "gipps", "mlp", "lstm", "mlp_loop", "lstm_loop", "ddpg", "stabi
 MAIN_DATASETS = ("ngsim", "follownet_highd")
 LEAK_DATASETS = ("ngsim", "openacc")
 TRANSFER_DATASETS = ("ngsim", "follownet_highd", "openacc", "waymo_hu", "follownet_ngsim", "tgsim")
-PROTOCOLS = ("p1", "p2", "p3", "p4")
+PROTOCOLS = ("p1", "p1s", "p2", "p2h", "p3", "p4")
 SCRIPTS = Path(__file__).parent
 
 
@@ -134,7 +134,7 @@ def campaign_recompute(datasets, models, failed, names=("p3",)) -> None:
                 failed.append(("recompute", dataset, split_fold, label, seed))
 
 
-from follownet2.leaderboard.tables import ABLATION_LABELS as ABLATIONS  # one list, never ranked
+from trafficloop.leaderboard.tables import ABLATION_LABELS as ABLATIONS  # one list, never ranked
 
 
 def campaign_ablation(datasets, models, failed) -> None:

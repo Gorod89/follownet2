@@ -1,0 +1,64 @@
+{
+  "checklist": {
+    "closed_loop_horizon": "1 s windows; warm-up 3 s",
+    "data_version": "reconstructed",
+    "mechanistic_calibration_protocol": "not a mechanistic model",
+    "reconstruction_method": "qp-semi-implicit-v1",
+    "seeds": {
+      "global": 0,
+      "split": 0,
+      "train": 0
+    },
+    "split_type": "driver"
+  },
+  "config": {
+    "batch_windows": 4096,
+    "clip": [
+      -8.0,
+      4.0
+    ],
+    "fold": 1,
+    "horizons": [
+      1.0
+    ],
+    "protocol": "p1s",
+    "split": "driver",
+    "version": "reconstructed",
+    "warmup": 30,
+    "whole": false
+  },
+  "config_hash": "480a462cf5ab",
+  "data_version": "reconstructed",
+  "git_revision": "534f77de12aff6da0b9bcc98771f6bf05240b4d0",
+  "model": {
+    "class": "persistence",
+    "family": "baseline",
+    "label": "persistence",
+    "provenance": {
+      "config_hash": "ec9bd1ee373a",
+      "data_version": "reconstructed",
+      "dataset": "ngsim",
+      "git_revision": "ba7263357d22ea8fbafa8462a813cdb86da2d71b",
+      "seed": 0,
+      "split": {
+        "fold": 1,
+        "kind": "driver",
+        "seed": 0
+      }
+    }
+  },
+  "protocol": "p1s",
+  "seconds": 3.7,
+  "summary": {
+    "h1": {
+      "collision_rate": 0.0,
+      "event_collision_rate": 0.0,
+      "horizon_s": 1.0,
+      "n_events": 2912,
+      "n_samples": 1286610,
+      "n_windows": 128661,
+      "rmse_s": 0.08565795173792691,
+      "rmse_v": 0.2345867057171405
+    }
+  }
+}

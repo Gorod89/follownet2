@@ -1,4 +1,4 @@
-"""Leaderboard of milestone 5 (follownet2/leaderboard/, scripts/make_leaderboard.py) on a fabricated
+"""Leaderboard of milestone 5 (trafficloop/leaderboard/, scripts/make_leaderboard.py) on a fabricated
 results root: dataset ``alpha`` with every protocol for two admitted models (``persistence``,
 ``idm``) and one refused model (``mlp``), a second training seed, the clean arms of two paired
 folds, an ``event``-split run and transfer files; dataset ``beta`` with P1 only and no 30 s window."""
@@ -14,11 +14,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from follownet2.experiments.analysis import e4_transfer, run_dir
-from follownet2.leaderboard import DRIVER_LEAK, entry_label, validate_entry
-from follownet2.leaderboard.render import dataset_markdown, html_page, leaderboard_markdown
-from follownet2.leaderboard.stability import rank_stability_figure
-from follownet2.leaderboard.tables import (
+from trafficloop.experiments.analysis import e4_transfer, run_dir
+from trafficloop.leaderboard import DRIVER_LEAK, entry_label, validate_entry
+from trafficloop.leaderboard.render import dataset_markdown, html_page, leaderboard_markdown
+from trafficloop.leaderboard.stability import rank_stability_figure
+from trafficloop.leaderboard.tables import (
     GROUPS,
     MAIN_COLUMNS,
     build_leaderboard,
@@ -26,7 +26,7 @@ from follownet2.leaderboard.tables import (
     transfer_means,
     transfer_table,
 )
-from follownet2.stats import bootstrap_groups, percentile_ci
+from trafficloop.stats import bootstrap_groups, percentile_ci
 
 REPO = Path(__file__).resolve().parents[1]
 N_BOOT = 100

@@ -1,6 +1,6 @@
 # Physics-informed reconstruction (data version `reconstructed`)
 
-Implementation: `follownet2/data/reconstruction.py`, method tag `qp-semi-implicit-v1`
+Implementation: `trafficloop/data/reconstruction.py`, method tag `qp-semi-implicit-v1`
 (stored in `meta["reconstruction"]["method"]` of every reconstructed event).
 
 ## Why

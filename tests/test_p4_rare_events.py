@@ -8,16 +8,16 @@ import numpy as np
 import pytest
 import torch
 
-from follownet2.data import episodes as episodes_module
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.data.episodes import confirm_triggers, leader_jumps, reconstruct_episode, reconstruct_episodes
-from follownet2.data.loaders.synthetic import SyntheticConfig, make_events
-from follownet2.data.reconstruction import ReconstructionConfig
-from follownet2.data.schema import DT, Event
-from follownet2.models.mechanistic import IDM
-from follownet2.models.persistence import PersistenceBaseline, ZeroAcceleration
-from follownet2.protocols.p4 import evaluate_p4, quantile, rollout_cut_in, synthetic_suite, TTC_MAX
-from follownet2.protocols.scenarios import positions
+from trafficloop.data import episodes as episodes_module
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.data.episodes import confirm_triggers, leader_jumps, reconstruct_episode, reconstruct_episodes
+from trafficloop.data.loaders.synthetic import SyntheticConfig, make_events
+from trafficloop.data.reconstruction import ReconstructionConfig
+from trafficloop.data.schema import DT, Event
+from trafficloop.models.mechanistic import IDM
+from trafficloop.models.persistence import PersistenceBaseline, ZeroAcceleration
+from trafficloop.protocols.p4 import evaluate_p4, quantile, rollout_cut_in, synthetic_suite, TTC_MAX
+from trafficloop.protocols.scenarios import positions
 
 from conftest import rms
 

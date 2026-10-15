@@ -5,10 +5,10 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders import openacc
-from follownet2.data.loaders.openacc import last_report, load_pairs
-from follownet2.utils import resolve_path
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders import openacc
+from trafficloop.data.loaders.openacc import last_report, load_pairs
+from trafficloop.utils import resolve_path
 
 REAL_DIR = resolve_path(openacc.DEFAULT_RAW_DIR)
 T0 = 31564.7  # campaigns keep a large time offset with float artefacts

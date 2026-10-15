@@ -12,8 +12,8 @@ import sys
 
 import pandas as pd
 
-from follownet2.models.mechanistic import MECHANISTIC
-from follownet2.utils import REPO_ROOT, read_json
+from trafficloop.models.mechanistic import MECHANISTIC
+from trafficloop.utils import REPO_ROOT, read_json
 
 ROOT = REPO_ROOT / "results" / "m1"
 CALIBRATION = REPO_ROOT / "data" / "calibration"

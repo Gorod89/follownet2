@@ -5,12 +5,12 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.data.extraction import PairSeries
-from follownet2.data.rare_events import EpisodeConfig, drac, mine_all, mine_episodes, time_to_collision
-from follownet2.data.schema import DT
-from follownet2.models.mechanistic import IDM
-from follownet2.sim.rollout import rollout
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.data.extraction import PairSeries
+from trafficloop.data.rare_events import EpisodeConfig, drac, mine_all, mine_episodes, time_to_collision
+from trafficloop.data.schema import DT
+from trafficloop.models.mechanistic import IDM
+from trafficloop.sim.rollout import rollout
 
 
 def platoon_pair(n=600, brake_at=None, brake=-6.0, cut_in_at=None, cut_in_gap=8.0, gap=35.0, speed=20.0):

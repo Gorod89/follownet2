@@ -7,9 +7,9 @@ import pandas as pd
 import pytest
 from scipy import stats
 
-from follownet2.protocols.closed_loop import pooled_closed_loop
-from follownet2.protocols.composite import composite_bootstrap, composite_score
-from follownet2.stats import (
+from trafficloop.protocols.closed_loop import pooled_closed_loop
+from trafficloop.protocols.composite import composite_bootstrap, composite_score
+from trafficloop.stats import (
     bootstrap_groups,
     holm,
     kendall_tau,
@@ -20,7 +20,7 @@ from follownet2.stats import (
     rank_distribution,
     summarise,
 )
-from follownet2.stats import bootstrap as bootstrap_module
+from trafficloop.stats import bootstrap as bootstrap_module
 
 
 def event_table(seed: int = 0, n_groups: int = 15, max_rows: int = 4) -> pd.DataFrame:

@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from follownet2.protocols.p5 import collect_transfer, transfer_matrix
+from trafficloop.protocols.p5 import collect_transfer, transfer_matrix
 
 
 def _runs() -> pd.DataFrame:

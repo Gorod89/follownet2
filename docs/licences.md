@@ -1,17 +1,17 @@
 # Data licences
 
-What each raw data source allows, and what FollowNet-2 publishes for it. The statements were
+What each raw data source allows, and what TrafficLoop publishes for it. The statements were
 checked on 2026-09-27 against the sources' own pages, APIs and licence files. The machine-readable
 counterpart, with file lists, sizes and check sums, is `conf/sources.yaml`
 (`python scripts/download_data.py --list`). This page records what the sources state; it is not
 legal advice.
 
-"Derived events" are the car-following events FollowNet-2 extracts: per-sample gap, speeds and
+"Derived events" are the car-following events TrafficLoop extracts: per-sample gap, speeds and
 accelerations of a follower and its leader, i.e. trajectory data.
 
 ## Licence table
 
-| Source | Licence | Licence URL | Access | Raw data: redistribution | Derived events: redistribution | FollowNet-2 publishes | Citation |
+| Source | Licence | Licence URL | Access | Raw data: redistribution | Derived events: redistribution | TrafficLoop publishes | Citation |
 |---|---|---|---|---|---|---|---|
 | FollowNet event sets (figshare) | CC0 1.0, on all 26 articles | https://creativecommons.org/publicdomain/zero/1.0/ | open, direct download | allowed | allowed | events, including the HighD-derived sets (note 1) | Chen et al. 2023 [1], for the HighD sets also [7] |
 | OpenACC (JRC) | CC BY 4.0 | https://creativecommons.org/licenses/by/4.0/ | open, direct download | allowed with credit and changes indicated | allowed with credit and changes indicated | events | Makridis et al. 2021 [2] |
@@ -29,7 +29,7 @@ accelerations of a follower and its leader, i.e. trajectory data.
 1. **FollowNet.** figshare reports CC0 for every article, but the authors' notebook asks users not
    to distribute the data without their permission. CC0 is the legal grant; the request is a
    courtesy that the release notes should honour by pointing to figshare. The HighD and 30 s
-   HighD sets are derived from highD, whose own terms forbid redistribution. FollowNet-2
+   HighD sets are derived from highD, whose own terms forbid redistribution. TrafficLoop
    publishes the events it derives from these two figshare sets (decision of 2026-09-28), relying
    on the CC0 grant of the FollowNet authors, with the CC0 notice and the citations of FollowNet
    and highD. This does not extend to raw highD: events extracted from the levelXdata files are
@@ -66,7 +66,7 @@ accelerations of a follower and its leader, i.e. trajectory data.
 
    Zenodo (`10.5281/zenodo.10491409`) says `cc-by-4.0`. The terms and conditions page names no CC
    licence; it requires crediting the article and the Zenodo DOI, and the acknowledgement "Data
-   source: pNEUMA – open-traffic.epfl.ch". Until EPFL clarifies, FollowNet-2 assumes the stricter
+   source: pNEUMA – open-traffic.epfl.ch". Until EPFL clarifies, TrafficLoop assumes the stricter
    CC BY-NC 4.0 and publishes no data derived from pNEUMA.
 8. **exiD.** The format document says the map-based columns (`leadId`, `leadDHW`, `leadDV`,
    `laneletId`, ...) are part of `XX_tracks.csv` only if they belong to the purchased package.
@@ -78,6 +78,10 @@ accelerations of a follower and its leader, i.e. trajectory data.
   with its own licence and citation: CC0 (FollowNet), CC BY 4.0 (OpenACC, Waymo pairs), CC BY-SA
   4.0 (NGSIM) and public domain (TGSIM). NGSIM's ShareAlike rules out merging its events into
   a file under another licence.
+- **Human platoon windows (P2h).** `data/scenarios/human_profiles.json` merges NGSIM chains, TGSIM
+  chains and the two manual AstaZero runs; it is released as one file under CC BY-SA 4.0, which
+  the NGSIM ShareAlike requires and the public-domain and CC BY 4.0 parts permit, with the source of
+  every window in its `source` field.
 - **Credit and changes.** The CC BY and BY-SA sources require stating what was changed. The
   release notes describe the processing: extraction criteria, resampling to 10 Hz and
   reconstruction, with the config hash.

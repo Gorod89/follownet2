@@ -9,10 +9,10 @@ import pandas as pd
 import pytest
 from scipy.integrate import cumulative_trapezoid
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders import waymo_hu
-from follownet2.data.loaders.waymo_hu import last_report, load_pairs, pair_blocks
-from follownet2.utils import resolve_path
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders import waymo_hu
+from trafficloop.data.loaders.waymo_hu import last_report, load_pairs, pair_blocks
+from trafficloop.utils import resolve_path
 
 REAL_DIR = resolve_path(waymo_hu.DEFAULT_RAW_DIR)
 T = np.round(np.arange(200) * 0.1, 2)  # one 20 s segment at 10 Hz

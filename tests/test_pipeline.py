@@ -8,11 +8,11 @@ from pathlib import Path
 import pytest
 from hydra import compose, initialize_config_dir
 
-from follownet2 import pipeline
-from follownet2.data.schema import EventSet, events_dir
-from follownet2.data.splits import Split, check_leakage, event_table
-from follownet2.results import CHECKLIST_FIELDS
-from follownet2.utils import REPO_ROOT, DiskSpaceError
+from trafficloop import pipeline
+from trafficloop.data.schema import EventSet, events_dir
+from trafficloop.data.splits import Split, check_leakage, event_table
+from trafficloop.results import CHECKLIST_FIELDS
+from trafficloop.utils import REPO_ROOT, DiskSpaceError
 
 
 @pytest.fixture(scope="module")
@@ -103,6 +103,6 @@ def test_baselines_and_calibration_write_complete_results(cfg, built, monkeypatc
 
 
 def test_writing_is_refused_when_the_disk_is_full(cfg, built, monkeypatch):
-    monkeypatch.setattr("follownet2.utils.free_bytes", lambda path: 1 << 20)
+    monkeypatch.setattr("trafficloop.utils.free_bytes", lambda path: 1 << 20)
     with pytest.raises(DiskSpaceError):
         pipeline.write_events(cfg, pipeline.load_events(cfg, "raw"), "synthetic", "raw", {})

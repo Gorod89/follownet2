@@ -7,10 +7,10 @@ import copy
 import numpy as np
 import pytest
 
-from follownet2.data.batch import EventBatch
-from follownet2.data.extraction import positions_from_gap
-from follownet2.data.loaders.synthetic import IDM_NOMINAL
-from follownet2.data.reconstruction import (
+from trafficloop.data.batch import EventBatch
+from trafficloop.data.extraction import positions_from_gap
+from trafficloop.data.loaders.synthetic import IDM_NOMINAL
+from trafficloop.data.reconstruction import (
     ReconstructionConfig,
     consistency_residual,
     reconstruct_event,
@@ -18,9 +18,9 @@ from follownet2.data.reconstruction import (
     reconstruct_trajectory,
     summarise,
 )
-from follownet2.models.mechanistic import IDM
-from follownet2.protocols.p0 import RecordedAcceleration, evaluate_p0, pooled_rmse
-from follownet2.sim.rollout import rollout, rollout_errors
+from trafficloop.models.mechanistic import IDM
+from trafficloop.protocols.p0 import RecordedAcceleration, evaluate_p0, pooled_rmse
+from trafficloop.sim.rollout import rollout, rollout_errors
 
 from conftest import rms
 

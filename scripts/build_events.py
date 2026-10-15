@@ -9,7 +9,7 @@ import hydra
 from _common import show
 from omegaconf import DictConfig
 
-from follownet2.pipeline import build_dataset
+from trafficloop.pipeline import build_dataset
 
 
 @hydra.main(version_base=None, config_path="../conf", config_name="config")

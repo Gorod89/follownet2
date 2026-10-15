@@ -1,4 +1,4 @@
-# FollowNet-2 main configuration (hydra). Dataset specific settings live in conf/dataset/.
+# TrafficLoop main configuration (hydra). Dataset specific settings live in conf/dataset/.
 defaults:
   - dataset: synthetic
   - _self_

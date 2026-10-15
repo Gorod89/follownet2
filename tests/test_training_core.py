@@ -8,19 +8,19 @@ import torch
 from hydra import compose, initialize_config_dir
 from torch import nn
 
-from follownet2 import pipeline
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.data.loaders.synthetic import IDM_NOMINAL, SyntheticConfig, make_events
-from follownet2.models import registry
-from follownet2.models.mechanistic import IDM
-from follownet2.models.network import NetworkModel, mlp
-from follownet2.models.persistence import PersistenceBaseline
-from follownet2.sim.differentiable import FollowEnv, closed_loop_loss, rollout_windows
-from follownet2.sim.rollout import rollout
-from follownet2.train.run import model_dir, train_model
-from follownet2.train.trainer import TrainConfig, fit_supervised
-from follownet2.train.windows import WindowSet
-from follownet2.utils import REPO_ROOT
+from trafficloop import pipeline
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.data.loaders.synthetic import IDM_NOMINAL, SyntheticConfig, make_events
+from trafficloop.models import registry
+from trafficloop.models.mechanistic import IDM
+from trafficloop.models.network import NetworkModel, mlp
+from trafficloop.models.persistence import PersistenceBaseline
+from trafficloop.sim.differentiable import FollowEnv, closed_loop_loss, rollout_windows
+from trafficloop.sim.rollout import rollout
+from trafficloop.train.run import model_dir, train_model
+from trafficloop.train.trainer import TrainConfig, fit_supervised
+from trafficloop.train.windows import WindowSet
+from trafficloop.utils import REPO_ROOT
 
 F64 = dict(device="cpu", dtype=torch.float64)
 

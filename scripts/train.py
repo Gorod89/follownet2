@@ -10,7 +10,7 @@ import hydra
 from _common import show
 from omegaconf import DictConfig
 
-from follownet2.train.run import label, rescore_model, train_model
+from trafficloop.train.run import label, rescore_model, train_model
 
 
 @hydra.main(version_base=None, config_path="../conf", config_name="train")

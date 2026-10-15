@@ -3,7 +3,9 @@
 Every protocol result file of a run
 (`results/models/<dataset>/<version>/<split>-fold<k>/<label>/seed<s>/<protocol>.json`,
 written by `scripts/evaluate.py`) carries a `checklist` block. The leaderboard (milestone 5)
-refuses an entry whose block has an empty field that applies to its protocol.
+refuses an entry whose block has an empty field that applies to its protocol. The blocks of
+`p1s.json` and `p2h.json` (P1s, P2h) state `closed_loop_horizon` as well, but these files are
+outside the leaderboard gate (`docs/leaderboard.md`, section 1).
 
 | Field | What to state | Allowed values / example | Needed for |
 |---|---|---|---|

@@ -1,18 +1,18 @@
 # Protocol contract (milestone 3)
 
-Binding for every protocol module under `follownet2/protocols/`, the platoon simulator
-`follownet2/sim/platoon.py` and the statistics package `follownet2/stats/`. The model side
+Binding for every protocol module under `trafficloop/protocols/`, the platoon simulator
+`trafficloop/sim/platoon.py` and the statistics package `trafficloop/stats/`. The model side
 is `docs/model_contract.md`; the data side `docs/data_layout.md` and `docs/loader_contract.md`.
 
 ## 0. Shared conventions
 
 * SI units, `dt = 0.1 s`, `dv = v - v_lead` (positive when closing in), net gap `s`.
-* Every rollout uses `follownet2.sim.rollout.rollout` (or the identical step rule): the
+* Every rollout uses `trafficloop.sim.rollout.rollout` (or the identical step rule): the
   acceleration is clipped to `ACC_CLIP = (-8, 4)`, non-finite outputs are replaced by the lower
   clip and counted, `v[k+1] = max(v[k] + a[k] dt, 0)`, `x[k+1] = x[k] + v[k+1] dt`, a collision is
   `s <= 0` at any simulated sample. The first `WARMUP = 30` samples are observed; `model.begin()`
   is called once per batch with the observed warm-up (`rollout` does it).
-* Synthetic scenarios are built with `follownet2/protocols/scenarios.py`: a prescribed leader
+* Synthetic scenarios are built with `trafficloop/protocols/scenarios.py`: a prescribed leader
   with a *hold* phase of `HOLD = 60 s` at its initial speed (warm-up included), the manoeuvre
   starting at `meta["manoeuvre_start"]`; the placeholder follower starts at the gap
   `initial_gap(v0) = 2 + 1.5 v0` and settles at its own equilibrium during the hold. Metrics
@@ -47,6 +47,12 @@ is rolled from the observed state at `k0` with the observed history before it. S
 horizon: pooled `rmse_s`, `rmse_v` over the simulated samples, `collision_rate` over windows,
 `event_collision_rate` (events with at least one colliding window), `n_windows`, `n_events`,
 `n_samples`. Rows: `event_id, follower_id, start, n, sse_s, sse_v, collided, first_collision`.
+
+**P1s** (protocol `p1s`, runner `_p1`, block `p1s` of `conf/evaluate.yaml`): the same windows
+at the horizon 1 s (10 samples, stride 1 s) on the same test events, between the one step of
+P0 and the 10 s of P1, without the whole-event rollout (`whole: false`; it is in `p1.json`).
+`p1s.json` has the one summary key `h1` with the scores of a P1 horizon (and `horizon_s`), the
+table `p1s.h1.parquet` the rows above; E1b reads both (`docs/experiments.md`).
 
 ## 2. P2: platoon (`sim/platoon.py`, `protocols/profiles.py`, `protocols/p2.py`)
 
@@ -106,14 +112,16 @@ profile over the manoeuvre window, for the prefixes 20 and 100:
 
 1. Speed dispersion `std_v[n]` of every vehicle `n = 0..N` over the window. *Concave-growth
    error*: RMS over the recorded followers `n = 1..n_rec` of `std_v_sim[n] - std_v_rec[n]`
-   [m/s], averaged over the OpenACC profiles (`concave_growth_error`). Growth exponent
+   [m/s], averaged over the recorded profiles (`concave_growth_error`; every profile but the
+   synthetic pulse: the OpenACC windows here, the human windows in P2h). Growth exponent
    `beta`: least-squares slope of `log std_v[n]` on `log n` over the followers with
    `std_v > 0` (`growth_exponent_20`, `growth_exponent_100`); concave growth means
    `0 < beta < 1`.
 2. *Hysteresis loop area*: signed shoelace area of the closed polygon `(s_n(t), v_n(t))` over
    the window, per follower [m^2/s]. *Hysteresis error*: RMS over the recorded followers of
-   `area_sim[n] - area_rec[n]`, averaged over the OpenACC profiles (`hysteresis_error`);
-   `hysteresis_area_20/100`: mean of `|area|` over the prefix, all profiles.
+   `area_sim[n] - area_rec[n]`, averaged over the recorded profiles (`hysteresis_error`);
+   `hysteresis_area_20/100`: mean of `|area|` over the prefix, all profiles. Profiles may
+   differ in length and in `n_rec`: every metric is computed per profile over its own window.
 3. *Wave speed*: the deepest leader deceleration of the window (`t_min = argmin v_0`,
    `v_before = max v_0` over the 30 s before it, threshold `(v_before + v_0(t_min)) / 2`);
    `t_n` is the first crossing of the threshold by vehicle `n` after the leader's crossing,
@@ -149,6 +157,86 @@ collisions_100_in_range, settled_share_in_range`, and `pulse` (its parameters) a
 every metric, `s_init`, `s_init_converged`, `n_recorded`, `in_range`) and `vehicles`
 (profile, index, std_v, std_v_rec, area, area_rec, t_cross, x_cross, collided, settled).
 
+### P2h: human platoon reference (`data/platoons.py`, `scripts/build_human_profiles.py`)
+
+The recorded followers of the OpenACC windows are ACC vehicles in 17 of the 19 windows, so the
+empirical reference of P2 is essentially ACC-driven. Protocol `p2h` is P2 unchanged (runner
+`_p2`, block `p2h` of `conf/evaluate.yaml` equal to `p2` except `profiles`) on a second profile
+set, `data/scenarios/human_profiles.json`, whose followers are all human drivers. The summary
+keys and tables are those of P2, so `p2h.json` and `p2.json` compare key by key; the cache is
+never built implicitly (`leader_profiles` builds the OpenACC cache only).
+
+**Sources**: the tracks frames of the NGSIM loader (us-101 and i-80, three 15-minute files each;
+`ngsim.load_tracks`, positions, net gaps, lanes and `preceding` as in the events) and of the TGSIM
+loader (I-90/I-94 stationary and moving, I-294 L1 and L2, I-395; `tgsim.load_tracks`, leaders
+derived on the 10 Hz grid as for the events), plus the two manual AstaZero windows copied from the
+OpenACC cache under their names (`ASta_040719_platoon3`, `ASta_040719_platoon10`).
+
+**Rules** (`data/platoons.py`):
+
+1. *Chain*: a leader and at least four (`MIN_FOLLOWERS`) followers in one lane; the leader of
+   follower `k` is vehicle `k - 1` at every sample, present at the same sample in the same lane, at
+   a raw net gap in `[0.5, 120)` m (the valid samples of the events, D1); nobody changes lanes;
+   every vehicle is present throughout. Followers are the loader's followers (NGSIM: autos in the
+   mainline lanes) that are not flagged automated (TGSIM); any vehicle may lead (a truck, an
+   automated vehicle: `meta["windows"][i]["leader_automated"]`).
+2. *Window*: inside the chain's common interval the longest stretch of 60 to 300 s
+   (`round(T / dt) + 1` samples) whose leader speed is at least 3 m/s at its first sample and
+   spans at least 3 m/s; ties by the largest leader-speed variance, then the earliest start.
+3. *Selection* per site: ranked by the number of followers, then the duration; a window sharing a
+   vehicle with one already chosen is skipped; at most 20 per site.
+4. *Reconstruction* (`docs/reconstruction.md`, settings of the dataset: NGSIM `sigma_x = 0.5 m`,
+   `f_c = 0.35 Hz`; TGSIM `sigma_x = 0.3 m`, `f_c = 0.5 Hz`; positions only; bounds -8 / 4 m/s^2,
+   15 m/s^3, `s_min = 0.3 m`) on the front bumpers: the leader first, then every follower against
+   its reconstructed predecessor (`x_front <= x_front_prev - L_prev - s_min`). Each vehicle gets one
+   trajectory, so the chain is consistent along the platoon (the events are reconstructed pair by
+   pair, `docs/reconstruction.md`, Limitations). Rule 2 is checked again on the reconstructed
+   leader; a failing window is replaced by the next candidate.
+
+Profile: `v` the reconstructed leader speed; follower `k` its speed and the gap
+`s_k = x_front[k-1] - L[k-1] - x_front[k]`, `driver = "Human"`; `t0` the start in seconds of the
+recording; `vehicle_length` the mean length of the chain; `source =
+<dataset>/<site>/<group>/lane<lane>/leader<id>/frame<frame>` (NGSIM `frame_id`, TGSIM 0.1 s step).
+The cache has the layout of the OpenACC cache; `meta` holds the rules, the reconstruction
+settings, the SHA-256 of the source files, the counts per site and one record per window (vehicle
+ids, classes, lengths, leader speeds, raw and reconstructed gaps, solver diagnostics).
+
+Windows as built on 2026-10-14 (96 track windows, 1,156 recorded followers, 1.9 h; plus AstaZero):
+
+| site | windows | followers min / median / max | duration [s] | leader speed range [m/s] | leader speeds [m/s] |
+|---|---|---|---|---|---|
+| ngsim/us-101 | 20 | 11 / 12 / 16 | 60.0 / 62.0 / 78.2 | 9.2 / 12.5 / 14.9 | 0.0 to 15.3 |
+| ngsim/i-80 | 20 | 8 / 10 / 21 | 60.1 / 67.6 / 85.3 | 3.8 / 7.0 / 11.5 | 0.0 to 11.5 |
+| tgsim/i90_94_stationary | 20 | 11 / 14 / 23 | 60.5 / 62.0 / 90.9 | 3.6 / 6.1 / 11.0 | 0.0 to 11.0 |
+| tgsim/i90_94_moving | 20 | 9 / 11 / 46 | 60.3 / 63.6 / 102.6 | 3.4 / 6.5 / 13.8 | 0.0 to 15.4 |
+| tgsim/i294_l1 | 15 | 4 / 5 / 19 | 60.5 / 76.6 / 185.3 | 4.7 / 14.5 / 18.6 | 0.0 to 38.7 |
+| tgsim/i395 | 1 | 4 | 63.3 | 6.9 | 4.0 to 10.9 |
+| openacc/AstaZero | 2 | 4 | 300.0 | 9.0 / 14.5 | 13.3 to 27.7 |
+
+I-294 L2 has no window (its tracks last at most 49 s). Durations, followers and speed ranges
+are min / median / max.
+
+**Differences from the OpenACC windows**: human followers (the AstaZero leader is on ACC); 60 to
+185 s instead of 300 s, because a chain stays together in a field of view of a few hundred metres
+for about a minute (NGSIM vehicles stay 50 to 90 s in the median, lane changes cut the chains)
+and the rule prefers many followers to long windows; 4 to 46 recorded followers instead of 4 to
+10; congested and stop-and-go traffic (55 of the 96 leaders drop below 0.5 m/s), so the waves
+travel backwards; trajectories reconstructed (the OpenACC profiles keep the raw speeds and IVS
+gaps); vehicle lengths from the data (4.3 to 14.9 m per chain, TGSIM bounding boxes of up to
+20 m) instead of 4.5 m.
+Most windows lie inside the speed range of NGSIM-trained models (91 of 99 profiles, pulse
+included, for the NGSIM IDM); the AstaZero windows and the fast I-294 windows (up to 38.7 m/s, as
+recorded) do not.
+
+**What the numbers mean**: `concave_growth_error` and `hysteresis_error` measure the distance to
+human followers (the per-follower references are `std_v_rec` and `area_rec` of the `vehicles`
+table); `wave_speed` is the backward wave of congested traffic. A window of about a minute
+holds the disturbance for the first 20 to 30 followers only (about 2 s per vehicle), so the
+100-vehicle keys (`growth_exponent_100`, `wave_speed_100`, `hysteresis_area_100`) say how far the
+disturbance travels within the window rather than how it grows; compare P2h with P2 on the
+recorded-follower errors, the 20-vehicle keys and the collisions. `fd_error` compares with the
+training data of the model, as in P2.
+
 ## 3. P3: string stability (`protocols/p3.py`)
 
 Speeds `v_e = 5, 6, ..., 30 m/s` (`stability.analytic.SPEEDS`).
@@ -177,8 +265,7 @@ settle, both signs) measures the finite-perturbation response: `max_gain_large`,
 `unstable_large = max_gain_large > 1 + 1e-3`, `collided_large` (the follower hits the leader
 after the step: a runaway). The linear verdict agrees with the analytic criterion; the
 finite-amplitude pass exposes models whose stability holds only at the exact equilibrium
-(the stability-regularised MLP of NGSIM: unstable fraction 0 at 0.05 m/s, 1.0 at 1 m/s with
-gains up to 1.11). For a linear follower this is the exact transfer function of the
+(the stability-regularised MLP of NGSIM: unstable fraction 0.35 at 0.05 m/s with a maximal gain of 1.0001, 0.92 at 1 m/s). For a linear follower this is the exact transfer function of the
 speed perturbation along a homogeneous platoon; string instability (`G > 1` at low
 frequencies) appears as an overshoot of the step response. Near the analytic boundary the
 excess gain is only about `m^2 / (8 f_s^2)` (1e-4 one grid step inside the unstable band of
@@ -200,7 +287,7 @@ gain_0.05, gain_0.1, gain_0.2, gain_0.5, max_gain_large, collided_large, margin,
 f_v, unstable_numerical, unstable_1e3, unstable_large, unstable_analytic` (nullable
 booleans where there is no equilibrium or no analytic criterion).
 
-Sanity (E5): for the IDM the numerical `G(f)` must match the discrete-time closed form `H(z)`
+Sanity check: for the IDM the numerical `G(f)` must match the discrete-time closed form `H(z)`
 of the integrator (the continuous form `|H(i w)|^2 = (f_s^2 + f_dv^2 w^2) / ((f_s - w^2)^2 +
 (f_dv + f_v)^2 w^2)`, `w = 2 pi f`, partials from `idm_partials`, departs from it by more than
 1 % above 0.04 Hz) within 1 % for `f <= 0.5 Hz` at every speed with an equilibrium, and the
@@ -228,7 +315,7 @@ protocol reports them without error.
   the low speed is exactly `v0 - 10`.
 
 **Empirical suite**: near-miss episodes mined on the raw tracks (M1), reconstructed and
-confirmed by `follownet2/data/episodes.py` (`reconstruct_episodes(events, cfg, workers) ->
+confirmed by `trafficloop/data/episodes.py` (`reconstruct_episodes(events, cfg, workers) ->
 (list[Event], report)`): leader jumps are the samples where `|x_lead[k+1] - x_lead[k] - 0.5
 (v_lead[k] + v_lead[k+1]) dt| > 2 m` (positions only, so gap-based sources without leader
 changes are unaffected); every leader piece between jumps with at least 10 samples goes
@@ -277,7 +364,7 @@ Inputs per model: `concave_growth_error` (P2), `hysteresis_error` (P2), `unstabl
 (P3, numerical), `collisions_100` (P2). Ranks within the compared set (average ranks on
 ties, lower is better), normalised to `(rank - 1) / (n - 1)`; the composite is their mean
 (lower is better). This is variant `v1`, the primary score of the leaderboard. Variants
-(`follownet2.protocols.composite.VARIANTS`): `v1+p1` adds the whole-event P1 spacing
+(`trafficloop.protocols.composite.VARIANTS`): `v1+p1` adds the whole-event P1 spacing
 error, `v1+fd` the fundamental-diagram error, `v2` both (a realism component next to the
 traffic-level inputs); `composite_score` also takes weights and a Borda rank sum. The
 sensitivity analysis of E3 (`e3_composite_sensitivity`: every variant, leave-one-input-out,
@@ -288,7 +375,7 @@ collision inputs) and the P3 speeds (unstable fraction) with replacement, 1000 t
 seed, and reports the rank distribution of every model; seeds of the training add to it in
 milestone 4.
 
-## 7. Statistics (`follownet2/stats/`)
+## 7. Statistics (`trafficloop/stats/`)
 
 * `bootstrap.py`: `bootstrap_groups(table, group, statistic, n_boot=1000, seed=0)` resamples
   the groups (followers) with replacement and returns one row of statistics per replicate;
@@ -309,8 +396,12 @@ milestone 4.
 
 Every module has a test file: determinism (two calls, identical outputs; batch composition
 does not change a vehicle's result), the prefix property of the platoon, the IDM sanity of
-P3 (E5), the cut-in gap (`s` right after the cut-in equals `tau v_f` within 1 %), the
+P3 (sanity check), the cut-in gap (`s` right after the cut-in equals `tau v_f` within 1 %), the
 constant-speed follower colliding in the full stop and the IDM not colliding in the
 `-4 m/s^2` pulse from 15 m/s, the episode reconstruction keeping a leader jump and reducing
 the rms acceleration of noisy tracks, the bootstrap reproducibility, the Holm adjustment on
-a hand-computed example and the fast pooled-RMSE path equalling the generic one.
+a hand-computed example and the fast pooled-RMSE path equalling the generic one. P2h
+(`tests/test_platoons.py`): a lane change and an invalid gap cut a fabricated chain, automated
+vehicles lead but never follow, the window rules, the selection never reuses a vehicle, the
+profile schema round trip, an NGSIM file whose truck leads but does not follow, and P2 on two
+human windows of unequal length (a follower equal to the simulated one has zero error).

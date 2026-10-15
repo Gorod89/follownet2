@@ -15,20 +15,20 @@ import torch
 from omegaconf import OmegaConf
 from scipy import stats
 
-from follownet2.data.batch import A_PREV, WARMUP, EventBatch
-from follownet2.data.loaders.synthetic import SyntheticConfig, make_events
-from follownet2.models import registry
-from follownet2.models.diffusion import DiffusionCF, normal_quantiles
-from follownet2.models.dist import Empirical
-from follownet2.models.knn import KNN
-from follownet2.models.meta import MAMLLSTM
-from follownet2.models.persistence import ZeroAcceleration
-from follownet2.protocols.p0 import evaluate_p0, pooled_rmse
-from follownet2.sim.differentiable import rollout_windows
-from follownet2.sim.rollout import rollout
-from follownet2.train.trainer import TrainConfig
-from follownet2.train.windows import WindowSet
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.batch import A_PREV, WARMUP, EventBatch
+from trafficloop.data.loaders.synthetic import SyntheticConfig, make_events
+from trafficloop.models import registry
+from trafficloop.models.diffusion import DiffusionCF, normal_quantiles
+from trafficloop.models.dist import Empirical
+from trafficloop.models.knn import KNN
+from trafficloop.models.meta import MAMLLSTM
+from trafficloop.models.persistence import ZeroAcceleration
+from trafficloop.protocols.p0 import evaluate_p0, pooled_rmse
+from trafficloop.sim.differentiable import rollout_windows
+from trafficloop.sim.rollout import rollout
+from trafficloop.train.trainer import TrainConfig
+from trafficloop.train.windows import WindowSet
+from trafficloop.utils import REPO_ROOT
 
 NOISE = 0.4  # m/s^2, standard deviation of the acceleration noise in the data of the diffusion model
 

@@ -15,9 +15,9 @@ import pandas as pd
 import pytest
 import yaml
 
-from follownet2.data.extraction import ExtractionConfig, extract_all
-from follownet2.data.loaders.ute import SITES, load_pairs
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.extraction import ExtractionConfig, extract_all
+from trafficloop.data.loaders.ute import SITES, load_pairs
+from trafficloop.utils import REPO_ROOT
 
 V0, ACC = 12.0, 0.32  # m/s, m/s^2 of every vehicle: gaps stay constant
 PIXEL = 0.05  # m per pixel of the fabricated SQM-W-1 video

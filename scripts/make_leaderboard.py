@@ -4,7 +4,7 @@
                                        [n_boot=1000] [seed=0] [date=YYYY-MM-DD]
 
 Validates every run directory under ``root`` (the checklist gate of
-``follownet2/leaderboard/checklist.py``), builds per dataset the main table with its bootstrap
+``trafficloop/leaderboard/checklist.py``), builds per dataset the main table with its bootstrap
 intervals, the driver-leak, transfer and refused tables and the provenance footer, and writes into
 ``out``: ``LEADERBOARD.md`` (the datasets built), ``<dataset>.md``, ``index.html`` (one
 self-contained page) and ``rank_stability_<dataset>.png`` / ``.pdf``. Prints the admitted and
@@ -17,10 +17,10 @@ import sys
 import time
 from pathlib import Path
 
-from follownet2.leaderboard.render import dataset_page, html_page, leaderboard_markdown
-from follownet2.leaderboard.stability import rank_stability_figure, save_figure
-from follownet2.leaderboard.tables import Board, build_leaderboard
-from follownet2.utils import REPO_ROOT, resolve_path
+from trafficloop.leaderboard.render import dataset_page, html_page, leaderboard_markdown
+from trafficloop.leaderboard.stability import rank_stability_figure, save_figure
+from trafficloop.leaderboard.tables import Board, build_leaderboard
+from trafficloop.utils import REPO_ROOT, resolve_path
 
 DEFAULTS = {"datasets": "", "root": "results/models", "out": "results/leaderboard", "n_boot": "1000", "seed": "0", "date": ""}
 

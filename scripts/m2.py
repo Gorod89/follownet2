@@ -16,7 +16,7 @@ from pathlib import Path
 MODELS = (
     "persistence", "constant_speed", "idm", "idm_median", "gipps", "gipps_median", "newell", "newell_median",
     "knn", "mlp", "gru", "lstm", "seq2seq", "mdn_lstm", "pidl", "perl", "stability_mlp",
-    "ddpg", "gail", "maml_lstm", "diffusion", "mlp_loop", "gru_loop", "lstm_loop",
+    "ddpg", "gail", "maml_lstm", "diffusion", "mlp_loop", "gru_loop", "lstm_loop", "residual_idm_certified",
 )
 #: seconds per run; the longest regular run (maml_lstm on NGSIM) takes 30 minutes
 TIMEOUT = 2 * 3600

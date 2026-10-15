@@ -28,11 +28,11 @@ import torch
 from scipy.optimize import brentq
 from scipy.signal import lfilter
 
-from follownet2.data.schema import DT
-from follownet2.models.base import CFModel
-from follownet2.models.mechanistic import IDM
-from follownet2.models.persistence import PersistenceBaseline, ZeroAcceleration
-from follownet2.protocols.p3 import (
+from trafficloop.data.schema import DT
+from trafficloop.models.base import CFModel
+from trafficloop.models.mechanistic import IDM
+from trafficloop.models.persistence import PersistenceBaseline, ZeroAcceleration
+from trafficloop.protocols.p3 import (
     DELTA,
     DELTA_LARGE,
     FREQUENCIES,
@@ -45,8 +45,8 @@ from follownet2.protocols.p3 import (
     step_events,
     summarise,
 )
-from follownet2.protocols.scenarios import initial_gap
-from follownet2.stability.analytic import SPEEDS, idm_partials, string_margin
+from trafficloop.protocols.scenarios import initial_gap
+from trafficloop.stability.analytic import SPEEDS, idm_partials, string_margin
 
 F64 = torch.float64
 SUMMARY_KEYS = {

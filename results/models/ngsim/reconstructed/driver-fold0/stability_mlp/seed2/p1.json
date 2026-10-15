@@ -29,16 +29,16 @@
   },
   "config_hash": "e742be505ac0",
   "data_version": "reconstructed",
-  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
   "model": {
     "class": "stability_mlp",
     "family": "network",
     "label": "stability_mlp",
     "provenance": {
-      "config_hash": "7b3ea79d5055",
+      "config_hash": "f5ffdbf2e17c",
       "data_version": "reconstructed",
       "dataset": "ngsim",
-      "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+      "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
       "seed": 2,
       "split": {
         "fold": 0,

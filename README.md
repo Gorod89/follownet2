@@ -1,15 +1,17 @@
-# FollowNet-2
+# TrafficLoop
 
 A traffic-level evaluation protocol and benchmark for car-following models: one-step and
 closed-loop accuracy against a persistence baseline, driver-, site- and regime-level splits,
 platoon metrics, string stability, a rare-event suite and transfer between datasets.
 
 Status: all five milestones are complete: data, splits, persistence and mechanistic
-calibration (`results/m1/REPORT.md`), reference models (`results/m2/REPORT.md`,
-`docs/models.md`), protocols P1-P5 with the composite score and the statistics
-(`docs/protocols.md`, `results/m3/REPORT.md`), experiments E1-E4 (`docs/experiments.md`,
-`results/m4/REPORT.md`), leaderboard and report (`docs/leaderboard.md`,
-`results/leaderboard/`, `results/figures/`, `results/SUMMARY.md`).
+calibration (`results/m1/REPORT.md`), 25 reference entries (`results/m2/REPORT.md`,
+`docs/models.md`; the certified hybrid `residual_idm_certified` added since), protocols
+P1-P5 with the 1 s windows `p1s`, the human platoon reference `p2h`, the composite score and
+the statistics (`docs/protocols.md`, `results/m3/REPORT.md`), experiments E1-E4 with E1b and
+E3b-E3d and the sweep E5 (`docs/experiments.md`, `results/m4/REPORT.md`, `results/sweeps/`),
+leaderboard and report (`docs/leaderboard.md`, `results/leaderboard/`, `results/figures/`,
+`results/SUMMARY.md`).
 
 ## Conventions
 
@@ -28,13 +30,13 @@ calibration (`results/m1/REPORT.md`), reference models (`results/m2/REPORT.md`,
 
 ```
 conf/                 hydra configuration, one file per dataset in conf/dataset/
-follownet2/data/      schema, extraction, reconstruction, regimes, splits, rare events, loaders
-follownet2/models/    baselines, mechanistic models, the learned models, registry and checkpoints
-follownet2/stability/ analytic string-stability criterion
-follownet2/sim/       closed-loop rollout
-follownet2/calibration/  batched differential evolution, calibration protocol
-follownet2/protocols/ P0 and the closed-loop core of P1 (P1-P5: milestone 3)
-follownet2/train/     windows, trainer, training entry
+trafficloop/data/      schema, extraction, reconstruction, regimes, splits, rare events, loaders
+trafficloop/models/    baselines, mechanistic models, the learned models, registry and checkpoints
+trafficloop/stability/ analytic string-stability criterion, a priori certificate of the certified hybrid
+trafficloop/sim/       closed-loop rollout
+trafficloop/calibration/  batched differential evolution, calibration protocol
+trafficloop/protocols/ P0 and the closed-loop core of P1 (P1-P5: milestone 3)
+trafficloop/train/     windows, trainer, training entry
 scripts/              entry points
 docs/                 data layout, licences, reconstruction, decisions, checklist
 data/                 raw data, events, splits, calibration (not in git)
@@ -59,13 +61,15 @@ python scripts/m1_report.py                      # results/m1/REPORT.md
 python scripts/train.py dataset=ngsim model=lstm # train one model, score it on the test part
 python scripts/m2.py dataset=ngsim               # all reference models, one process each
 python scripts/m2_report.py                      # results/m2/REPORT.md
-python scripts/evaluate.py dataset=ngsim model=lstm "protocols=[p1,p2,p3,p4]"  # protocols of one run
+python scripts/evaluate.py dataset=ngsim model=lstm "protocols=[p1,p1s,p2,p2h,p3,p4]"  # protocols of one run
 python scripts/reconstruct_episodes.py dataset=tgsim   # near-miss episodes for P4 (reconstructed, confirmed)
+python scripts/build_human_profiles.py           # human platoon windows (NGSIM, TGSIM) of protocol p2h
 python scripts/m3.py dataset=ngsim               # protocols of all trained models of a dataset
 python scripts/m3_report.py                      # results/m3/REPORT.md
 python scripts/make_paired_splits.py dataset=ngsim   # paired splits of E2 (clean and leaky arms)
-python scripts/m4.py main                        # campaigns of milestone 4: main | seeds | paired | event | transfer
-python scripts/m4_report.py                      # results/m4/REPORT.md (E1-E4)
+python scripts/m4.py main                        # campaigns of milestone 4: main | seeds | folds | paired | event | transfer | ablation | protocols | recompute
+python scripts/m4_report.py                      # results/m4/REPORT.md (E1-E4, E1b, E3b-E3d)
+python scripts/sweep.py dataset=ngsim model=lstm n=16   # E5: hyperparameter sweep, two selection criteria
 python -m pytest -q
 ```
 
@@ -89,16 +93,22 @@ only; their events must not be redistributed (`docs/licences.md`).
 
 ## Results and leaderboard
 
-* Leaderboard: <https://gorod89.github.io/follownet2/leaderboard/> (rebuilt by the workflow
+* Leaderboard: <https://gorod89.github.io/trafficloop/leaderboard/> (rebuilt by the workflow
   `.github/workflows/leaderboard.yml` on every push; sources in `results/leaderboard/`)
 * `results/SUMMARY.md`: the findings in prose, with the caveats
 * `results/figures/`: the figures of the report (`python scripts/make_report.py`)
-* `results/m1/`, `results/m2/`, `results/m3/`, `results/m4/`: the milestone reports
+* `results/m1/`, `results/m2/`, `results/m3/`, `results/m4/`: the milestone reports;
+  `results/m4/` holds one CSV per table, E1b (`e1_horizons.csv`, `e1_horizon_taus.csv`) and
+  E3d (`e3_human_reference.csv`, `e3_human_taus.csv`, `e3_human_top3.csv`) included
+* `results/sweeps/<dataset>/<model>/`: E5 (`REPORT.md`, `sweep.csv`, `selection.json`); its
+  runs are under `results/sweeps/models/` and never ranked
 * `results/models/<dataset>/<version>/<split>-fold<k>/<label>/seed<s>/`: one directory per
-  run with `train.json` and the protocol summaries `p1.json` ... `p4.json` (JSON in the
-  repository; the per-event tables, the checkpoints, the FollowNet-highD events, the
-  near-miss episodes, the split files and the OpenACC leader profiles are release assets,
-  see the release notes)
+  run with `train.json` and the protocol summaries `p1.json` ... `p4.json`, `p1s.json` and
+  `p2h.json` (JSON in the repository; the per-event tables, the checkpoints, the
+  FollowNet-highD events, the near-miss episodes, the split files and the OpenACC leader
+  profiles `data/scenarios/openacc_profiles.json` are release assets, see the release notes;
+  the human platoon profiles `data/scenarios/human_profiles.json` join them in the next
+  release)
 
 An entry of the leaderboard is one run directory written by `scripts/train.py` and
 `scripts/evaluate.py`; it is admitted only when every protocol file carries the complete
@@ -114,7 +124,7 @@ them.
 * `docs/loader_contract.md`: how to add a dataset
 * `docs/checklist.md`: reporting checklist
 * `docs/model_contract.md`, `docs/models.md`: model interface and the reference implementations
-* `docs/protocols.md`: protocols P1-P5, composite score, statistics
-* `docs/experiments.md`: campaigns and analyses of E1-E4
+* `docs/protocols.md`: protocols P1-P5 with P1s and P2h, composite score, statistics
+* `docs/experiments.md`: campaigns and analyses of E1-E5
 * `docs/leaderboard.md`: entries, checklist gate, tables, figures
 * `docs/decisions.md`: decisions and deviations from the specification

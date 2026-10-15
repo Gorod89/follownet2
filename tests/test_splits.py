@@ -7,7 +7,7 @@ import copy
 import pandas as pd
 import pytest
 
-from follownet2.data.splits import (
+from trafficloop.data.splits import (
     KINDS,
     LeakageError,
     Split,

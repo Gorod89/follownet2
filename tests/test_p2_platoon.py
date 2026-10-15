@@ -9,12 +9,12 @@ import numpy as np
 import pytest
 import torch
 
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.models.base import ThreeChannelAdapter
-from follownet2.models.mechanistic import IDM
-from follownet2.protocols import p2
-from follownet2.protocols import profiles as profiles_module
-from follownet2.protocols.profiles import (
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.models.base import ThreeChannelAdapter
+from trafficloop.models.mechanistic import IDM
+from trafficloop.protocols import p2
+from trafficloop.protocols import profiles as profiles_module
+from trafficloop.protocols.profiles import (
     CACHE,
     LeaderProfile,
     RecordedFollower,
@@ -23,11 +23,11 @@ from follownet2.protocols.profiles import (
     openacc_profiles,
     save_profiles,
 )
-from follownet2.protocols.scenarios import HOLD, initial_gap, scenario_event, with_hold
-from follownet2.sim.platoon import simulate_platoon
-from follownet2.sim.rollout import rollout
-from follownet2.stability.analytic import equilibrium_gap
-from follownet2.utils import resolve_path
+from trafficloop.protocols.scenarios import HOLD, initial_gap, scenario_event, with_hold
+from trafficloop.sim.platoon import simulate_platoon
+from trafficloop.sim.rollout import rollout
+from trafficloop.stability.analytic import equilibrium_gap
+from trafficloop.utils import resolve_path
 
 DT = 0.1
 N_HOLD = int(round(HOLD / DT))

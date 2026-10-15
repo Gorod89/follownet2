@@ -1,0 +1,268 @@
+{
+  "configs": [
+    {
+      "batch_size": 4096,
+      "hidden": [
+        64,
+        64
+      ],
+      "history": 10,
+      "index": 0,
+      "label": "sweep_mlp_00",
+      "lr": 0.001,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        256,
+        256
+      ],
+      "history": 30,
+      "index": 1,
+      "label": "sweep_mlp_01",
+      "lr": 0.00186,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        128,
+        128
+      ],
+      "history": 10,
+      "index": 2,
+      "label": "sweep_mlp_02",
+      "lr": 0.000216,
+      "use_a_prev": true,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        32,
+        32
+      ],
+      "history": 30,
+      "index": 3,
+      "label": "sweep_mlp_03",
+      "lr": 0.00028,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        32,
+        32,
+        32
+      ],
+      "history": 10,
+      "index": 4,
+      "label": "sweep_mlp_04",
+      "lr": 0.000662,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        256,
+        256
+      ],
+      "history": 10,
+      "index": 5,
+      "label": "sweep_mlp_05",
+      "lr": 0.000675,
+      "use_a_prev": false,
+      "weight_decay": 0.0
+    },
+    {
+      "batch_size": 4096,
+      "hidden": [
+        32,
+        32,
+        32
+      ],
+      "history": 30,
+      "index": 6,
+      "label": "sweep_mlp_06",
+      "lr": 0.00029,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "history": 20,
+      "index": 7,
+      "label": "sweep_mlp_07",
+      "lr": 0.00227,
+      "use_a_prev": true,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        256,
+        256
+      ],
+      "history": 30,
+      "index": 8,
+      "label": "sweep_mlp_08",
+      "lr": 0.000285,
+      "use_a_prev": false,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 4096,
+      "hidden": [
+        64,
+        64
+      ],
+      "history": 20,
+      "index": 9,
+      "label": "sweep_mlp_09",
+      "lr": 0.00293,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "history": 20,
+      "index": 10,
+      "label": "sweep_mlp_10",
+      "lr": 0.00287,
+      "use_a_prev": true,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 4096,
+      "hidden": [
+        32,
+        32
+      ],
+      "history": 30,
+      "index": 11,
+      "label": "sweep_mlp_11",
+      "lr": 0.00228,
+      "use_a_prev": false,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 4096,
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "history": 20,
+      "index": 12,
+      "label": "sweep_mlp_12",
+      "lr": 0.00237,
+      "use_a_prev": true,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        32,
+        32
+      ],
+      "history": 20,
+      "index": 13,
+      "label": "sweep_mlp_13",
+      "lr": 0.00115,
+      "use_a_prev": true,
+      "weight_decay": 1e-05
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        64,
+        64,
+        64
+      ],
+      "history": 10,
+      "index": 14,
+      "label": "sweep_mlp_14",
+      "lr": 0.000163,
+      "use_a_prev": false,
+      "weight_decay": 0.0001
+    },
+    {
+      "batch_size": 1024,
+      "hidden": [
+        256,
+        256,
+        256
+      ],
+      "history": 30,
+      "index": 15,
+      "label": "sweep_mlp_15",
+      "lr": 0.000117,
+      "use_a_prev": true,
+      "weight_decay": 1e-05
+    }
+  ],
+  "dataset": "ngsim",
+  "experiment": "E5",
+  "fold": 0,
+  "model": "mlp",
+  "n": 16,
+  "seed": 0,
+  "space": {
+    "batch_size": [
+      1024,
+      4096
+    ],
+    "budget": "epochs, patience and batches per epoch of conf/train.yaml",
+    "hidden": {
+      "layers": [
+        2,
+        3
+      ],
+      "rule": "one width for every hidden layer",
+      "width": [
+        32,
+        64,
+        128,
+        256
+      ]
+    },
+    "history": [
+      10,
+      20,
+      30
+    ],
+    "lr": {
+      "log_uniform": [
+        0.0001,
+        0.003
+      ],
+      "significant_digits": 3
+    },
+    "use_a_prev": [
+      false,
+      true
+    ],
+    "weight_decay": [
+      0.0,
+      1e-05,
+      0.0001
+    ]
+  },
+  "split": "driver",
+  "version": "reconstructed"
+}

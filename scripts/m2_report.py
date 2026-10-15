@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from follownet2.utils import REPO_ROOT, read_json
+from trafficloop.utils import REPO_ROOT, read_json
 
 ROOT = REPO_ROOT / "results" / "models"
 OUT = REPO_ROOT / "results" / "m2"

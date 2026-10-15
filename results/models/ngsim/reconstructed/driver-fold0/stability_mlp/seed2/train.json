@@ -1,10 +1,10 @@
 {
   "class": "stability_mlp",
-  "config_hash": "7b3ea79d5055",
+  "config_hash": "f5ffdbf2e17c",
   "data_version": "reconstructed",
   "dataset": "ngsim",
   "family": "network",
-  "git_revision": "aa3f28565fc61ddede516dbd7802d78878a3519d",
+  "git_revision": "5566c645825f64a3aee6b6de9711a23d8e02b095",
   "model": "stability_mlp",
   "n_parameters": 4481,
   "seed": 2,
@@ -252,7 +252,7 @@
     "n_train_events": 9461,
     "n_train_windows": 4224085,
     "n_val_windows": 898890,
-    "seconds": 234.6,
+    "seconds": 185.3,
     "stability_penalty": 0.0,
     "unstable_fraction": 0.0
   }

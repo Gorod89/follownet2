@@ -13,7 +13,7 @@ import hydra
 from _common import show
 from omegaconf import DictConfig
 
-from follownet2.experiments.paired import build_paired_splits
+from trafficloop.experiments.paired import build_paired_splits
 
 
 @hydra.main(version_base=None, config_path="../conf", config_name="config")

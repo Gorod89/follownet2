@@ -3,7 +3,7 @@
     python scripts/m4_report.py [root=results/models] [out=results/m4] [n_boot=1000] [seed=0]
                                 [splits=data/splits] [events=data/events] [models=main]
 
-E1-E4 of docs/experiments.md, section 3 (``follownet2/experiments/analysis.py``), and E3b (composite
+E1-E4 of docs/experiments.md, section 3 (``trafficloop/experiments/analysis.py``), and E3b (composite
 variants with realism inputs, their sensitivity and the Pareto view), from the run directories
 ``<root>/<dataset>/reconstructed/<split>-fold<k>/<label>/seed<s>/``. A campaign that has not run
 (or not finished) is stated in the report; its tables stay empty. ``models=main`` (default)
@@ -12,7 +12,7 @@ restricts E1 and E3 to the reference models of the main campaign (``MODELS`` of
 ``models=all`` takes every finished run. Writes ``REPORT.md``, ``e1_ratios.csv``,
 ``e2_paired.csv``, ``e2_unpaired.csv``, ``e3_rankings.csv``, ``e3_kendall.csv`` (with the
 spacing-against-speed rows), ``e3_composite_variants.csv``, ``e3_composite_sensitivity.csv``,
-``e3_pareto.csv`` and ``e4_transfer.csv``.
+``e3_pareto.csv``, ``e4_transfer.csv``, ``e1_horizons.csv`` and ``e1_horizon_taus.csv`` (E1b), ``e3_human_reference.csv``, ``e3_human_taus.csv`` and ``e3_human_top3.csv`` (E3d).
 """
 
 from __future__ import annotations
@@ -24,8 +24,16 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from follownet2.experiments import analysis as an
-from follownet2.utils import REPO_ROOT, resolve_path
+from trafficloop.experiments import analysis as an
+from trafficloop.experiments import horizons as hz
+from trafficloop.experiments import human_reference as hr
+from trafficloop.utils import REPO_ROOT, resolve_path
+
+
+def _shown(path: Path) -> str:
+    """A path relative to the repository root when it lies inside it (no local absolute paths in the report)."""
+    path = Path(path)
+    return path.relative_to(REPO_ROOT).as_posix() if path.is_relative_to(REPO_ROOT) else path.as_posix()
 
 FAMILY_ORDER = {"baseline": 0, "mechanistic": 1, "network": 2}
 P_COLUMNS = {"p", "p_bootstrap", "p_wilcoxon", "p_holm"}
@@ -173,7 +181,7 @@ def section_campaigns(root: Path) -> tuple[str, pd.DataFrame]:
     if missing:
         text += ("\nNot complete: " + ", ".join(f"`{m}` ({s})" for m, s in zip(done["campaign"], done["status"]) if m in missing)
                  + ". Tables that need them are marked *not available* below. `transfer (P1 files)` counts the "
-                 "`p1_<other>.json` of SUBSET and persistence over the six datasets.\n")
+                 "`p1_<other>.json` of every label over the six datasets.\n")
     status = an.campaign_status(root)
     if not status.empty:
         text += "\nRuns found per dataset:\n\n" + table(status)
@@ -215,6 +223,34 @@ def section_e1(root: Path, n_boot: int, seed: int, labels_of=None) -> tuple[str,
         if frame["n_folds"].max() < 2:
             text += "Fold spread: not available (campaign `paired` has not produced two clean folds with persistence on the probe events).\n"
     return text, pd.concat(frames, ignore_index=True)
+
+
+def section_e1b(root: Path, labels_of=None) -> tuple[str, pd.DataFrame, pd.DataFrame]:
+    text = ("\n## E1b: closed-loop spacing error from 1 s windows to the whole event\n\n"
+            "`<h>_rmse_s`: pooled spacing RMSE of P1 at the horizon (1 s windows from protocol `p1s`, 10 s and 30 s from `p1`, "
+            "the whole event); `<h>_median_rmse_s`: median over the windows (over the events for the whole event); "
+            "`whole_top5_share`: share of the whole-event summed squared spacing error carried by the five followers with the "
+            "largest sums. The taus between the P0 ranking and the horizon rankings are point estimates (intervals of the P1 "
+            "horizons: E3).\n")
+    frames = []
+    for dataset in an.run_datasets(root):
+        frame = hz.e1_horizons(root, dataset, labels_of(root, dataset) if labels_of else None)
+        if frame.empty:
+            continue
+        frames.append(frame)
+        text += f"\n### {dataset}\n\n"
+        text += table(by_family(frame, "whole_rmse_s"), ["model", "family", "h1_rmse_s", "h1_median_rmse_s", "h10_rmse_s",
+                                                         "h10_median_rmse_s", "h30_rmse_s", "h30_median_rmse_s", "whole_rmse_s",
+                                                         "whole_median_rmse_s", "whole_top5_share", "n_followers"])
+        missing = frame[frame["h1_n_windows"] == 0]["model"].tolist()
+        if missing:
+            text += f"\n1 s windows not available for: {', '.join(missing)} (protocol `p1s` not run).\n"
+    if not frames:
+        return text + "\nNot available: no finished run.\n", pd.DataFrame(columns=hz.COLUMNS), pd.DataFrame(columns=hz.TAU_COLUMNS)
+    frame = pd.concat(frames, ignore_index=True)
+    taus = hz.horizon_taus(frame)
+    text += "\n### Kendall's tau-b between the P0 ranking and the horizon rankings\n\n" + table(taus)
+    return text, frame, taus
 
 
 def section_e2(root: Path, n_boot: int, seed: int, splits: Path, events: Path) -> tuple[str, pd.DataFrame, pd.DataFrame]:
@@ -470,9 +506,39 @@ def section_e3c(root: Path) -> tuple[str, pd.DataFrame]:
     return text, pd.concat(frames, ignore_index=True)
 
 
+def section_e3d(root: Path, labels_of=None) -> tuple[str, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    text = ("\n## E3d: the composite with the human platoon reference (protocol p2h)\n\n"
+            "P2 scores the platoons against recorded followers behind the OpenACC leaders (17 of 19 windows with ACC "
+            "followers); p2h repeats the protocol behind human-driven chains of NGSIM and TGSIM and the two manual AstaZero "
+            "runs (docs/protocols.md). `acc_*`: in-range P2 inputs, `human_*`: the same inputs of p2h; `composite_v1h` "
+            "and `composite_v2h`: the variants v1 and v2 built from the human reference (P1 whole-event error and P3 "
+            "unstable fraction unchanged). Taus are point estimates between the rankings of the models of the main "
+            "campaign.\n")
+    frames = []
+    for dataset in an.run_datasets(root):
+        frame = hr.e3_human_reference(root, dataset, labels_of(root, dataset) if labels_of else None)
+        if frame.empty or frame["human_concave_growth_error"].notna().sum() == 0:
+            continue
+        frames.append(frame)
+        text += f"\n### {dataset}\n\n"
+        text += table(frame.sort_values("composite_v2h"), ["model", "family", "acc_concave_growth_error",
+                                                            "human_concave_growth_error", "acc_hysteresis_error",
+                                                            "human_hysteresis_error", "acc_collisions_100", "human_collisions_100",
+                                                            "human_n_profiles_in_range", "composite_v2", "composite_v2h",
+                                                            "rank_v2", "rank_v2h"])
+    if not frames:
+        return (text + "\nNot available: no p2h result.\n", pd.DataFrame(columns=hr.COLUMNS),
+                pd.DataFrame(columns=hr.TAU_COLUMNS), pd.DataFrame(columns=hr.TOP_COLUMNS))
+    frame = pd.concat(frames, ignore_index=True)
+    taus, top = hr.human_reference_taus(frame), hr.human_reference_top3(frame)
+    text += "\n### Kendall's tau-b between the rankings\n\n" + table(taus)
+    text += "\n### First three models of every composite\n\n" + table(top)
+    return text, frame, taus, top
+
+
 def section_e4(root: Path, n_boot: int, seed: int) -> tuple[str, pd.DataFrame]:
     text = ("\n## E4: transfer (P5)\n\n"
-            "Relative degradation `rmse_s(A -> B) / rmse_s(B -> B)` of P1 for SUBSET and persistence (rows: model and training "
+            "Relative degradation `rmse_s(A -> B) / rmse_s(B -> B)` of P1 for every label (rows: model and training "
             f"dataset A, columns: test dataset B; 1 = no loss); intervals from {n_boot} driver replicates over the test drivers of B "
             "(one draw per target, common to both tables), shown as `[low, high]` where the per-window tables of both evaluations exist.\n")
     labels = main_labels() or (*an.SUBSET, an.REFERENCE)  # every reference entry once the full matrix exists
@@ -517,21 +583,24 @@ def main(argv: list[str] | None = None) -> Path:
     scope = ("the reference models of the main campaign (`scripts/m2.py`) in E1 and E3" if main_labels() is not None and
              args["models"] == "main" else "every finished run in E1 and E3")
     text = ("# Milestone 4: experiments E1-E4\n\n"
-            f"Generated by `scripts/m4_report.py` from `{root}` ({n_boot} bootstrap replicates, seed {seed}; {scope}); definitions in "
+            f"Generated by `scripts/m4_report.py` from `{_shown(root)}` ({n_boot} bootstrap replicates, seed {seed}; {scope}); definitions in "
             "`docs/experiments.md`, section 3. Tables: 3 decimals, `n/a` = not available. Per-window tables are used only when they "
             "reproduce their JSON summary (decision M4-5: in milestone 3 the transfer evaluation overwrote the own `p1.<h>.parquet`).\n")
     campaigns, _ = section_campaigns(root)
     e1_text, e1 = section_e1(root, n_boot, seed, labels_of)
+    e1b_text, e1b, e1bt = section_e1b(root, labels_of)
     e2_text, e2, e2u = section_e2(root, n_boot, seed, args["splits"], args["events"])
     e3_text, e3, e3k, cache = section_e3(root, n_boot, seed, labels_of)
     e3b_text, e3v, e3s, e3p = section_e3b(root, cache, n_boot, seed)
     e3c_text, e3c = section_e3c(root)
+    e3d_text, e3d, e3dt, e3dtop = section_e3d(root, labels_of)
     e4_text, e4 = section_e4(root, n_boot, seed)
     out.mkdir(parents=True, exist_ok=True)
-    (out / "REPORT.md").write_text(text + campaigns + e1_text + e2_text + e3_text + e3b_text + e3c_text + e4_text, encoding="utf-8")
-    for name, frame in (("e1_ratios", e1), ("e2_paired", e2), ("e2_unpaired", e2u), ("e3_rankings", e3), ("e3_kendall", e3k),
+    (out / "REPORT.md").write_text(text + campaigns + e1_text + e1b_text + e2_text + e3_text + e3b_text + e3c_text + e3d_text + e4_text, encoding="utf-8")
+    for name, frame in (("e1_ratios", e1), ("e1_horizons", e1b), ("e1_horizon_taus", e1bt), ("e2_paired", e2), ("e2_unpaired", e2u), ("e3_rankings", e3), ("e3_kendall", e3k),
                         ("e3_composite_variants", e3v), ("e3_composite_sensitivity", e3s), ("e3_pareto", e3p),
-                        ("e3_ablations", e3c), ("e4_transfer", e4)):
+                        ("e3_ablations", e3c), ("e3_human_reference", e3d), ("e3_human_taus", e3dt),
+                        ("e3_human_top3", e3dtop), ("e4_transfer", e4)):
         frame.to_csv(out / f"{name}.csv", index=False)
     print(f"report written to {out / 'REPORT.md'} ({time.time() - started:.0f} s): E1 {len(e1)} rows, E2 {len(e2)} paired and "
           f"{len(e2u)} unpaired rows, E3 {len(e3)} models and {len(e3k)} taus, E3b {len(e3s)} sensitivity rows, E4 {len(e4)} entries",

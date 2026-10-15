@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from follownet2.protocols.p5 import collect_transfer, transfer_matrix
-from follownet2.utils import REPO_ROOT, read_json
+from trafficloop.protocols.p5 import collect_transfer, transfer_matrix
+from trafficloop.utils import REPO_ROOT, read_json
 
 ROOT = REPO_ROOT / "results" / "models"
 OUT = REPO_ROOT / "results" / "m3"
@@ -94,7 +94,7 @@ def kendall(block: pd.DataFrame, a: str, b: str) -> str | None:
 
 def composite_block(block: pd.DataFrame) -> tuple[pd.DataFrame, str]:
     """Composite score of the block and, when the per-profile tables exist, its bootstrap."""
-    from follownet2.protocols.composite import composite_bootstrap, composite_score
+    from trafficloop.protocols.composite import composite_bootstrap, composite_score
 
     inputs = block.set_index("model")[list(COMPOSITE_SOURCES.values())]
     inputs = inputs.rename(columns={source: name for name, source in COMPOSITE_SOURCES.items()})

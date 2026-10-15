@@ -13,17 +13,17 @@ import torch
 from omegaconf import OmegaConf
 from torch import nn
 
-from follownet2.data.batch import WARMUP
-from follownet2.data.loaders.synthetic import IDM_NOMINAL, SyntheticConfig, make_events
-from follownet2.models import registry
-from follownet2.models.hybrid import PERL, PIDL, StabilityRegularisedMLP
-from follownet2.models.mechanistic import IDM, idm_acc
-from follownet2.models.network import NetworkModel
-from follownet2.sim.differentiable import rollout_windows
-from follownet2.stability import analytic
-from follownet2.train.trainer import TrainConfig
-from follownet2.train.windows import WindowSet
-from follownet2.utils import REPO_ROOT
+from trafficloop.data.batch import WARMUP
+from trafficloop.data.loaders.synthetic import IDM_NOMINAL, SyntheticConfig, make_events
+from trafficloop.models import registry
+from trafficloop.models.hybrid import PERL, PIDL, StabilityRegularisedMLP
+from trafficloop.models.mechanistic import IDM, idm_acc
+from trafficloop.models.network import NetworkModel
+from trafficloop.sim.differentiable import rollout_windows
+from trafficloop.stability import analytic
+from trafficloop.train.trainer import TrainConfig
+from trafficloop.train.windows import WindowSet
+from trafficloop.utils import REPO_ROOT
 
 NAMES = ("pidl", "perl", "stability_mlp")
 THETA_PIDL = (33.3, 1.2, 2.0, 1.0, 1.5)  # the IDM default with T = 1.2 s instead of 1.5 s

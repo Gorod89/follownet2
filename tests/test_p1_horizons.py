@@ -4,11 +4,11 @@ import numpy as np
 import pytest
 import torch
 
-from follownet2.data.batch import WARMUP, EventBatch
-from follownet2.models.mechanistic import IDM
-from follownet2.models.persistence import PersistenceBaseline
-from follownet2.protocols.p1 import evaluate_horizon, evaluate_p1, pooled_horizon, window_starts
-from follownet2.sim.rollout import rollout
+from trafficloop.data.batch import WARMUP, EventBatch
+from trafficloop.models.mechanistic import IDM
+from trafficloop.models.persistence import PersistenceBaseline
+from trafficloop.protocols.p1 import evaluate_horizon, evaluate_p1, pooled_horizon, window_starts
+from trafficloop.sim.rollout import rollout
 
 
 def test_window_starts_are_full_windows_with_stride_equal_to_the_horizon():

@@ -6,9 +6,9 @@ import copy
 
 import pytest
 
-from follownet2.data.splits import LeakageError, Split, check_leakage, event_table, make_split
-from follownet2.experiments.paired import STATS, paired_partitions, paired_splits
-from follownet2.utils import read_json, write_json
+from trafficloop.data.splits import LeakageError, Split, check_leakage, event_table, make_split
+from trafficloop.experiments.paired import STATS, paired_partitions, paired_splits
+from trafficloop.utils import read_json, write_json
 
 
 @pytest.fixture(scope="module")
